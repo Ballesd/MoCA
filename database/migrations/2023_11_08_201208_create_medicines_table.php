@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('records', function (Blueprint $table) {
+        Schema::create('medicines', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->string("Aluminum")->nullable();
+            $table->string("others")->nullable();
+
+            #clinic_histories
+            $table->uuid('clinic_history_id');
+            $table->foreign('clinic_history_id')->references('id')->on('clinic_histories');
 
             $table->timestamps();
         });
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('records');
+        Schema::dropIfExists('medicines');
     }
 };

@@ -1,5 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { defineProps } from 'vue';
 
 defineProps({
     href: String,

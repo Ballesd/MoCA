@@ -17,6 +17,10 @@ return new class extends Migration
             $table->text("type_surgery")->nullable();
             $table->text("elapsed_time")->nullable();
 
+            #record
+            $table->uuid('record_id')->nullable();
+            $table->foreign('record_id')->references('id')->on('records')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-
+        /*
         $roleAdmin = Role::create(['name' => 'admin']);
         $roleUser = Role::create(['name' => 'user']);
 
@@ -30,13 +30,13 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'create:user']);
         Permission::create(['name' => 'edit:user']);
         Permission::create(['name' => 'delete:user']);
-
+*/
         $user = new User();
         $user->name = 'Test User';
         $user->email = 'user@test.com';
         $user->password = bcrypt('12345678');
         $user->save();
-        $user->assignRole($roleUser);
+        #$user->assignRole($roleUser);
 
         $user = new User();
         $user->name = 'Test Admin';
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
         $user->password = bcrypt('12345678');
         $user->rol = 'admin';
         $user->save();
-        $user->assignRole($roleAdmin);
+        #$user->assignRole($roleAdmin);
 
     }
 }
