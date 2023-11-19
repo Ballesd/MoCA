@@ -25,7 +25,6 @@ const form = useForm({
 });
 
 const submit = () => {
-    console.log(form);
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });

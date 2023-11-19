@@ -35,17 +35,20 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('security/permissions', PermissionsController::class)
-    ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
-    ->names('security.permissions');
 
     Route::get('/moca', function () {
         return Inertia::render('Moca/Index');
     })->name('Moca.Index');
 
-    Route::get('/Admin/Index', [AdminController::class, 'index'])
+    //-----------------------Admin-------------------------------
+    Route::get('/admin/index', [AdminController::class, 'index'])
     ->middleware('auth.admin')
     ->name('Admin.Index');
+
+    Route::put('/admin/update', [AdminController::class, 'update'])
+    ->middleware('auth.admin')
+    ->name('admin.update');
+
 });
 
 
