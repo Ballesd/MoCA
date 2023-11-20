@@ -26,6 +26,10 @@ return new class extends Migration
             $table->integer('deferred_recall')->nullable();
             $table->integer('orientation')->nullable();
 
+            $table->string('image_conceptual_alternative')->nullable();
+            $table->string('image_cube')->nullable();
+            $table->string('image_clock')->nullable();
+            
             # user table id normal
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
 

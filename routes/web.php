@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Security\PermissionsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MocaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +36,14 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-
+    //---------------------MOCA--------------------------------
     Route::get('/moca', function () {
         return Inertia::render('Moca/Index');
     })->name('Moca.Index');
+
+    Route::post('/moca/uploadConceptualAlternative', [MocaController::class, 'uploadConceptualAlternative'])
+    ->middleware('auth')
+    ->name('Moca.UploadConceptualAlternative');
 
     //-----------------------Admin-------------------------------
     Route::get('/admin/index', [AdminController::class, 'index'])

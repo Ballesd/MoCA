@@ -53,6 +53,19 @@ const submit = () => {
                 />
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
+            
+            <div class="mt-4">
+                <InputLabel for="lastname" value="Apellidos:" />
+                <TextInput
+                    id="lastname"
+                    v-model="form.lastname"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="new-password"
+                />
+                <InputError class="mt-2" :message="form.errors.password" />
+            </div>
 
             <div class="mt-4">
                 <InputLabel for="email" value="Correo electrónico (puede ser de un familiar en caso de no tener uno propio)" />
@@ -65,19 +78,6 @@ const submit = () => {
                     autocomplete="username"
                 />
                 <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="lastname" value="Apellidos:" />
-                <TextInput
-                    id="lastname"
-                    v-model="form.lastname"
-                    type="text"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4">

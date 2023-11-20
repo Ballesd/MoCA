@@ -23,9 +23,9 @@
     import { ref, computed } from 'vue';
     import AppLayout from '@/Layouts/AppLayout.vue';
     
-    // Importa los componentes
     import ConceptualAlternative from '@/Pages/Moca/TestMoCA/ConceptualAlternative.vue';
     import Cube from '@/Pages/Moca/TestMoCA/Cube.vue';
+    import Clock from '@/Pages/Moca/TestMoCA/Clock.vue';
     import Identification from '@/Pages/Moca/TestMoCA/Identification.vue';
     import Memory from '@/Pages/Moca/TestMoCA/Memory.vue';
     import Attention from '@/Pages/Moca/TestMoCA/Attention.vue';
@@ -39,6 +39,7 @@
     const components = [
         ConceptualAlternative,
         Cube,
+        Clock,
         Identification,
         Memory,
         Attention,

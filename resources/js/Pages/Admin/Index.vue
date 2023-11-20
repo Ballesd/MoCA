@@ -66,9 +66,9 @@
                                 v-model="data.rol"
                                 required
                             >
-                                <option value="medic">medic</option>
-                                <option value="admin">admin</option>
-                                <option value="user">user</option>
+                                <option value="medic">Médico</option>
+                                <option value="admin">Administrador</option>
+                                <option value="user">Usuario - Paciente</option>
                             </select>
                         </div>
 
@@ -87,7 +87,7 @@
 
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue';
-    import { Head, Link, router,useForm } from '@inertiajs/vue3';
+    import { useForm } from '@inertiajs/vue3';
     import axios from 'axios';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import InputLabel from '@/Components/InputLabel.vue';
