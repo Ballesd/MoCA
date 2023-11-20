@@ -43,6 +43,63 @@ class MocaController extends Controller
 
         return "se guardo la imagen";
     }
+
+    public function uploadCube(Request $request){
+
+        if(! $request){
+            return "no hay imagen";
+        }
+
+        $validator = Validator::make($request->all(), [
+            'image_cube' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+            //return redirect()->back()->withErrors($validator->errors());
+        }
+
+        $path = $request->file('image_cube')->store('public');
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->image_cube = $path;
+        $moca->save();
+
+        return 'se guardo con exito';
+
+    }
+
+    public function uploadClock(Request $request){
+        
+        if(! $request){
+            return "no hay imagen";
+        }
+
+        $validator = Validator::make($request->all(), [
+            'image_clock' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+            //return redirect()->back()->withErrors($validator->errors());
+        }
+
+        $path = $request->file('image_clock')->store('public');
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->image_clock = $path;
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
         //create a new moca object and save it to the database just with this image
 
     /**

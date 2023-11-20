@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4 bg-white p-4 shadow-md rounded-lg">
+  <div class="m-4 bg-white p-4  rounded-lg">
     <div class="mb-8 text-center">
       <h2 class="text-2xl font-semibold">2. Fase de Alternancia Conceptual</h2>
       <p class="text-gray-600">Por favor, copia el dibujo de la manera más precisa posible.</p>
@@ -14,26 +14,60 @@
           </svg>
         </div>
       </div>
-
-      <!-- Área de dibujo -->
-      <div class="w-full lg:w-1/2">
-        <input type="file" accept="image/*" @change="handleImageUpload" class="mt-4" />
-        <button @click="checkDrawing" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">Evaluar Dibujo</button>
+      <div class="container mx-auto pt4">
+        <div class="flex justify-center">
+          <form action="" enctype="multipart/form-data">
+            <div class="flex flex-wrap -mx-3 mb-6">
+              <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                  Imagen
+                </label>
+                <input
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  id="grid-password"
+                  type="file"
+                  accept="image/*"
+                  @change="handleImageUpload"
+                />
+                <p class="text-gray-600 text-xs italic">Cargue la imagen de su dibujo</p>
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                @click="uploadedImage"
+              >
+                Cargar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
   import { ref } from 'vue';
+  import axios from 'axios';
+
+  const image = ref(null);
 
   const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    // Handle the uploaded image file
+    image.value = event.target.files[0];
   };
 
-  const checkDrawing = () => {
-    // Perform drawing evaluation logic
+  const uploadedImage = async () => {
+    const formData = new FormData();
+    formData.append('image_cube', image.value);
+    const response = await axios.post('/moca/uploadcube', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log("respuesta:",response);
   };
 </script>
 

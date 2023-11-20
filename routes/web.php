@@ -45,6 +45,14 @@ Route::middleware([
     ->middleware('auth')
     ->name('Moca.UploadConceptualAlternative');
 
+    Route::post('/moca/uploadcube', [MocaController::class, 'uploadCube'])
+    ->middleware('auth')
+    ->name('Moca.uploadCube');
+    
+    Route::post('/moca/uploadclock', [MocaController::class, 'uploadClock'])
+    ->middleware('auth')
+    ->name('Moca.uploadclock');
+
     //-----------------------Admin-------------------------------
     Route::get('/admin/index', [AdminController::class, 'index'])
     ->middleware('auth.admin')
