@@ -49,10 +49,46 @@
         DeferredRecall,
         Orientation
     ];
+    const componentCalification = ref({
+        ConceptualAlternative: 0,
+        Cube: 0,
+        Clock: 0,
+        Identification: 0,
+        Memory: 0,
+        Attention: 0,
+        Lemgua: 0,
+        VerbalFluency: 0,
+        Abstraction: 0,
+        DeferredRecall: 0,
+        Orientation: 0
+    });
+
+    const componentVector = ref([
+        "ConceptualAlternative",
+        "Cube",
+        "Clock",
+        "Identification",
+        "Memory",
+        "Attention",
+        "Lemgua",
+        "VerbalFluency",
+        "Abstraction",
+        "DeferredRecall",
+        "Orientation"
+    ]);
+
     const enteroRecibido = ref(null);
 
     const receive_number = (number) => {
-        console.log("numero de la respuesta desde el index",number);
+        console.log("index",currentComponentIndex.value);
+        console.log("vector",componentVector.value[currentComponentIndex.value]);
+
+        componentCalification.value[componentVector.value[currentComponentIndex.value]] = number;
+
+        console.log("calificacion",componentCalification.value);
+        // Call the showNext function to display the next component
+        showNext();
+
     };
     // Estado para rastrear el índice del componente actual
     const currentComponentIndex = ref(0);

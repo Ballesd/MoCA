@@ -53,7 +53,10 @@
   import { ref } from 'vue';
   import axios from 'axios';
 
+  const { sendNumber } = defineProps(['sendNumber']); 
+
   const image = ref(null);
+  const result = ref(null);
 
   const handleImageUpload = (event) => {
     image.value = event.target.files[0];
@@ -68,6 +71,8 @@
       },
     });
     console.log("respuesta:",response);
+    result.value = null;
+    sendNumber(result.value);
   };
 </script>
 

@@ -44,14 +44,16 @@
   import { ref } from 'vue';
   import axios from 'axios';
 
+  const { sendNumber } = defineProps(['sendNumber']); 
+
   const image = ref(null);
+  const result = ref(null);
 
   const handleImageUpload = (event) => {
     image.value = event.target.files[0];
   };
 
   const uploadedImage = async () => {
-    console.log('imagen del reloj antes de', image.value);
     const formData = new FormData();
     formData.append('image_clock', image.value);
     const response = await axios.post('/moca/uploadclock', formData, {
@@ -60,5 +62,7 @@
       },
     });
     console.log("respuesta:",response);
+    result.value = null;
+    sendNumber(result.value);
   };
 </script>

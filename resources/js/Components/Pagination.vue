@@ -4,7 +4,6 @@
 
 <script setup>
     import { Link } from '@inertiajs/inertia-vue3';
-    import { defineProps } from 'vue';
 
     const props = defineProps({
         links: Array,

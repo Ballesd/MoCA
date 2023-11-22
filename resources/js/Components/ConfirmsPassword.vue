@@ -5,7 +5,6 @@ import InputError from './InputError.vue';
 import PrimaryButton from './PrimaryButton.vue';
 import SecondaryButton from './SecondaryButton.vue';
 import TextInput from './TextInput.vue';
-import { defineProps, defineEmits } from 'vue';
 
 const emit = defineEmits(['confirmed']);
 
