@@ -34,6 +34,7 @@
     import Abstraction from '@/Pages/Moca/TestMoCA/Abstraction.vue';
     import DeferredRecall from '@/Pages/Moca/TestMoCA/DeferredRecall.vue';
     import Orientation from '@/Pages/Moca/TestMoCA/Orientation.vue';
+    import endTest from '@/Pages/Moca/TestMoCA/EndTest.vue';
     
     // Definir un array con los componentes
     const components = [
@@ -47,7 +48,8 @@
         VerbalFluency,
         Abstraction,
         DeferredRecall,
-        Orientation
+        Orientation,
+        endTest
     ];
     const componentCalification = ref({
         ConceptualAlternative: 0,
@@ -77,7 +79,7 @@
         "Orientation"
     ]);
 
-    const enteroRecibido = ref(null);
+    const total = ref(0);
 
     const receive_number = (number) => {
         console.log("index",currentComponentIndex.value);
@@ -87,33 +89,37 @@
 
         console.log("calificacion",componentCalification.value);
         // Call the showNext function to display the next component
+
+        //Sumamos todas las calificaciones
+        if( number != null){
+            total.value += number;
+        }
+
+        console.log("total",total.value);
         showNext();
 
     };
-    // Estado para rastrear el índice del componente actual
+
     const currentComponentIndex = ref(0);
     
-    // Estado para rastrear el valor de componentKey
     const componentKey = ref(0);
     
-    // Función para obtener el componente actual
     const currentComponent = computed(() => components[currentComponentIndex.value]);
     
-    // Función para mostrar el componente siguiente
     const showNext = () => {
         if (currentComponentIndex.value < components.length - 1) {
         currentComponentIndex.value++;
-        componentKey.value++; // Actualiza el valor de componentKey
+        componentKey.value++;
         }
     };
 </script>
   
-  <style scoped>
+<style scoped>
   .slide-fade-enter-active, .slide-fade-leave-active {
     transition: opacity 0.5s;
   }
   .slide-fade-enter, .slide-fade-leave-to {
     opacity: 0;
   }
-  </style>
+</style>
   

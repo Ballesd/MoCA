@@ -151,6 +151,10 @@
                 this.track = true;
                 this.startAttempt();
             }
+            else{
+                this.sendAnswer();
+            }
+            
         }
       },
       recordAttemptTrack(){
@@ -161,19 +165,26 @@
             this.selectTest = true;
             this.startAttempt();
         }
+        else{
+            this.sendAnswer();
+        }
 
       },
       recordAttemptSelect(){
         this.score += (this.vectorAnswer(this.goodanswer2) * 1);
         this.endTest = true;
-        console.log("respuesta final", this.score);
-        this.$emit("answer-score", this.score);
+        this.sendAnswer();
         
       },
       removeSpaces(index) {
         // Elimina espacios en blanco de la palabra recordada y se pasa a maysuculas
         this.rememberedWords[index] = this.rememberedWords[index].trim();
         this.rememberedWords[index] = this.rememberedWords[index].toUpperCase();
+      },
+
+      sendAnswer() {
+        console.log("respuesta final", this.score);
+        this.$emit("answer-score", this.score);
       },
     },
   };

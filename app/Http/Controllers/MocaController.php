@@ -100,6 +100,15 @@ class MocaController extends Controller
 
         return 'se guardo con exito';
     }
+
+    public function editMoca(Request $request){
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        
+
+    }
         //create a new moca object and save it to the database just with this image
 
     /**
