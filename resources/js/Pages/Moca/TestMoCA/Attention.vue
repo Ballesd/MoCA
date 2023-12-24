@@ -6,7 +6,13 @@
         </div>
         <div v-if="repeatNumeber">
             <div v-if="!orderNumber" class="flex justify-center mt-4">
-                <button :disabled="buttonState" @click="startNumberTest" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Iniciar las pruebas de números</button>
+                <button
+                    :disabled="buttonState"
+                    @click="startNumberTest"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Iniciar las pruebas de números
+                </button>
             </div>
             <!--Orden de numeros-->
             <div v-if="orderNumber && !inverseNumber" class="mt-8">
@@ -24,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="flex justify-center mt-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="recordAttemptOrder">
                         Registrar Intento
@@ -39,10 +45,10 @@
                     <div class="grid grid-cols-5 gap-4">
                         <div v-for="(number, index) in InverseNumbers" :key="index">
                             <input
-                            v-model="answerInverse[index]"
-                            ref="inputField"
-                            maxlength="1"
-                            class="h-16 w-12 border mx-2 rounded-lg text-center font-thin text-3xl text-gray-800"
+                                v-model="answerInverse[index]"
+                                ref="inputField"
+                                maxlength="1"
+                                class="h-16 w-12 border mx-2 rounded-lg text-center font-thin text-3xl text-gray-800"
                             />
                         </div>
                     </div>
@@ -50,7 +56,7 @@
 
                 <div class="flex justify-center mt-4">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="recordAttemptOrderInve">
-                    Registrar Intento
+                        Registrar Intento
                     </button>
                 </div>
             </div>
@@ -69,7 +75,7 @@
         <!--desde 100 restado de 7 en 7-->
         <div v-if="sevenMinSeven" class="mt-4 p-4 border rounded shadow-md">
             <p class="text-lg font-semibold mb-2">Restar de 7 en 7 empezando desde 100.</p>
-            <div class="items-center space-x-4">
+            <div class="flex items-center space-x-4">
                 <p class="text-xl">{{ valueStart }} - 7</p>
                 <input type="number" v-model="valuRest" class="border rounded p-2 w-">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="restNumber">Responder</button>

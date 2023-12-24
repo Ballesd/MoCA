@@ -24,7 +24,10 @@ return new class extends Migration
             $table->integer('verbal_fluency')->nullable();
             $table->integer('abstraction')->nullable();
             $table->integer('deferred_recall')->nullable();
+            $table->integer('mis')->nullable();
             $table->integer('orientation')->nullable();
+            $table->integer('total')->nullable();
+            $table->boolean('check')->nullable();
 
             $table->string('image_conceptual_alternative')->nullable();
             $table->string('image_cube')->nullable();

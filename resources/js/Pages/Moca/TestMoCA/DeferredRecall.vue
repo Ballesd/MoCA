@@ -76,118 +76,125 @@
                     </button>
                 </div>
             </div>
-    
-            <!-- Mostrar puntuación final -->
-            <div>
-                <p class="text-xl font-semibold">Puntuación: {{ score }}</p>
-            </div>
         </div>
     </div>
 </template>
   
 <script>
-  export default {
-    data() {
-      return {
-        words: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"],
-        trakwords: {
-            "ROSTRO": "parte del cuerpo",
-            "SEDA": "tipo de tela",
-            "TEMPLO": "tipo de edificio",
-            "CLAVEL": "tipo de flor",
-            "ROJO": "color"
+    import axios from "axios";
+  
+    export default {
+        data() {
+        return {
+            words: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"],
+            trakwords: {
+                "ROSTRO": "parte del cuerpo",
+                "SEDA": "tipo de tela",
+                "TEMPLO": "tipo de edificio",
+                "CLAVEL": "tipo de flor",
+                "ROJO": "color"
+            },
+            multiSelection: {
+                "ROSTRO": ["NARIZ","ROSTRO", "MANO" ,"HOMBRO"],
+                "SEDA": ["TELA", "VAQUERA", "SEDA", "ALGODÓN"],
+                "TEMPLO": ["TEMPLO", "ESCUELA", "HOSPITAL"],
+                "CLAVEL": ["ROSA", "CLAVEL", "TULIPÁN", "GIRASOL"],
+                "ROJO": ["ROJO", "AZUL", "VERDE", "AMARILLO"]      
+            },
+            goodanswer1: [],
+            goodanswer2: [],
+            endTest: false,
+            track: false,
+            selectTest: false,
+            rememberedWords: [],
+            score: 0, // puntuación del tercer intento
+            score_permanent: 0,
+            answer: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"], // Respuesta predefinida
+        };
         },
-        multiSelection: {
-            "ROSTRO": ["NARIZ","ROSTRO", "MANO" ,"HOMBRO"],
-            "SEDA": ["TELA", "VAQUERA", "SEDA", "ALGODÓN"],
-            "TEMPLO": ["TEMPLO", "ESCUELA", "HOSPITAL"],
-            "CLAVEL": ["ROSA", "CLAVEL", "TULIPÁN", "GIRASOL"],
-            "ROJO": ["ROJO", "AZUL", "VERDE", "AMARILLO"]      
+        methods: {
+        startAttempt() {
+            // Limpiamos los valores de rememberedWords para el siguiente intento
+            this.rememberedWords = [];
         },
-        goodanswer1: [],
-        goodanswer2: [],
-        endTest: false,
-        track: false,
-        selectTest: false,
-        rememberedWords: [],
-        score: 0, // puntuación del tercer intento
-        answer: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"], // Respuesta predefinida
-      };
-    },
-    methods: {
-      startAttempt() {
-        // Limpiamos los valores de rememberedWords para el siguiente intento
-        this.rememberedWords = [];
-      },
-      vectorAnswer(saveAnswer){
-        let correctCount = 0;
-        for (let i = 0; i < this.rememberedWords.length; i++) {
-            //preguntamos si la palabra se encunetra en el vector de respuestas
-            if(this.answer.includes(this.rememberedWords[i])){
-                correctCount++;
-                saveAnswer.push(this.rememberedWords[i]);
+        vectorAnswer(saveAnswer){
+            let correctCount = 0;
+            for (let i = 0; i < this.rememberedWords.length; i++) {
+                //preguntamos si la palabra se encunetra en el vector de respuestas
+                if(this.answer.includes(this.rememberedWords[i])){
+                    correctCount++;
+                    saveAnswer.push(this.rememberedWords[i]);
+                }
             }
-        }
-        return correctCount;
-      },
-      Deletetrakwords(){
-        for (let i = 0; i < this.goodanswer1.length; i++) {
-            delete this.trakwords[this.goodanswer1[i]];
-            delete this.multiSelection[this.goodanswer1[i]];
-            this.words.splice(this.words.indexOf(this.goodanswer1[i]), 1);
-        }
-      },
-      DeleteMultiSelection(){
-        for (let i = 0; i < this.goodanswer2.length; i++) {
-            delete this.multiSelection[this.goodanswer2[i]];
-            this.words.splice(this.words.indexOf(this.goodanswer2[i]), 1);
-        }
-      },
-      recordAttempt() {
-        if( !this.track && !this.selectTest){
-            this.score = (this.vectorAnswer(this.goodanswer1) * 3);
-            if( (this.goodanswer1.length) < 5){
-                this.Deletetrakwords();
-                this.track = true;
+            return correctCount;
+        },
+        Deletetrakwords(){
+            for (let i = 0; i < this.goodanswer1.length; i++) {
+                delete this.trakwords[this.goodanswer1[i]];
+                delete this.multiSelection[this.goodanswer1[i]];
+                this.words.splice(this.words.indexOf(this.goodanswer1[i]), 1);
+            }
+        },
+        DeleteMultiSelection(){
+            for (let i = 0; i < this.goodanswer2.length; i++) {
+                delete this.multiSelection[this.goodanswer2[i]];
+                this.words.splice(this.words.indexOf(this.goodanswer2[i]), 1);
+            }
+        },
+        recordAttempt() {
+            if( !this.track && !this.selectTest){
+                this.score = (this.vectorAnswer(this.goodanswer1) * 3);
+                this.score_permanent = (this.vectorAnswer(this.goodanswer1));
+                if( (this.goodanswer1.length) < 5){
+                    this.Deletetrakwords();
+                    this.track = true;
+                    this.startAttempt();
+                }
+                else{
+                    this.sendAnswer();
+                }
+                
+            }
+        },
+        recordAttemptTrack(){
+            this.score += (this.vectorAnswer(this.goodanswer2) * 2);
+
+            if((this.goodanswer1.length) < 5){
+                this.DeleteMultiSelection();
+                this.selectTest = true;
                 this.startAttempt();
             }
             else{
                 this.sendAnswer();
             }
-            
-        }
-      },
-      recordAttemptTrack(){
-        this.score += (this.vectorAnswer(this.goodanswer2) * 2);
 
-        if((this.goodanswer1.length) < 5){
-            this.DeleteMultiSelection();
-            this.selectTest = true;
-            this.startAttempt();
-        }
-        else{
+        },
+        recordAttemptSelect(){
+            this.score += (this.vectorAnswer(this.goodanswer2) * 1);
+            this.endTest = true;
             this.sendAnswer();
-        }
+            
+        },
+        removeSpaces(index) {
+            // Elimina espacios en blanco de la palabra recordada y se pasa a maysuculas
+            this.rememberedWords[index] = this.rememberedWords[index].trim();
+            this.rememberedWords[index] = this.rememberedWords[index].toUpperCase();
+        },
 
-      },
-      recordAttemptSelect(){
-        this.score += (this.vectorAnswer(this.goodanswer2) * 1);
-        this.endTest = true;
-        this.sendAnswer();
-        
-      },
-      removeSpaces(index) {
-        // Elimina espacios en blanco de la palabra recordada y se pasa a maysuculas
-        this.rememberedWords[index] = this.rememberedWords[index].trim();
-        this.rememberedWords[index] = this.rememberedWords[index].toUpperCase();
-      },
-
-      sendAnswer() {
-        console.log("respuesta final", this.score);
-        this.$emit("answer-score", this.score);
-      },
+        async sendAnswer() {
+            console.log("respuesta final", this.score);
+            const response = await axios.post('/moca/savemis', {
+                mis: this.score
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log("respuesta deferred call",response);
+            this.$emit("answer-score", this.score_permanent);
+        },
     },
-  };
+};
 </script>
   
 <style scoped>

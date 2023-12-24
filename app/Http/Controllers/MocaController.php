@@ -101,13 +101,38 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
+    public function saveMiss(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->mis = $request->mis;
+        $moca->save();
+
+        return 'se guardo con exito';
+        
+    }
+
     public function editMoca(Request $request){
         $user_id = Auth::user()->id;
 
         $moca = Moca::where('user_id', $user_id)->first();
 
-        
+        $moca->identification = $request->Identification;
+        $moca->memory = $request->Memory;
+        $moca->attention = $request->Attention;
+        $moca->language = $request->Lemgua;
+        $moca->verbal_fluency = $request->VerbalFluency;
+        $moca->abstraction = $request->Abstraction;
+        $moca->deferred_recall = $request->DeferredRecall;
+        $moca->orientation = $request->Orientation;
+        $moca->total = $request->total;
+        $moca->check = True;
 
+        $moca->save();
+
+        return 'se guardo con exito';
     }
         //create a new moca object and save it to the database just with this image
 

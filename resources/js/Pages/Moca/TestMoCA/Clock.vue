@@ -24,7 +24,7 @@
                 <p class="text-gray-600 text-xs italic">Cargue la imagen de su dibujo</p>
               </div>
             </div>
-            <div class="flex justify-center">
+            <div v-if="image" class="flex justify-center">
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"

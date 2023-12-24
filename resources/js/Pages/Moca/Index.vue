@@ -62,7 +62,8 @@
         VerbalFluency: 0,
         Abstraction: 0,
         DeferredRecall: 0,
-        Orientation: 0
+        Orientation: 0,
+        total: 0
     });
 
     const componentVector = ref([
@@ -93,11 +94,25 @@
         //Sumamos todas las calificaciones
         if( number != null){
             total.value += number;
+            console.log("total value en el if",total.value);
         }
-
-        console.log("total",total.value);
+        //SI ya ha recorrido todos los componentes
+        if(currentComponentIndex.value == components.length - 2){
+            console.log("ya recorrio todos los componentes")
+            sendCalification();
+        }
+        console.log("total de la pruba MOCA",total.value);
         showNext();
 
+    };
+
+    const sendCalification = async() => {
+        console.log("enviando calificacion",total.value);
+        componentCalification.value.total = total.value;
+        console.log("calificacion",componentCalification.value);
+        const response = await axios.post('/moca/calification', componentCalification.value);
+
+        console.log("respuesta:",response);
     };
 
     const currentComponentIndex = ref(0);

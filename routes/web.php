@@ -53,6 +53,15 @@ Route::middleware([
     ->middleware('auth')
     ->name('Moca.uploadclock');
 
+    Route::post('/moca/savemis', [MocaController::class, 'saveMiss'])
+    ->middleware('auth')
+    ->name('Moca.savemis');
+
+    Route::post('/moca/calification', [MocaController::class, 'editMoca'])
+    ->middleware('auth')
+    ->name('Moca.senData');
+
+
     //-----------------------Admin-------------------------------
     Route::get('/admin/index', [AdminController::class, 'index'])
     ->middleware('auth.admin')

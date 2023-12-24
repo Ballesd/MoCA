@@ -25,25 +25,16 @@
       </div>
       <div class="mb-4">
         <label class="block text-sm font-semibold">Lugar</label>
-        <input type="text" class="border rounded p-2 w-full" v-model="lugar">
+        <input type="text" class="border rounded p-2 w-full" v-model="lugar" placeholder="Hogar, casa, domicilio, vivienda">
       </div>
       <div class="mb-4">
         <label class="block text-sm font-semibold">Localidad</label>
-        <input type="text" class="border rounded p-2 w-full" v-model="localidad">
+        <input type="text" class="border rounded p-2 w-full" v-model="localidad"  placeholder="Ciudad, pueblo, municipio, departamento" >
       </div>
       <div class="mb-4">
         <button @click="calcularPuntos" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
           Calcular Puntos
         </button>
-      </div>
-      <div class="mt-4">
-        <p class="font-semibold">Puntos Fecha: {{ puntosFecha }}</p>
-        <p class="font-semibold">Puntos Mes: {{ puntosMes }}</p>
-        <p class="font-semibold">Puntos Año: {{ puntosAño }}</p>
-        <p class="font-semibold">Puntos Día de la semana: {{ puntosDiaSemana }}</p>
-        <p class="font-semibold">Puntos Lugar: {{ puntosLugar }}</p>
-        <p class="font-semibold">Puntos Localidad: {{ puntosLocalidad }}</p>
-        <p class="font-semibold">Resultado Total: {{ resultadoTotal }}</p>
       </div>
     </div>
 </template>
@@ -70,28 +61,24 @@
     methods: {
       calcularPuntos() {
         // Define las respuestas correctas para cada campo.
-        const respuestaFecha = new Date().toISOString().slice(0, 10); // Obtén la fecha actual en formato 2023-10-02
+        const respuestaFecha = new Date().toISOString().slice(0, 10);  // Obtén la fecha actual en formato 2023-10-02
         const respuestaMes = new Date().getMonth(); // Obtén el mes actual como número (0-11).
         const respuestaAño = new Date().getFullYear(); // Obtén el año actual como número de 4 dígitos.
         const respuestaDiaSemana = new Date().getDay(); // Obtén el día de la semana actual como número (0-6).
-        const respuestaLugar = "respuesta_lugar"; // Cambia por la respuesta correcta para el lugar.
-        const respuestaLocalidad = "respuesta_localidad"; // Cambia por la respuesta correcta para la localidad.
+        const respuestaLugar = ["hogar", "casa", "domicilio", "vivienda"] // Cambia por la respuesta correcta para el lugar.
+        const respuestaLocalidad = ["ciudad", "pueblo", "municipio", "departamento"] // Cambia por la respuesta correcta para la localidad.
   
         // Convierte las respuestas correctas a minúsculas y quita los acentos.
         const respuestaMesSinAcentos = respuestaMes;
         const respuestaAñoSinAcentos = respuestaAño;
         const respuestaDiaSemanaSinAcentos = respuestaDiaSemana;
-        const respuestaLugarSinAcentos = this.quitarAcentos(respuestaLugar.toLowerCase());
-        const respuestaLocalidadSinAcentos = this.quitarAcentos(respuestaLocalidad.toLowerCase());
-  
-        // Muestra las respuestas en la consola.
-        console.log("Respuesta Fecha:", respuestaFecha);
-        console.log("Respuesta Mes:", respuestaMesSinAcentos);
-        console.log("Respuesta Año:", respuestaAñoSinAcentos);
-        console.log("Respuesta Día de la semana:", respuestaDiaSemanaSinAcentos);
-        console.log("Respuesta Lugar:", respuestaLugarSinAcentos);
-        console.log("Respuesta Localidad:", respuestaLocalidadSinAcentos);
-  
+        const respuestaLugarSinAcentos = respuestaLugar.map((lugar) =>
+          this.quitarAcentos(lugar.toLowerCase())
+        );
+        const respuestaLocalidadSinAcentos = respuestaLocalidad.map((localidad) =>
+          this.quitarAcentos(localidad.toLowerCase())
+        );
+
         // Convierte las entradas del usuario a minúsculas y quita los acentos.
         const mesUsuarioSinAcentos = this.quitarAcentos(this.mes.toLowerCase());
         const añoUsuarioSinAcentos = this.año.toLowerCase();
@@ -106,15 +93,14 @@
         let puntosDiaSemana = 0;
         let puntosLugar = 0;
         let puntosLocalidad = 0;
-  
-        console.log("Asi es la fecha", this.fecha)
+
         // Compara las respuestas ingresadas con las respuestas correctas y asigna puntos.
-        if (this.fecha === respuestaFecha) puntosFecha++;
+        if (this.fecha === String(respuestaFecha)) puntosFecha++;
         if (this.obtenerNumeroMes(mesUsuarioSinAcentos) === respuestaMesSinAcentos) puntosMes++;
         if (parseInt(añoUsuarioSinAcentos) === respuestaAñoSinAcentos) puntosAño++;
         if (this.obtenerNumeroDiaSemana(diaSemanaUsuarioSinAcentos) === respuestaDiaSemanaSinAcentos) puntosDiaSemana++;
-        if (lugarUsuarioSinAcentos === respuestaLugarSinAcentos) puntosLugar++;
-        if (localidadUsuarioSinAcentos === respuestaLocalidadSinAcentos) puntosLocalidad++;
+        if (respuestaLugarSinAcentos.includes(lugarUsuarioSinAcentos)) puntosLugar++;
+        if (respuestaLocalidadSinAcentos.includes(localidadUsuarioSinAcentos)) puntosLocalidad++;
   
         // Calcula el resultado total de puntos.
         const resultadoTotal =
@@ -154,7 +140,7 @@
       },
       obtenerNumeroDiaSemana(nombreDia) {
         const diasSemana = [
-          "domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"
+        "domingo", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado"
         ];
         return diasSemana.indexOf(nombreDia);
       },

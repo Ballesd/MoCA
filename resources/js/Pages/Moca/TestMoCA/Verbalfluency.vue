@@ -97,8 +97,8 @@ let timerId // Variable para el contador regresivo
     resultState.value = false
     if(result.value >= 11){
         score.value = 1
-        sendNumber(score.value);
     }
+    sendNumber(score.value);
   }
   
   onBeforeUnmount(() => {
