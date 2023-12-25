@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Security\PermissionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MocaController;
+use App\Http\Controllers\MedicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +62,6 @@ Route::middleware([
     ->middleware('auth')
     ->name('Moca.senData');
 
-
     //-----------------------Admin-------------------------------
     Route::get('/admin/index', [AdminController::class, 'index'])
     ->middleware('auth.admin')
@@ -71,6 +71,23 @@ Route::middleware([
     ->middleware('auth.admin')
     ->name('admin.update');
 
+    //-----------------------Medic-------------------------------
+    Route::get('/medic/index', [MedicController::class, 'index'])
+    ->middleware('auth.medic')
+    ->name('Medic.Index');
+
+    Route::get('/medic/show', [MedicController::class, 'show'])
+    ->middleware('auth.medic')
+    ->name('Medic.Show');
+
+    Route::post('/medic/getMoca', [MedicController::class, 'getMoca'])
+    ->middleware('auth.medic')
+    ->name('Medic.getMoca');
+
+    Route::put('/medic/editMoca', [MedicController::class, 'editMoca'])
+    ->middleware('auth.medic')
+    ->name('Medic.editMoca');
+    
 });
 
 
