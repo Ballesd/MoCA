@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->string("Aluminum")->nullable();
-            $table->string("others")->nullable();
+            $table->text("others")->nullable();
 
             #clinic_histories
             $table->uuid('clinic_history_id');

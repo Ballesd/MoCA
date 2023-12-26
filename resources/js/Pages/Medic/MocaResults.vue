@@ -112,49 +112,55 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="updateState">
-                            <div class="mt-4">
-                                <InputLabel for="conceptualalternative" value="Alternancia conceptual:" />
-                                <select
-                                class="input-field bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                id="ConceptualAlternative"
-                                v-model="data.ConceptualAlternative"
-                                required
-                            >
-                                    <option value=0>0</option>
-                                    <option value=1>1</option>
-                                </select>
-                            </div>
-                            <div class="mt-4">
-                                <InputLabel for="cube" value="Cube:" />
-                                <select
-                                class="input-field bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                id="cube"
-                                v-model="data.cube"
-                                required
-                            >
-                                    <option value=0>0</option>
-                                    <option value=1>1</option>
-                                </select>
-                            </div>
-                            <div class="mt-4">
-                                <InputLabel for="cube" value="Reloj:" />
-                                <select
-                                class="input-field bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                id="clock"
-                                v-model="data.clock"
-                                required
-                            >
-                                    <option value=0>0</option>
-                                    <option value=1>1</option>
-                                    <option value=2>2</option>
-                                    <option value=3>3</option>
-                                </select>
-                            </div>
-                            <div class="mt-4">
-                                <PrimaryButton @click="calificar">
-                                    Guardar
-                                </PrimaryButton>
+                        <div v-if="updateState" class="mt-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <div class="flex items-center">
+                                        <InputLabel for="conceptualalternative" value="Alternancia conceptual:" />
+                                        <select
+                                            class="input-field"
+                                            id="ConceptualAlternative"
+                                            v-model="data.ConceptualAlternative"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center mt-4">
+                                        <InputLabel for="cube" value="Cube:" />
+                                        <select
+                                            class="input-field"
+                                            id="cube"
+                                            v-model="data.cube"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center">
+                                        <InputLabel for="clock" value="Reloj:" />
+                                        <select
+                                            class="input-field"
+                                            id="clock"
+                                            v-model="data.clock"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="mt-4">
+                                        <PrimaryButton @click="calificar">
+                                            Guardar
+                                        </PrimaryButton>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -192,7 +198,7 @@
 
 
     const search = async () => {
-        console.log("identification antes de mandarlo ",identification.value);   
+
         const response = await axios.post('/medic/getMoca', {
             identification: identification.value,
         });
@@ -215,7 +221,6 @@
     };
     const calificar = async () => {
         data.user_id = users.value.id;
-        console.log("user", data.user_id);
         console.log("data", data);
         
         const response = await axios.put(`/medic/editMoca`, {

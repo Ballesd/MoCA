@@ -87,6 +87,14 @@ Route::middleware([
     Route::put('/medic/editMoca', [MedicController::class, 'editMoca'])
     ->middleware('auth.medic')
     ->name('Medic.editMoca');
+
+    Route::get('/medic/clinicHistory', [MedicController::class, 'clinicHistory'])
+    ->middleware('auth.medic')
+    ->name('Medic.clinicHistory');
+
+    Route::post('/medic/getUser', [MedicController::class, 'getUser'])
+    ->middleware('auth.medic')
+    ->name('Medic.getUser');
     
 });
 

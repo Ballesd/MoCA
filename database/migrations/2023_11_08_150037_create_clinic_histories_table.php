@@ -41,7 +41,7 @@ return new class extends Migration
             $table->uuid('record_id')->nullable();
             $table->foreign('record_id')->references('id')->on('records')->onDelete('cascade');
 
-            $table->text("other information")->nullable();
+            $table->text("other_information")->nullable();
             
             ## llave foranea de users
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');

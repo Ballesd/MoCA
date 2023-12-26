@@ -9,13 +9,13 @@ use App\Models\Moca;
 
 class MedicController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         return Inertia::render('Medic/Index');
 
     }
 
-    public function show(Request $request)
+    public function show()
     {
         return Inertia::render('Medic/MocaResults');
 
@@ -44,5 +44,19 @@ class MedicController extends Controller
         
         $moca->save();
         return $moca;
+    }
+
+    public function clinicHistory()
+    {
+        return Inertia::render('Medic/ClinicHistory');
+    }
+
+    public function getUser(Request $request)
+    {
+        $user = User::where('identification', $request->identification)->first();
+        if (!$user) {
+            return 'No se encontro el usuario';
+        }
+        return $user;
     }
 }
