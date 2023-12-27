@@ -88,36 +88,36 @@
                                 <div>
                                     <InputLabel for="text" value="PK" />
                                     <select class="input-field rounded-lg" v-model="clinic_histories.pk">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="ALZ" />
                                     <select class="input-field rounded-lg" v-model="clinic_histories.alz">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Control" />
                                     <select class="input-field rounded-lg" v-model="clinic_histories.control">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Muestra sangre:" />
                                     <select class="input-field rounded-lg" v-model="clinic_histories.blood_sample">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Muestra odontología:" />
                                     <select class="input-field rounded-lg" v-model="clinic_histories.dentistry_sample">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -134,7 +134,7 @@
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Parentesco" />
-                                    <input class="input-field rounded-lg" type="text" v-model="clinic_histories.attendant_relationship" />
+                                    <input class="input-field rounded-lg" type="text" v-model="clinic_histories.relationship" />
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Teléfono del acudiente" />
@@ -214,16 +214,16 @@
                                 <div>
                                     <InputLabel for="text" value="Primaria" />
                                     <select class="input-field rounded-lg" v-model="scholarships.primary">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
 
                                 <div>
                                     <InputLabel for="text" value="Secundaria" />
                                     <select class="input-field rounded-lg" v-model="scholarships.secondary">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
 
@@ -234,7 +234,7 @@
 
                                 <div>
                                     <InputLabel for="text" value="Profesional" />
-                                    <input class="input-field rounded-lg" type="text" v-model="scholarships.professional" />
+                                    <input class="input-field rounded-lg" type="text" v-model="scholarships.profesional" />
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Postgrado" />
@@ -264,15 +264,15 @@
                                 <div>
                                     <InputLabel for="text" value="Isquémicos Cardíacos" />
                                     <select class="input-field rounded-lg" v-model="cardiovascular_events.ischemic_cardiac">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Hemorrágicos Cardíacos" />
                                     <select class="input-field rounded-lg" v-model="cardiovascular_events.hemorrhagic_cardiac">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -282,15 +282,15 @@
                                 <div>
                                     <InputLabel for="text" value="Isquémicos Cerebrales" />
                                     <select class="input-field rounded-lg" v-model="cardiovascular_events.ischemic_cerebral">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Hemorrágicos Cerebrales" />
                                     <select class="input-field rounded-lg" v-model="cardiovascular_events.hemorrhagic_cerebral">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -300,15 +300,15 @@
                                 <div>
                                     <InputLabel for="text" value="Isquémicos Otros" />
                                     <select class="input-field rounded-lg" v-model="cardiovascular_events.ischemic_others">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Hemorrágicos Otros" />
                                     <select class="input-field rounded-lg" v-model="cardiovascular_events.hemorrhagic_others">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -339,8 +339,8 @@
                                 <div>
                                     <InputLabel for="text" value="Neoplasia" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.neoplasia">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -354,8 +354,8 @@
                                 <div>
                                     <InputLabel for="text" value="Hipertensión Arterial" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.arterial_hypertension">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -369,8 +369,8 @@
                                 <div>
                                     <InputLabel for="text" value="Hipotiroidismo" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.hypothyroidism">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -384,8 +384,8 @@
                                 <div>
                                     <InputLabel for="text" value="Hiperlipidemia" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.hiperlipidemia">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -399,8 +399,8 @@
                                 <div>
                                     <InputLabel for="text" value="Neurológico" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.neurological">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -414,8 +414,8 @@
                                 <div>
                                     <InputLabel for="text" value="Psiquiátrico" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.psychiatric">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -429,8 +429,8 @@
                                 <div>
                                     <InputLabel for="text" value="Infección Crónica" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.chronic_infection">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -444,8 +444,8 @@
                                 <div>
                                     <InputLabel for="text" value="Otros" />
                                     <select class="input-field rounded-lg" v-model="pathological_records.others">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -519,8 +519,8 @@
                                 <div>
                                     <InputLabel for="text" value="Otros eventos Traumáticos" />
                                     <select class="input-field rounded-lg" v-model="traumatics.other_traumatic">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -551,8 +551,8 @@
                                 <div>
                                     <InputLabel for="text" value="Fumador Activo" />
                                     <select class="input-field rounded-lg" v-model="toxics.active_tobacco">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -565,13 +565,13 @@
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="No. De Paquetes/año (Cigarrillo)" />
-                                    <input class="input-field rounded-lg" type="text" v-model="toxics.no_packages_year" />
+                                    <input class="input-field rounded-lg" type="number" v-model="toxics.packages_per_year" />
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Fumador Pasivo" />
                                     <select class="input-field rounded-lg" v-model="toxics.pasive_tobacco">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -584,13 +584,13 @@
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="No. De Paquetes/año (Cigarrillo) como pasivo" />
-                                    <input class="input-field rounded-lg" type="text" v-model="toxics.packages_per_year_pasive" />
+                                    <input class="input-field rounded-lg" type="number" v-model="toxics.packages_per_year_pasive" />
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Exposición a Humo de Leña" />
                                     <select class="input-field rounded-lg" v-model="toxics.wood_smoke">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -604,8 +604,8 @@
                                 <div>
                                     <InputLabel for="text" value="Consumo de Alcohol" />
                                     <select class="input-field rounded-lg" v-model="toxics.alcohol">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -623,8 +623,8 @@
                                 <div>
                                     <InputLabel for="text" value="Consumo de Drogas" />
                                     <select class="input-field rounded-lg" v-model="toxics.drugs">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -731,8 +731,8 @@
                                 <div>
                                     <InputLabel for="text" value="Padres" />
                                     <select class="input-field rounded-lg" v-model="relatives.parents">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -746,8 +746,8 @@
                                 <div>
                                     <InputLabel for="text" value="Diabetes" />
                                     <select class="input-field rounded-lg" v-model="relatives.diabetes">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div >
@@ -761,8 +761,8 @@
                                 <div>
                                     <InputLabel for="text" value="Cardiovasculares" />
                                     <select class="input-field rounded-lg" v-model="relatives.cardiovascular">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -776,8 +776,8 @@
                                 <div>
                                     <InputLabel for="text" value="Hipertensión" />
                                     <select class="input-field rounded-lg" v-model="relatives.hypertension">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -791,8 +791,8 @@
                                 <div>
                                     <InputLabel for="text" value="Neoplasias" />
                                     <select class="input-field rounded-lg" v-model="relatives.neoplasms">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -806,8 +806,8 @@
                                 <div>
                                     <InputLabel for="text" value="Psiquiátricos" />
                                     <select class="input-field rounded-lg" v-model="relatives.psychiatric">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -821,8 +821,8 @@
                                 <div>
                                     <InputLabel for="text" value="Neurológicos" />
                                     <select class="input-field rounded-lg" v-model="relatives.neurological">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -836,8 +836,8 @@
                                 <div>
                                     <InputLabel for="text" value="Síndrome de Down" />
                                     <select class="input-field rounded-lg" v-model="relatives.down_syndrome">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -851,8 +851,8 @@
                                 <div>
                                     <InputLabel for="text" value="Discapacidad Intelectual" />
                                     <select class="input-field rounded-lg" v-model="relatives.intellectual_disability">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -866,8 +866,8 @@
                                 <div>
                                     <InputLabel for="text" value="Demencia" />
                                     <select class="input-field rounded-lg" v-model="relatives.dementia">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -881,8 +881,8 @@
                                 <div>
                                     <InputLabel for="text" value="Otros" />
                                     <select class="input-field rounded-lg" v-model="relatives.others">
-                                        <option value="true">Si</option>
-                                        <option value="false">No</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div>
@@ -891,13 +891,21 @@
                                 </div>
                                 <div>
                                     <InputLabel for="text" value="Grado de consanguinidad en Otros" />
-                                    <textarea class="input-field rounded-lg" type="text" v-model="relatives.consanguinity_others" ></textarea>
+                                    <input class="input-field rounded-lg" type="text" v-model="relatives.consanguinity_others" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-if="values" class="flex justify-center">
+            <button
+            class="h-full bg-green-500 text-white py-4 px-8 rounded-md relative"
+            @click="saveInformation"
+        >
+            Guardar historia clínica
+        </button>
         </div>
     </AppLayout>
 </template>
@@ -908,7 +916,6 @@
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import { ref } from 'vue';
-    import { useForm } from '@inertiajs/vue3';
 
     const isDropdownOpen = ref(false);
     const isDropdownPatologicalOpen = ref(false);
@@ -926,15 +933,15 @@
     const users = ref();
     const values = ref(false);
 
-    const clinic_histories = useForm({
+    const clinic_histories = ref({
         clinic: '',
         other: '',
         genetic_institute: '',
-        pk: false,
-        alz: false,
-        control: false,
-        blood_sample: false,
-        dentistry_sample: false,
+        pk: 0,
+        alz: 0,
+        control: 0,
+        blood_sample: 0,
+        dentistry_sample: 0,
         city: '',
         date: '',
         attendant_name: '',
@@ -944,144 +951,138 @@
         current_illness: '',
         other_information: ''
     });
-    const cardiovascular_events = useForm({
-        ischemic_cardiac: false,
-        hemorrhagic_cardiac: false,
+
+    const cardiovascular_events = ref({
+        ischemic_cardiac: 0,
+        hemorrhagic_cardiac: 0,
         time_cardiac: '',
-        ischemic_cerebral: false,
-        hemorrhagic_cerebral: false,
+        ischemic_cerebral: 0,
+        hemorrhagic_cerebral: 0,
         time_cerebral: '',
-        ischemic_others: false,
-        hemorrhagic_others: false,
+        ischemic_others: 0,
+        hemorrhagic_others: 0,
         time_others: ''
     });
 
-    const pathological_records = useForm({
-        neoplasia: false,
+    const pathological_records = ref({
+        neoplasia: 0,
         neoplasia_type: '',
         evolution_time: '',
-        arterial_hypertension: false,
+        arterial_hypertension: 0,
         arterial_hypertension_type: '',
         arterial_hypertension_time: '',
-        hypothyroidism: false,
+        hypothyroidism: 0,
         hypothyroidism_type: '',
         hypothyroidism_time: '',
-        hiperlipidemia: false,
+        hiperlipidemia: 0,
         hiperlipidemia_type: '',
         hiperlipidemia_time: '',
-        neurological: false,
+        neurological: 0,
         neurological_type: '',
         neurological_time: '',
-        psychiatric: false,
+        psychiatric: 0,
         psychiatric_type: '',
         psychiatric_time: '',
-        chronic_infection: false,
+        chronic_infection: 0,
         chronic_infection_type: '',
         chronic_infection_time: '',
-        others: false,
+        others: 0,
         others_type: '',
         others_time: ''
     });
 
-    const paraclinicals = useForm({
+    const paraclinicals = ref({
         nuclear_magnetic_resonance_date: '',
         nuclear_magnetic_resonance_concept: '',
         tac_date: '',
         tac_concept: ''
     });
 
-    /**
-            $table->string("Aluminum")->nullable();
-            $table->string("others")->nullable();
- */
-    const medicines = useForm({
+    const medicines = ref({
         aluminum: '',
         others: ''
     });
-    const relatives = useForm({
-        parents: false,
+    const relatives = ref({
+        parents: 0,
         specify_parents: '',
         consanguinity_parents: '',
-        diabetes: false,
+        diabetes: 0,
         specify_diabetes: '',
         consanguinity_diabetes: '',
-        cardiovascular: false,
+        cardiovascular: 0,
         specify_cardiovascular: '',
         consanguinity_cardiovascular: '',
-        hypertension: false,
+        hypertension: 0,
         specify_hypertension: '',
         consanguinity_hypertension: '',
-        neoplasms: false,
+        neoplasms: 0,
         specify_neoplasms: '',
         consanguinity_neoplasms: '',
-        psychiatric: false,
+        psychiatric: 0,
         specify_psychiatric: '',
         consanguinity_psychiatric: '',
-        neurological: false,
+        neurological: 0,
         specify_neurological: '',
         consanguinity_neurological: '',
-        down_syndrome: false,
+        down_syndrome: 0,
         specify_down_syndrome: '',
         consanguinity_down_syndrome: '',
-        intellectual_disability: false,
+        intellectual_disability: 0,
         specify_intellectual_disability: '',
         consanguinity_intellectual_disability: '',
-        dementia: false,
+        dementia: 0,
         specify_dementia: '',
         consanguinity_dementia: '',
-        others: false,
+        others: 0,
         specify_others: '',
         consanguinity_others: ''
     });
 
-    const work_activities = useForm({
+    const work_activities = ref({
         activity: '',
         place: '',
         position: '',
         actual_situation: ''
     });
 
-    const scholarships = useForm({
-        primary: false,
-        secondary: false,
+    const scholarships = ref({
+        primary: 0,
+        secondary: 0,
         technical_superior: '',
         profesional: '',
         postgraduate: ''
     });
 
-    const traumatics = useForm({
+    const traumatics = ref({
         specific_craniocerebral: '',
         elapsed_time: '',
-        other_traumatic: false,
+        other_traumatic: 0,
         other_traumatic_time: ''
     });
 
-    const toxics = useForm({
-        active_tobacco: false,
+    const toxics = ref({
+        active_tobacco: 0,
         previus_active_tobacco: '',
         age_tobacco_exposition: '',
         packages_per_year: '',
-        pasive_tobacco: false,
+        pasive_tobacco: 0,
         previus_pasive_tobacco: '',
         age_pasive_tobacco_exposition: '',
         packages_per_year_pasive: '',
-        wood_smoke: false,
+        wood_smoke: 0,
         previus_wood_smoke: '',
         age_wood_smoke_exposition: '',
-        alcohol: false,
+        alcohol: 0,
         previus_alcohol: '',
         age_alcohol_exposition: '',
         frecuency_alcohol: '',
-        drugs: false,
+        drugs: 0,
         previus_drugs: '',
         age_drugs_exposition: '',
         frecuency_drugs: ''
     });
-    /**            
-            $table->text("type_surgery")->nullable();
-            $table->text("elapsed_time")->nullable();
- */
-    const surgicals = useForm({
+
+    const surgicals = ref({
         type_surgery: '',
         elapsed_time: ''
     });    
@@ -1092,6 +1093,39 @@
 
         users.value = response.data;
         values.value = true;
-        console.log("respuesta", users.value);
+
     };
+
+    const saveInformation = async () =>{
+        console.log("clinic_histories", clinic_histories.value);
+        console.log("cardiovascular_events", cardiovascular_events.value);
+        console.log("pathological_records", pathological_records.value);
+        console.log("paraclinicals", paraclinicals.value);
+        console.log("medicines", medicines.value);
+        console.log("relatives", relatives.value);
+        console.log("work_activities", work_activities.value);
+        console.log("scholarships", scholarships.value);
+        console.log("traumatics", traumatics.value);
+        console.log("toxics", toxics.value);
+        console.log("surgicals", surgicals.value);
+
+        const response = await axios.post('/medic/makeHistiryCLinic', {
+            clinic_histories: clinic_histories.value,
+            cardiovascular_events: cardiovascular_events.value,
+            pathological_records: pathological_records.value,
+            paraclinicals: paraclinicals.value,
+            medicines: medicines.value,
+            relatives: relatives.value,
+            work_activities: work_activities.value,
+            scholarships: scholarships.value,
+            traumatics: traumatics.value,
+            toxics: toxics.value,
+            surgicals: surgicals.value,
+            user_id: users.value.id
+        });
+
+        console.log("respuesta",response.data);
+        
+
+    }
 </script>

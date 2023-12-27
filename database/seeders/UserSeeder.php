@@ -46,5 +46,12 @@ class UserSeeder extends Seeder
         $user->save();
         #$user->assignRole($roleAdmin);
 
+        $user = new User();
+        $user->name = 'Test Medic';
+        $user->email = 'medic@test.com';
+        $user->password = bcrypt('12345678');
+        $user->rol = 'medic';
+        $user->save();
+
     }
 }

@@ -9,5 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Relatives extends Model
 {
     use HasFactory;
-    use App\Traits\UUID;
+    use UUID;
+
 }

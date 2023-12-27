@@ -95,6 +95,10 @@ Route::middleware([
     Route::post('/medic/getUser', [MedicController::class, 'getUser'])
     ->middleware('auth.medic')
     ->name('Medic.getUser');
+   
+    Route::post('/medic/makeHistiryCLinic', [MedicController::class, 'makeHistiryCLinic'])
+    ->middleware('auth.medic')
+    ->name('Medic.makeHistiryCLinic');
     
 });
 
