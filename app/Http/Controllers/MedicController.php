@@ -29,6 +29,12 @@ class MedicController extends Controller
 
     }
 
+    public function history()
+    {
+        return Inertia::render('Medic/GetCliniciHistory');
+
+    }
+
     public function show()
     {
         return Inertia::render('Medic/MocaResults');
@@ -251,5 +257,26 @@ class MedicController extends Controller
         $medicines->save();
 
         return 'Se guardo con éxito';
+    }
+
+    public function getHistoryClinic(Request $request)
+    {
+
+        $user = $request->user_id;
+        
+        $clinic_history = Clinic_history::where('user_id', $user)->first();
+        $medicines = Medicine::where('clinic_history_id', $clinic_history->id)->first();
+        $scholarships = Scholarship::where('id', $clinic_history->scholarship_id)->first();
+        $work_activities = Work_activity::where('id', $scholarships->work_activity_id)->first();
+        $record = Record::where('id', $clinic_history->record_id)->first();
+        $pathological_records = Pathological_record::where('id', $record->pathological_record_id)->first();
+        $cardiovascular_events = Cardiovascular_events::where('id', $record->cardiovascular_event_id )->first();
+        $paraclinicals = Paraclinical::where('id', $record->paraclinical_id )->first();
+        $traumatics = Traumatic::where('id', $record->traumatic_id)->first();
+        $toxics = Toxic::where('id', $record->toxic_id)->first();
+        $relatives = Relatives::where('id', $record->relative_id)->first();
+        $surgicals = Surgical::where('record_id', $record->id)->first();
+        return compact('clinic_history', 'scholarships', 'medicines', 'work_activities', 'record', 'pathological_records', 'cardiovascular_events', 'paraclinicals', 'traumatics', 'toxics', 'relatives', 'surgicals');
+
     }
 }

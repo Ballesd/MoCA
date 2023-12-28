@@ -1097,17 +1097,6 @@
     };
 
     const saveInformation = async () =>{
-        console.log("clinic_histories", clinic_histories.value);
-        console.log("cardiovascular_events", cardiovascular_events.value);
-        console.log("pathological_records", pathological_records.value);
-        console.log("paraclinicals", paraclinicals.value);
-        console.log("medicines", medicines.value);
-        console.log("relatives", relatives.value);
-        console.log("work_activities", work_activities.value);
-        console.log("scholarships", scholarships.value);
-        console.log("traumatics", traumatics.value);
-        console.log("toxics", toxics.value);
-        console.log("surgicals", surgicals.value);
 
         const response = await axios.post('/medic/makeHistiryCLinic', {
             clinic_histories: clinic_histories.value,
@@ -1123,9 +1112,6 @@
             surgicals: surgicals.value,
             user_id: users.value.id
         });
-
-        console.log("respuesta",response.data);
-        
 
     }
 </script>

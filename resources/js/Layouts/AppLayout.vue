@@ -63,6 +63,9 @@ const logout = () => {
                                 <NavLink v-if="$page.props.auth.user.rol === 'medic'" :href="route('Medic.Show')" :active="route().current('Medic.Show')">
                                     Resultados MoCA
                                 </NavLink>
+                                <NavLink v-if="$page.props.auth.user.rol === 'medic'" :href="route('Medic.History')" :active="route().current('Medic.History')">
+                                    Buscar Historial Clínico
+                                </NavLink>
                                 <NavLink v-if="$page.props.auth.user.rol === 'medic'" :href="route('Medic.clinicHistory')" :active="route().current('Medic.clinicHistory')">
                                     Realizar Historia Clínica
                                 </NavLink>
@@ -221,6 +224,9 @@ const logout = () => {
                         <ResponsiveNavLink v-if="$page.props.auth.user.rol === 'medic'" :href="route('Medic.Show')" :active="route().current('Medic.Show')">
                             Resultados MoCA   
                         </ResponsiveNavLink>
+                        <responsive-nav-link v-if="$page.props.auth.user.rol === 'medic'" :href="route('Medic.History')" :active="route().current('Medic.History')">
+                            Buscar Historial Clínico
+                        </responsive-nav-link>
                         <ResponsiveNavLink v-if="$page.props.auth.user.rol === 'medic'" :href="route('Medic.clinicHistory')" :active="route().current('Medic.clinicHistory')">
                             Realizar Historia Clínica
                         </ResponsiveNavLink>

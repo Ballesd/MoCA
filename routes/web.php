@@ -76,6 +76,10 @@ Route::middleware([
     ->middleware('auth.medic')
     ->name('Medic.Index');
 
+    Route::get('/medic/history', [MedicController::class, 'history'])
+    ->middleware('auth.medic')
+    ->name('Medic.History');
+
     Route::get('/medic/show', [MedicController::class, 'show'])
     ->middleware('auth.medic')
     ->name('Medic.Show');
@@ -99,6 +103,10 @@ Route::middleware([
     Route::post('/medic/makeHistiryCLinic', [MedicController::class, 'makeHistiryCLinic'])
     ->middleware('auth.medic')
     ->name('Medic.makeHistiryCLinic');
+
+    Route::post('/medic/getHistoryClinic', [MedicController::class, 'getHistoryClinic'])
+    ->middleware('auth.medic')
+    ->name('Medic.getHistoryClinic');
     
 });
 
