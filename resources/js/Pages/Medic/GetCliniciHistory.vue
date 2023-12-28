@@ -5,7 +5,18 @@
                 Buscar Historial Clinico de Paciente
             </h2>
         </template>
-
+        
+        <div v-if="errorPoint" class="flex justify-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Error: </strong>
+            <span class="block sm:inline">{{ errorMessage }}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" @click="closeError">
+                <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>Close</title>
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </span>
+        </div>
+                
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -445,12 +456,6 @@
                     </div>
                 </div>
             </div>
-            <!--Traumaticos
-                            $table->string("specific_craniocerebral")->nullable();
-            $table->text("elapsed_time")->nullable();
-
-            $table->string("other_traumatic")->nullable();
-            $table->text("other_traumatic_time")->nullable();-->
             <div class="overflow-x-auto">
                 <div class="p-2">
                     <div class="mb-2">
@@ -492,30 +497,6 @@
                     </div>
                 </div>
             </div>
-            <!--toxics
-                        $table->boolean("active_tobacco")->nullable();
-            $table->string("previus_active_tobacco")->nullable();
-            $table->string("age_tobacco_exposition")->nullable();
-            $table->integer("packages_per_year")->nullable();
-
-            $table->boolean("pasive_tobacco")->nullable();
-            $table->string("previus_pasive_tobacco")->nullable();
-            $table->string("age_pasive_tobacco_exposition")->nullable();
-            $table->integer("packages_per_year_pasive")->nullable();
-
-            $table->boolean("wood_smoke")->nullable();
-            $table->string("previus_wood_smoke")->nullable();
-            $table->string("age_wood_smoke_exposition")->nullable();
-
-            $table->boolean("alcohol")->nullable();
-            $table->string("previus_alcohol")->nullable();
-            $table->string("age_alcohol_exposition")->nullable();
-            $table->string("frecuency_alcohol")->nullable();
-
-            $table->boolean("drugs")->nullable();
-            $table->string("previus_drugs")->nullable();
-            $table->string("age_drugs_exposition")->nullable();
-            $table->string("frecuency_drugs")->nullable();-->
             <div class="overflow-x-auto">
                 <div class="p-2">
                     <div class="mb-2">
@@ -617,10 +598,6 @@
                     </div>
                 </div>
             </div>
-<!--Medicines
-            $table->string("Aluminum")->nullable();
-            $table->text("others")->nullable();
--->
             <div class="overflow-x-auto">
                 <div class="p-2">
                     <div class="mb-2">
@@ -688,50 +665,6 @@
                     </div>
                 </div>
             </div>
-            <!--Antecendentes familiares
-                        $table->boolean("parents")->nullable();
-            $table->string("specify_parents")->nullable();
-            $table->string("consanguinity_parents")->nullable();
-
-            $table->boolean("diabetes")->nullable();
-            $table->string("specify_diabetes")->nullable();
-            $table->string("consanguinity_diabetes")->nullable();
-
-            $table->boolean("cardiovascular")->nullable();
-            $table->string("specify_cardiovascular")->nullable();
-            $table->string("consanguinity_cardiovascular")->nullable();
-
-            $table->boolean("hypertension")->nullable();
-            $table->string("specify_hypertension")->nullable();
-            $table->string("consanguinity_hypertension")->nullable();
-
-            $table->boolean("neoplasms")->nullable();
-            $table->string("specify_neoplasms")->nullable();
-            $table->string("consanguinity_neoplasms")->nullable();
-
-            $table->boolean("psychiatric")->nullable();
-            $table->string("specify_psychiatric")->nullable();
-            $table->string("consanguinity_psychiatric")->nullable();
-
-            $table->boolean("neurological")->nullable();
-            $table->string("specify_neurological")->nullable();
-            $table->string("consanguinity_neurological")->nullable();
-            
-            $table->boolean("down_syndrome")->nullable();
-            $table->string("specify_down_syndrome")->nullable();
-            $table->string("consanguinity_down_syndrome")->nullable();
-
-            $table->boolean("intellectual_disability")->nullable();
-            $table->string("specify_intellectual_disability")->nullable();
-            $table->string("consanguinity_intellectual_disability")->nullable();
-
-            $table->boolean("dementia")->nullable();
-            $table->string("specify_dementia")->nullable();
-            $table->string("consanguinity_dementia")->nullable();
-
-            $table->boolean("others")->nullable();
-            $table->string("specify_others")->nullable();
-            $table->string("consanguinity_others")->nullable();-->
             <div class="overflow-x-auto">
                 <div class="p-2">
                     <div class="mb-2">
@@ -915,6 +848,8 @@
     const identification = ref('');
     const users = ref();
     const values = ref(false);
+    const errorPoint = ref(false);
+    const errorMessage = ref('');
 
     const clinic_history = ref({});
     const cardiovascular_events = ref({});
@@ -929,32 +864,48 @@
     const surgicals = ref({});  
 
     const search = async () => {
-        const response = await axios.post('/medic/getUser', {
+
+        if( identification.value == '' ){
+            errorPoint.value = true;
+            errorMessage.value = 'El campo de identificación no puede estar vacío';
+            return;
+        }else{
+            const response = await axios.post('/medic/getUser', {
             identification: identification.value,
         });
+            if(response.data == 'No se encontro el usuario'){
+                errorPoint.value = true;
+                errorMessage.value = 'El usuario no existe o no se ha registrado';
+                return;
+            }else{
+                users.value = response.data;
+                values.value = true;
 
-        users.value = response.data;
-        values.value = true;
+                console.log(response.data);
 
-        console.log(response.data);
+                const responseClinicHistories = await axios.post('/medic/getHistoryClinic', {
+                    user_id: users.value.id,
+                });
 
-        const responseClinicHistories = await axios.post('/medic/getHistoryClinic', {
-            user_id: users.value.id,
-        });
+                console.log("Historia clinica: ",responseClinicHistories.data);
 
-        console.log("Historia clinica: ",responseClinicHistories.data);
+                clinic_history.value = responseClinicHistories.data.clinic_history;
+                cardiovascular_events.value = responseClinicHistories.data.cardiovascular_events;
+                pathological_records.value = responseClinicHistories.data.pathological_records;
+                paraclinicals.value = responseClinicHistories.data.paraclinicals;
+                medicines.value = responseClinicHistories.data.medicines;
+                relatives.value = responseClinicHistories.data.relatives;
+                work_activities.value = responseClinicHistories.data.work_activities;
+                scholarships.value = responseClinicHistories.data.scholarships;
+                traumatics.value = responseClinicHistories.data.traumatics;
+                toxics.value = responseClinicHistories.data.toxics;
+                surgicals.value = responseClinicHistories.data.surgicals;
+            }
+        }
+    };
 
-        clinic_history.value = responseClinicHistories.data.clinic_history;
-        cardiovascular_events.value = responseClinicHistories.data.cardiovascular_events;
-        pathological_records.value = responseClinicHistories.data.pathological_records;
-        paraclinicals.value = responseClinicHistories.data.paraclinicals;
-        medicines.value = responseClinicHistories.data.medicines;
-        relatives.value = responseClinicHistories.data.relatives;
-        work_activities.value = responseClinicHistories.data.work_activities;
-        scholarships.value = responseClinicHistories.data.scholarships;
-        traumatics.value = responseClinicHistories.data.traumatics;
-        toxics.value = responseClinicHistories.data.toxics;
-        surgicals.value = responseClinicHistories.data.surgicals;
+    const closeError = () => {
+        errorPoint.value = false;
     };
     
 </script>

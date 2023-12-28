@@ -5,7 +5,17 @@
                 Resultados del test de MoCA
             </h2>
         </template>
-        
+        <div v-if="errorPoint" class="flex justify-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Error: </strong>
+            <span class="block sm:inline">{{ errorMessage }}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" @click="closeError">
+                <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>Close</title>
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </span>
+        </div>
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -21,7 +31,7 @@
                             autofocus
                         />
                     </div>
-                    <div class="flex items-center justify-end mt-4">
+                    <div class="flex justify-center items-center justify-end mt-4">
                         <PrimaryButton @click="search">
                             Buscar
                         </PrimaryButton>
@@ -188,6 +198,8 @@
     const updateState = ref(false);
     const resultMoca = ref('');
     const values = ref(false);
+    const errorMessage = ref('');
+    const errorPoint = ref(false);
 
     const data = useForm({
         user_id: '',
@@ -198,26 +210,36 @@
 
 
     const search = async () => {
-
-        const response = await axios.post('/medic/getMoca', {
+        if(identification.value === ''){
+            errorPoint.value = true;
+            errorMessage.value = "Debe ingresar una cédula";
+            return;
+        }else{
+            const response = await axios.post('/medic/getMoca', {
             identification: identification.value,
         });
-        moca.value = response.data.moca;
-        users.value = response.data.user;
-        values.value = true;
-        if(moca.value === null){
-            resultMoca.value = "Aún no ha realizado el test";
-        }else{
-            resultMoca.value = 'Resultados y puntajes del Test de MoCA';
+            if(response.data === 'No se encontro el usuario'){
+                errorPoint.value = true;
+                errorMessage.value = "No se encontro el usuario";
+                return;
+            }else{
+                if(response.data === 'El usuario no ha realizado el examen'){
+                    errorPoint.value = true;
+                    errorMessage.value = "El usuario no ha realizado el examen";
+                }
+                else{
+                    moca.value = response.data.moca;
+                    users.value = response.data.user;
+                    values.value = true;
+
+                    //sacamos los la ruta del storage remplezando el primer tramo "public" por "storage" y añadimos al principio "/"
+                    url_conceptual_alternative.value = "/"+moca.value.image_conceptual_alternative.replace("public","storage");
+                    url_cube.value = "/"+moca.value.image_cube.replace("public","storage");
+                    url_clock.value = "/"+moca.value.image_clock.replace("public","storage");
+                }
+            }
         }
-
-        //sacamos los la ruta del storage remplezando el primer tramo "public" por "storage" y añadimos al principio "/"
-        url_conceptual_alternative.value = "/"+moca.value.image_conceptual_alternative.replace("public","storage");
-        url_cube.value = "/"+moca.value.image_cube.replace("public","storage");
-        url_clock.value = "/"+moca.value.image_clock.replace("public","storage");
-
-        console.log("respuesta en moca", moca.value);
-        console.log("respuesta en users", users.value);    
+ 
     };
     const calificar = async () => {
         data.user_id = users.value.id;
@@ -238,5 +260,8 @@
         }
 
     };
-    
+
+    const closeError = () => {
+        errorPoint.value = false;
+    };
 </script>

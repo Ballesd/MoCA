@@ -47,9 +47,13 @@ class MedicController extends Controller
         $user = User::where('identification', $request->identification)->first();
         if (!$user) {
             return 'No se encontro el usuario';
+        }else{
+            $moca = Moca::where('user_id', $user->id)->first();
+            if (!$moca) {
+                return 'El usuario no ha realizado el examen';
+            }
         }
-        $moca = Moca::where('user_id', $user->id)->first();
-        
+    
         return compact('user', 'moca');
     }
 
