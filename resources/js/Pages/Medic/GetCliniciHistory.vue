@@ -887,8 +887,6 @@
                     user_id: users.value.id,
                 });
 
-                console.log("Historia clinica: ",responseClinicHistories.data);
-
                 clinic_history.value = responseClinicHistories.data.clinic_history;
                 cardiovascular_events.value = responseClinicHistories.data.cardiovascular_events;
                 pathological_records.value = responseClinicHistories.data.pathological_records;
