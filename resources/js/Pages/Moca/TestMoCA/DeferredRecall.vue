@@ -143,8 +143,9 @@
         },
         recordAttempt() {
             if( !this.track && !this.selectTest){
-                this.score = (this.vectorAnswer(this.goodanswer1) * 3);
-                this.score_permanent = (this.vectorAnswer(this.goodanswer1));
+                const goodanswer = this.vectorAnswer(this.goodanswer1);
+                this.score = goodanswer * 3;
+                this.score_permanent = goodanswer;
                 if( (this.goodanswer1.length) < 5){
                     this.Deletetrakwords();
                     this.track = true;
@@ -157,8 +158,9 @@
             }
         },
         recordAttemptTrack(){
-            this.score += (this.vectorAnswer(this.goodanswer2) * 2);
-
+            const goodanswer = (this.vectorAnswer(this.goodanswer2));
+            this.score += goodanswer * 2;
+            this.score_permanent += goodanswer;
             if((this.goodanswer1.length) < 5){
                 this.DeleteMultiSelection();
                 this.selectTest = true;
@@ -170,7 +172,9 @@
 
         },
         recordAttemptSelect(){
-            this.score += (this.vectorAnswer(this.goodanswer2) * 1);
+            const goodanswer = (this.vectorAnswer(this.goodanswer2));
+            this.score += goodanswer;
+            this.score_permanent += goodanswer;
             this.endTest = true;
             this.sendAnswer();
             
@@ -182,7 +186,6 @@
         },
 
         async sendAnswer() {
-            console.log("respuesta final", this.score);
             const response = await axios.post('/moca/savemis', {
                 mis: this.score
             }, {
@@ -190,14 +193,9 @@
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log("respuesta deferred call",response);
+            console.log("respuesta deferred call para la prueba",response);
             this.$emit("answer-score", this.score_permanent);
         },
     },
 };
 </script>
-  
-<style scoped>
-  /* Estilos de Tailwind CSS aquí */
-</style>
-  
