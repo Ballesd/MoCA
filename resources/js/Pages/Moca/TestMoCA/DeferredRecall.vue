@@ -81,121 +81,128 @@
 </template>
   
 <script>
-    import axios from "axios";
-  
+import axios from "axios";
     export default {
         data() {
-        return {
-            words: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"],
-            trakwords: {
-                "ROSTRO": "parte del cuerpo",
-                "SEDA": "tipo de tela",
-                "TEMPLO": "tipo de edificio",
-                "CLAVEL": "tipo de flor",
-                "ROJO": "color"
-            },
-            multiSelection: {
-                "ROSTRO": ["NARIZ","ROSTRO", "MANO" ,"HOMBRO"],
-                "SEDA": ["TELA", "VAQUERA", "SEDA", "ALGODÓN"],
-                "TEMPLO": ["TEMPLO", "ESCUELA", "HOSPITAL"],
-                "CLAVEL": ["ROSA", "CLAVEL", "TULIPÁN", "GIRASOL"],
-                "ROJO": ["ROJO", "AZUL", "VERDE", "AMARILLO"]      
-            },
-            goodanswer1: [],
-            goodanswer2: [],
-            endTest: false,
-            track: false,
-            selectTest: false,
-            rememberedWords: [],
-            score: 0, // puntuación del tercer intento
-            score_permanent: 0,
-            answer: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"], // Respuesta predefinida
-        };
+            return {
+                words: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"],
+                trakwords: {
+                    "ROSTRO": "parte del cuerpo",
+                    "SEDA": "tipo de tela",
+                    "TEMPLO": "tipo de edificio",
+                    "CLAVEL": "tipo de flor",
+                    "ROJO": "color"
+                },
+                multiSelection: {
+                    "ROSTRO": ["NARIZ","ROSTRO", "MANO" ,"HOMBRO"],
+                    "SEDA": ["TELA", "VAQUERA", "SEDA", "ALGODÓN"],
+                    "TEMPLO": ["TEMPLO", "ESCUELA", "HOSPITAL"],
+                    "CLAVEL": ["ROSA", "CLAVEL", "TULIPÁN", "GIRASOL"],
+                    "ROJO": ["ROJO", "AZUL", "VERDE", "AMARILLO"]      
+                },
+                goodanswer1: [],
+                goodanswer2: [],
+                endTest: false,
+                track: false,
+                selectTest: false,
+                rememberedWords: [],
+                score: 0, // puntuación del tercer intento
+                score_permanent: 0,
+                answer: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"], // Respuesta predefinida
+            };
+        },
+        mounted() {
+            this.speachIntroduction();
         },
         methods: {
-        startAttempt() {
-            // Limpiamos los valores de rememberedWords para el siguiente intento
-            this.rememberedWords = [];
-        },
-        vectorAnswer(saveAnswer){
-            let correctCount = 0;
-            for (let i = 0; i < this.rememberedWords.length; i++) {
-                //preguntamos si la palabra se encunetra en el vector de respuestas
-                if(this.answer.includes(this.rememberedWords[i])){
-                    correctCount++;
-                    saveAnswer.push(this.rememberedWords[i]);
+            speachIntroduction() {
+                const text1 = "Antes le he leído una serie de palabras y le he pedido que las recordase. Ahora escriba todas las palabras de las que se acuerde"
+                const synthesis = window.speechSynthesis;
+                const utterance = new SpeechSynthesisUtterance(text1);
+                utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+                synthesis.speak(utterance);
+            },
+            startAttempt() {
+                // Limpiamos los valores de rememberedWords para el siguiente intento
+                this.rememberedWords = [];
+            },
+            vectorAnswer(saveAnswer){
+                let correctCount = 0;
+                for (let i = 0; i < this.rememberedWords.length; i++) {
+                    //preguntamos si la palabra se encunetra en el vector de respuestas
+                    if(this.answer.includes(this.rememberedWords[i])){
+                        correctCount++;
+                        saveAnswer.push(this.rememberedWords[i]);
+                    }
                 }
-            }
-            return correctCount;
-        },
-        Deletetrakwords(){
-            for (let i = 0; i < this.goodanswer1.length; i++) {
-                delete this.trakwords[this.goodanswer1[i]];
-                delete this.multiSelection[this.goodanswer1[i]];
-                this.words.splice(this.words.indexOf(this.goodanswer1[i]), 1);
-            }
-        },
-        DeleteMultiSelection(){
-            for (let i = 0; i < this.goodanswer2.length; i++) {
-                delete this.multiSelection[this.goodanswer2[i]];
-                this.words.splice(this.words.indexOf(this.goodanswer2[i]), 1);
-            }
-        },
-        recordAttempt() {
-            if( !this.track && !this.selectTest){
-                const goodanswer = this.vectorAnswer(this.goodanswer1);
-                this.score = goodanswer * 3;
-                this.score_permanent = goodanswer;
-                if( (this.goodanswer1.length) < 5){
-                    this.Deletetrakwords();
-                    this.track = true;
+                return correctCount;
+            },
+            Deletetrakwords(){
+                for (let i = 0; i < this.goodanswer1.length; i++) {
+                    delete this.trakwords[this.goodanswer1[i]];
+                    delete this.multiSelection[this.goodanswer1[i]];
+                    this.words.splice(this.words.indexOf(this.goodanswer1[i]), 1);
+                }
+            },
+            DeleteMultiSelection(){
+                for (let i = 0; i < this.goodanswer2.length; i++) {
+                    delete this.multiSelection[this.goodanswer2[i]];
+                    this.words.splice(this.words.indexOf(this.goodanswer2[i]), 1);
+                }
+            },
+            recordAttempt() {
+                if( !this.track && !this.selectTest){
+                    const goodanswer = this.vectorAnswer(this.goodanswer1);
+                    this.score = goodanswer * 3;
+                    this.score_permanent = goodanswer;
+                    if( (this.goodanswer1.length) < 5){
+                        this.Deletetrakwords();
+                        this.track = true;
+                        this.startAttempt();
+                    }
+                    else{
+                        this.sendAnswer();
+                    }
+                    
+                }
+            },
+            recordAttemptTrack(){
+                const goodanswer = (this.vectorAnswer(this.goodanswer2));
+                this.score += goodanswer * 2;
+                this.score_permanent += goodanswer;
+                if((this.goodanswer1.length) < 5){
+                    this.DeleteMultiSelection();
+                    this.selectTest = true;
                     this.startAttempt();
                 }
                 else{
                     this.sendAnswer();
                 }
-                
-            }
-        },
-        recordAttemptTrack(){
-            const goodanswer = (this.vectorAnswer(this.goodanswer2));
-            this.score += goodanswer * 2;
-            this.score_permanent += goodanswer;
-            if((this.goodanswer1.length) < 5){
-                this.DeleteMultiSelection();
-                this.selectTest = true;
-                this.startAttempt();
-            }
-            else{
-                this.sendAnswer();
-            }
+            },
+            recordAttemptSelect(){
+                const goodanswer = (this.vectorAnswer(this.goodanswer2));
+                this.score += goodanswer;
+                this.score_permanent += goodanswer;
+                this.endTest = true;
+                this.sendAnswer(); 
+            },
+            removeSpaces(index) {
+                // Elimina espacios en blanco de la palabra recordada y se pasa a maysuculas
+                this.rememberedWords[index] = this.rememberedWords[index].trim();
+                this.rememberedWords[index] = this.rememberedWords[index].toUpperCase();
+            },
 
-        },
-        recordAttemptSelect(){
-            const goodanswer = (this.vectorAnswer(this.goodanswer2));
-            this.score += goodanswer;
-            this.score_permanent += goodanswer;
-            this.endTest = true;
-            this.sendAnswer();
-            
-        },
-        removeSpaces(index) {
-            // Elimina espacios en blanco de la palabra recordada y se pasa a maysuculas
-            this.rememberedWords[index] = this.rememberedWords[index].trim();
-            this.rememberedWords[index] = this.rememberedWords[index].toUpperCase();
-        },
-
-        async sendAnswer() {
-            const response = await axios.post('/moca/savemis', {
-                mis: this.score
-            }, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            console.log("respuesta deferred call para la prueba",response);
-            this.$emit("answer-score", this.score_permanent);
-        },
+            async sendAnswer() {
+                const response = await axios.post('/moca/savemis', {
+                    mis: this.score
+                }, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log("respuesta deferred call para la prueba",response);
+                this.$emit("answer-score", this.score_permanent);
+            },
     },
 };
 </script>

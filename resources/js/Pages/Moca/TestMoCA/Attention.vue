@@ -2,7 +2,7 @@
     <div class="m-6 p-6 bg-white shadow-md rounded-lg">
         <div class="mb-8 text-center">
             <h2 class="text-2xl font-semibold">6. Atención</h2>
-            <p class="text-gray-600">Leer números - golpe por letra - restar de 7 en 7</p>
+            <p class="text-gray-600">Lectura de números - Golpe por la letra A - Resta de 7 en 7.</p>
         </div>
         <div v-if="repeatNumeber">
             <div v-if="!orderNumber" class="flex justify-center mt-4">
@@ -18,7 +18,6 @@
             <div v-if="orderNumber && !inverseNumber" class="mt-8">
                 <p class="flex justify-center text-gray-800">Ingrese la primera serie de numeros en el mismo orden:</p>
                 <div class="flex justify-center">
-                    <!-- Cada que se digite un número tiene que pasar al siguiente input -->
                     <div class="grid grid-cols-5 gap-4">
                         <div v-for="(number, index) in orderNumbers" :key="index">
                             <input
@@ -64,7 +63,6 @@
         <!--Golpear por cada letra A-->
         <div>
             <div v-if="strikestate" class="mt-4 p-4 border rounded shadow-md">
-                <p class="text-xl font-semibold mb-2">Leer los números que aparecen en la pantalla y golpear por cada letra A (Darle un solo click para disminuir el riesgo de error). </p>
                 <div class="flex justify-center items-center space-x-4">
                     <p class="text-7xl"> {{ word }} </p>
                     <button @click="strickA" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">Golpear</button>
@@ -76,9 +74,10 @@
         <div v-if="sevenMinSeven" class="mt-4 p-4 border rounded shadow-md">
             <p class="text-lg font-semibold mb-2">Restar de 7 en 7 empezando desde 100.</p>
             <div class="flex items-center space-x-4">
-                <p class="text-xl">{{ valueStart }} - 7</p>
                 <input type="number" v-model="valuRest" class="border rounded p-2 w-">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="restNumber">Responder</button>
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="restNumber">Responder</button>
+                </div>
             </div>
         </div>
 
@@ -167,24 +166,44 @@ const recordAttemptOrderInve = () => {
     strikestate.value = true;
     secuenceWord(); 
 }   
-const secuenceWord = () => {
+const intervaliCount = () => {
     let i = 0;
-    setInterval(() => {
+    const interval = setInterval(() => {
         word.value = words.value[i];
         i++;
-        if(i === 29){
-            if(incorrectStrake >=2){
+        if (i === words.value.length) {
+            if(incorrectStrake.value >= 2){
                 scoreStrike.value = 0;
             }
             else{
                 scoreStrike.value = 1;
             }
-        strikestate.value = false;
+            clearInterval(interval);
+            strikestate.value = false;
+            audioSevenMinus();
+        }
+    }, 1000);
+}
+const secuenceWord = () => {
+    const text1 = "Leer los números que aparecen en la pantalla y golpear por cada letra A  que aparezca (Darle un solo click para disminuir el riesgo de error)."
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.7;
+    utterance.onend = () => {
+        // Esta función se ejecutará cuando termine la reproducción del audio
+        intervaliCount();
+    };
+    synthesis.speak(utterance);
+}
+const audioSevenMinus = () => {
+    const text1 = "Ahora reste de 7 en 7 empezando desde 100, ponga el resultado en el input y oprima responder."
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.7;
+    synthesis.speak(utterance);
+    setInterval(() => {
         sevenMinSeven.value = true;
-    }
-    }, 1500);
-    
-
+    }, 5000);
 }
 const strickA = () => {
 
@@ -196,6 +215,7 @@ const strickA = () => {
         console.log("incorrecto",incorrectStrake.value);
     }
     console.log(countCorrectStrake.value);
+
 }
 
 const restNumber = () => {
@@ -219,7 +239,6 @@ const restNumber = () => {
         else if (countCorrect.value >= 1){
             totalScore.value += 1 + scoreNumbers.value + scoreInverse.value + scoreStrike.value;
         }
-        //Enviamos el answer-score al componente padre
         sendNumber(totalScore.value);
     }
     valuRest.value = "";

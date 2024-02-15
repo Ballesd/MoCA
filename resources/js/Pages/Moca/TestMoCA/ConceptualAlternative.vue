@@ -2,9 +2,6 @@
   <div class="m-4 p-4 bg-white shadow-md rounded-lg text-center">
     <div class="">
       <p class="text-lg font-semibold">1. Fase de Alternancia Conceptual</p>
-      <p>
-        Por favor transcriba la imagen en una hoja de papel y desarrolle el test conectando los nodos en el orden correcto: 1 – A – 2 - (y así sucesivamente...). Posteriormente tómele una foto y cargue la imagen
-      </p>
     </div>
     <div class="container mx-auto pt4">
       <div class="flex justify-center">
@@ -43,7 +40,7 @@
 </template>
   
 <script setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import ConceptualAleLogo from '@/Components/ConceptualAleLogo.vue';
   import axios from 'axios';
 
@@ -55,6 +52,19 @@
   const handleImageUpload = (event) => {
     image.value = event.target.files[0];
   };
+
+  onMounted(() => {
+    speachIntroduction();
+  });
+
+  const speachIntroduction = () => {
+    const text1 = "Me gustaría que dibujara una línea alternando entre cifras y letras, respetando el orden numérico y el orden alfabético. Comience en el numero 1 y dibuje una línea desde el 1 hacia la letra A y, a continuación, de la A hacia el 2 y así sucesivamente. Termine en la letra E."
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+    synthesis.speak(utterance);
+  }
+
 
   const uploadedImage = async () => {
     const formData = new FormData();

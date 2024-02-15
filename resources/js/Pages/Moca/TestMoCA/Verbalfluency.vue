@@ -2,7 +2,6 @@
     <div class="m-6 p-6 bg-white shadow-md rounded-lg">
         <div class="mb-8 text-center">
             <h2 class="text-2xl font-semibold">8. Fluidez verbal</h2>
-            <p class="text-gray-600">Por favor, pronuncie la mayor cantidad de palabras que comiencen con la letra "F" en un minuto.</p>
         </div>
         <!-- Contenido de tu componente -->
         <button v-if="resultState" :class="`mic bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md`" @click="startRecording" :disabled="isRecording || timeLeft === 0">{{ isRecording ? `${timeLeft} s` : 'Comenzar' }}</button>
@@ -55,8 +54,17 @@ let timerId // Variable para el contador regresivo
       stopRecording()
     }
   }
+
+  const speachIntroduction = () => {
+    const text1 = "Para la prueba de fluidez verbal, necesitaremos que diga el mayor número de palabras posibles que comiencen por la letra F. No se permiten nombres, números y las formas conjugadas de un verbo. ¿Está preparado? Cuando se sienta preparado, pulse el botón de comenzar."
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+    synthesis.speak(utterance);
+}
   
   onMounted(() => {
+    speachIntroduction();
     sr.lang = 'es-CO'
     sr.continuous = true
     sr.interimResults = true
@@ -109,8 +117,3 @@ let timerId // Variable para el contador regresivo
     sr.onerror = null
   })
 </script>
-  
-  <style>
-  /* Estilos de Tailwind CSS aquí, si es necesario */
-  </style>
-  

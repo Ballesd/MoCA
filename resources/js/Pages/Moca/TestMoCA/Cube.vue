@@ -2,7 +2,7 @@
   <div class="m-4 bg-white p-4  rounded-lg">
     <div class="mb-8 text-center">
       <h2 class="text-2xl font-semibold">2. Fase de Alternancia Conceptual</h2>
-      <p class="text-gray-600">Por favor, copia el dibujo de la manera más precisa posible.</p>
+      <p class="text-gray-600">Por favor, copia el dibujo de la manera más precisa posible y sube la imagen.</p>
     </div>
     <div class="flex flex-col lg:flex-row items-center">
       <!-- Ejemplo del cubo -->
@@ -52,6 +52,7 @@
 <script setup>
   import { ref } from 'vue';
   import axios from 'axios';
+  import { onMounted } from 'vue';
 
   const { sendNumber } = defineProps(['sendNumber']); 
 
@@ -61,6 +62,19 @@
   const handleImageUpload = (event) => {
     image.value = event.target.files[0];
   };
+
+  onMounted(() => {
+    speachIntroduction();
+  });
+
+  const speachIntroduction = () => {
+    const text1 = "Me gustaría que copiara el dibujo de un cube tal cual como está en la pantalla de la manera más precisa posible, posteriormente suba la imagen."
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+    synthesis.speak(utterance);
+  }
+
 
   const uploadedImage = async () => {
     const formData = new FormData();

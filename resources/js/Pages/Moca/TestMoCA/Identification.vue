@@ -398,7 +398,25 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
 export default {
+  setup() {
+    const ejecutarFuncion = () => {
+      const text1 = "Escriba el nombre de estos animales en los inputs correspondientes comenzando de izquierda a derecha";
+      const synthesis = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(text1);
+      utterance.rate = 0.7; // Ajusta este valor para cambiar la velocidad
+      synthesis.speak(utterance);
+    };
+
+    onMounted(() => {
+      ejecutarFuncion();
+    });
+
+    return {
+      ejecutarFuncion
+    };
+  },
   data() {
     return {
       respuestas: {
@@ -409,6 +427,7 @@ export default {
       puntuacion: 0
     };
   },
+
   methods: {
     verificarRespuestas() {
       // Puedes realizar validaciones adicionales aquí si lo deseas.

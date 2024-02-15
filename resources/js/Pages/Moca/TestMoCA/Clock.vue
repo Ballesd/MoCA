@@ -1,10 +1,7 @@
 <template>
     <div class="m-4 bg-white p-4 shadow-md rounded-lg">
       <div class="mb-8 text-center">
-        <h2 class="text-2xl font-semibold">3 Reloj. </h2>
-        <p class="text-gray-600">"En una hoja en balnco dibuje un reloj. Incluya todos los
-            números y dibújelo señalando las 11 y 10 minutos y suba la imagen".
-        </p>
+        <h2 class="text-2xl font-semibold">3. Reloj </h2>
       </div>
       <div class="container mx-auto pt4">
         <div class="flex justify-center">
@@ -43,6 +40,7 @@
 
   import { ref } from 'vue';
   import axios from 'axios';
+  import { onMounted } from 'vue';
 
   const { sendNumber } = defineProps(['sendNumber']); 
 
@@ -52,6 +50,18 @@
   const handleImageUpload = (event) => {
     image.value = event.target.files[0];
   };
+
+  onMounted(() => {
+    speachIntroduction();
+  });
+
+  const speachIntroduction = () => {
+    const text1 = "Dibuje un reloj. Incluya todos los números y dibújelo señalando las 11 y 10 minutos. Recalco  11 y 10 minutos. Posteriormente suba la imagen."
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+    synthesis.speak(utterance);
+  }
 
   const uploadedImage = async () => {
     const formData = new FormData();

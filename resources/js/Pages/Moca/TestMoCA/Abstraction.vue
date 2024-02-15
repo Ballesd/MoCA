@@ -124,7 +124,3 @@ export default {
   },
 };
 </script>
-  <style scoped>
-  /* Estilos de Tailwind CSS personalizados pueden ser agregados aquí si es necesario */
-  </style>
-  
