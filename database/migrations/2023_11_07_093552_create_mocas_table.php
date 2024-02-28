@@ -17,15 +17,32 @@ return new class extends Migration
             $table->integer('ConceptualAlternative')->nullable();
             $table->integer('cube')->nullable();
             $table->integer('clock')->nullable();
+
             $table->integer('identification')->nullable();
+            $table->string('identification_answer')->nullable();
+
             $table->integer('memory')->nullable();
+
             $table->integer('attention')->nullable();
+            $table->text('attention_answer')->nullable();
+
             $table->integer('language')->nullable();
+            $table->text('language_answer')->nullable();
+
             $table->integer('verbal_fluency')->nullable();
+            $table->text('verbal_fluency_answer')->nullable();
+
             $table->integer('abstraction')->nullable();
+            $table->text('abstraction_answer')->nullable();
+
             $table->integer('deferred_recall')->nullable();
+            $table->text('deferred_recall_answer')->nullable();
+
             $table->integer('mis')->nullable();
+
             $table->integer('orientation')->nullable();
+            $table->text('orientation_answer')->nullable();
+
             $table->integer('total')->nullable();
             $table->boolean('check')->nullable();
 

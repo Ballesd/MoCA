@@ -399,6 +399,8 @@
 
 <script>
 import { onMounted } from 'vue';
+import axios from 'axios';
+
 export default {
   setup() {
     const ejecutarFuncion = () => {
@@ -433,12 +435,14 @@ export default {
       // Puedes realizar validaciones adicionales aquí si lo deseas.
     },
     calcularPuntuacion() {
-      // Convertir las respuestas a minúsculas y quitar las tildes
       const leonRespuesta = this.respuestas.leon.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       const rinoceronteRespuesta = this.respuestas.rinoceronte.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       const camelloRespuesta = this.respuestas.camello.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-      // Verificar las respuestas
+      const answers= {
+        identification_answer: leonRespuesta + ', ' + rinoceronteRespuesta + ', ' + camelloRespuesta 
+      }
+
       let puntuacion = 0;
       if (leonRespuesta === "leon") {
         puntuacion++;
@@ -450,10 +454,15 @@ export default {
         puntuacion++;
       }
 
+      //send to uploadIdentification '/moca/uploadIdentification'
+      axios.post('/moca/uploadIdentification', answers)
+      .catch(error => {
+        console.log("error: ",error);
+      });
+
       // Mostrar la puntuación en la consola
       console.log("Puntuación Total: " + puntuacion);
 
-      // Actualizar la puntuación en el estado
       this.puntuacion = puntuacion;
       this.$emit("answer-score", this.puntuacion);
     }

@@ -92,6 +92,7 @@
 
 <script setup>
 import { ref, defineProps  } from 'vue';
+import axios from 'axios';
 
 const { sendNumber } = defineProps(['sendNumber']); 
 
@@ -114,6 +115,7 @@ const word = ref('');
 const countCorrectStrake = ref(0);
 const incorrectStrake = ref(0);
 const scoreStrike = ref(0);
+const valueRestLog = ref('');
 
 const sevenMinSeven = ref(false);
 const valueStart = ref(100);
@@ -156,7 +158,6 @@ const recordAttemptOrder = () => {
 }
 
 const recordAttemptOrderInve = () => {
-    //Evaluamos si el orden de los numeros es correcto
     if (answerInverse.value.toString() == InverseNumbers.value.toString()) {
         scoreInverse.value = 1;
     } else {
@@ -219,6 +220,7 @@ const strickA = () => {
 }
 
 const restNumber = () => {
+    valueRestLog.value = valueRestLog.value + ', ' + valuRest.value;
     let diference = valueStart.value - valuRest.value;
     if(diference === 7){
         if(valueStart.value <= 2){
@@ -239,6 +241,14 @@ const restNumber = () => {
         else if (countCorrect.value >= 1){
             totalScore.value += 1 + scoreNumbers.value + scoreInverse.value + scoreStrike.value;
         }
+        const answer = {
+            attention_answer: 'Respuesta números: ' + answerOrder.value + ' Respuesta inversa: ' + answerInverse.value + ' Golpes por A: ' + countCorrectStrake.value + ' Resta de 7 en 7: ' + valueRestLog.value
+        }
+
+        //send answer uploadAttention '/moca/uploadAttention'
+        const response = axios.post('/moca/uploadAttention', answer);
+        console.log("respuesta:",response);
+
         sendNumber(totalScore.value);
     }
     valuRest.value = "";

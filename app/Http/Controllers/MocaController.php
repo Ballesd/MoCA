@@ -101,6 +101,32 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
+    public function uploadIdentification(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->identification_answer = $request->identification_answer;
+
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
+
+    public function uploadAttention(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->attention_answer = $request->attention_answer;
+
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
+
     public function saveMiss(Request $request){
 
         $user_id = Auth::user()->id;

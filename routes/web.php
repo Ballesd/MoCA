@@ -54,6 +54,14 @@ Route::middleware([
     ->middleware('auth')
     ->name('Moca.uploadclock');
 
+    Route::post('/moca/uploadIdentification', [MocaController::class, 'uploadIdentification'])
+    ->middleware('auth')
+    ->name('Moca.uploadIdentification');
+
+    Route::post('/moca/uploadAttention', [MocaController::class, 'uploadAttention'])
+    ->middleware('auth')
+    ->name('Moca.uploadAttention');
+
     Route::post('/moca/savemis', [MocaController::class, 'saveMiss'])
     ->middleware('auth')
     ->name('Moca.savemis');
