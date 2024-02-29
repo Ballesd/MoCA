@@ -1,28 +1,27 @@
 <template>
     <AppLayout title="Dashboard">
         <template #header>
-            <h2 class="grid justify-items-center mt-4 font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-center mt-8 mb-4 font-semibold text-xl text-gray-800 leading-tight">
                 Resultados del test de MoCA
             </h2>
         </template>
-        <div v-if="errorPoint" class="flex justify-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <div v-if="errorPoint" class="mx-4 md:mx-0 flex justify-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
             <strong class="font-bold">Error: </strong>
             <span class="block sm:inline">{{ errorMessage }}</span>
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" @click="closeError">
-                <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <title>Close</title>
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                <svg class="fill-current h-6 w-6 text-red-500" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                 </svg>
             </span>
         </div>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 md:p-8">
                     <div class="mt-4">
                         <InputLabel for="text" value="Busca a la persona por la cédula" />
                         <input
-                            class="input-field bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                             id="search"
                             type="text"
                             v-model="identification"
@@ -31,7 +30,7 @@
                             autofocus
                         />
                     </div>
-                    <div class="flex justify-center items-center justify-end mt-4">
+                    <div class="flex justify-center items-center mt-6">
                         <PrimaryButton @click="search">
                             Buscar
                         </PrimaryButton>
@@ -46,19 +45,26 @@
                                     <th class="px-4 py-2 bg-blue-900 text-white">Cédula</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="bg-white divide-y divide-gray-200">
                                 <tr>
-                                    <td class="border px-4 py-2">{{ users.name }} {{ users.lastname }}</td>
-                                    <td class="border px-4 py-2">{{ users.email }}</td>
-                                    <td class="border px-4 py-2">{{ users.identification }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ users.name }} {{ users.lastname }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ users.email }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ users.identification }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div v-if="values" class="mt-4">
-                        <h2 class="grid justify-items-center mt-4 text-2xl font-semibold">{{ resultMoca }}</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div v-if="values" class="mt-8">
+                        <h2 class="text-center text-2xl font-semibold">{{ resultMoca }}</h2>
+                        {{ moca.created_at }} and {{ moca.updated_at }}
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <div class="flex items-center">
                                     <label class="mr-2">Identificación:</label>
@@ -98,9 +104,9 @@
                                     <label class="mr-2">Total:</label>
                                     <span>{{ moca.total }}</span>
                                 </div>
-                                <div class="mt-4">
+                                <div class="mt-6">
                                     <h3 class="text-lg font-semibold">Imágenes para calificar</h3>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                                         <div>
                                             <label class="mr-2">Alternancia conceptual: {{ moca.ConceptualAlternative }}</label>
                                             <img :src="url_conceptual_alternative" alt="" class="w-full h-auto">
@@ -115,20 +121,69 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="grid justify-items-center mt-4">
+                                <div class="flex justify-center mt-6">
                                     <PrimaryButton @click="updateState=true">
                                         Calificar
                                     </PrimaryButton>
                                 </div>
                             </div>
                         </div>
-                        <div v-if="updateState" class="mt-4">
+
+                        <div v-if="updateState" class="mt-8 px-4 md:px-0">
+                            <h2 class="text-center text-2xl font-semibold mb-6">Respuestas</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Identificación</h3>
+                                        <p>{{ moca.identification_answer }}</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Atención</h3>
+                                        <p>{{ moca.attention_answer }}</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Lenguaje</h3>
+                                        <p>{{ moca.language_answer }}</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Fluidez verbal</h3>
+                                        <p>{{ moca.verbal_fluency_answer }}</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Abstracción</h3>
+                                        <p>{{ moca.abstraction_answer }}</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Recuerdo diferido</h3>
+                                        <p>{{ moca.deferred_recall_answer }}</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold text-lg">Orientación</h3>
+                                        <p>{{ moca.orientation_answer }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="updateState" class="mt-8">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <div class="flex items-center">
                                         <InputLabel for="conceptualalternative" value="Alternancia conceptual:" />
                                         <select
-                                            class="input-field"
+                                            class="form-select mt-1 block w-full"
                                             id="ConceptualAlternative"
                                             v-model="data.ConceptualAlternative"
                                             required
@@ -140,7 +195,7 @@
                                     <div class="flex items-center mt-4">
                                         <InputLabel for="cube" value="Cube:" />
                                         <select
-                                            class="input-field"
+                                            class="form-select mt-1 block w-full"
                                             id="cube"
                                             v-model="data.cube"
                                             required
@@ -154,7 +209,7 @@
                                     <div class="flex items-center">
                                         <InputLabel for="clock" value="Reloj:" />
                                         <select
-                                            class="input-field"
+                                            class="form-select mt-1 block w-full"
                                             id="clock"
                                             v-model="data.clock"
                                             required
@@ -165,7 +220,7 @@
                                             <option value="3">3</option>
                                         </select>
                                     </div>
-                                    <div class="mt-4">
+                                    <div class="flex justify-center mt-6">
                                         <PrimaryButton @click="calificar">
                                             Guardar
                                         </PrimaryButton>
@@ -179,6 +234,7 @@
         </div>
     </AppLayout>
 </template>
+
 
 <script setup>
     import { ref } from 'vue';

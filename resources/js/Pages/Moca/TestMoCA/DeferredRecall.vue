@@ -200,6 +200,14 @@ import axios from "axios";
                         'Content-Type': 'multipart/form-data',
                     },
                 });
+                const answer = {
+                    deferred_recall_answer: this.rememberedWords,
+                };
+                //'/moca/uploadDelayedRecall'
+                axios.post('/moca/uploadDelayedRecall', answer)
+                .catch(error => {
+                    console.log(error);
+                });
                 console.log("respuesta deferred call para la prueba",response);
                 this.$emit("answer-score", this.score_permanent);
             },

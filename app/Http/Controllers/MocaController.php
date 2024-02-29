@@ -127,6 +127,71 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
+    public function uploadLanguage(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->language_answer = $request->language_answer;
+
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
+
+    public function uploadVerbalFluency(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->verbal_fluency_answer = $request->verbal_fluency_answer;
+
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
+
+    public function uploadAbstraction(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->abstraction_answer = $request->abstraction_answer;
+
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
+
+    public function uploadDeferredRecall(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->deferred_recall_answer = $request->deferred_recall_answer;
+
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
+
+    public function uploadOrientation(Request $request){
+
+        $user_id = Auth::user()->id;
+
+        $moca = Moca::where('user_id', $user_id)->first();
+
+        $moca->orientation_answer = $request->orientation_answer;
+
+        $moca->save();
+
+        return 'se guardo con exito';
+    }
+
     public function saveMiss(Request $request){
 
         $user_id = Auth::user()->id;
@@ -160,27 +225,7 @@ class MocaController extends Controller
 
         return 'se guardo con exito';
     }
-        //create a new moca object and save it to the database just with this image
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Moca $moca)
     {
         //
@@ -197,16 +242,4 @@ class MocaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Moca $moca)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Moca $moca)
-    {
-        //
-    }
 }

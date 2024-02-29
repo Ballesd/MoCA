@@ -60,7 +60,27 @@ Route::middleware([
 
     Route::post('/moca/uploadAttention', [MocaController::class, 'uploadAttention'])
     ->middleware('auth')
-    ->name('Moca.uploadAttention');
+    ->name('Moca.uploadAttention'); 
+
+    Route::post('/moca/uploadLanguage', [MocaController::class, 'uploadLanguage'])
+    ->middleware('auth')
+    ->name('Moca.uploadLanguage');
+
+    Route::post('/moca/uploadVerbalFluency', [MocaController::class, 'uploadVerbalFluency'])
+    ->middleware('auth')
+    ->name('Moca.uploadVerbalFluency');
+
+    Route::post('/moca/uploadAbstraction', [MocaController::class, 'uploadAbstraction'])
+    ->middleware('auth')
+    ->name('Moca.uploadAbstraction');
+
+    Route::post('/moca/uploadDelayedRecall', [MocaController::class, 'uploadDeferredRecall'])
+    ->middleware('auth')
+    ->name('Moca.uploadDeferredRecall');
+
+    Route::post('/moca/uploadOrientation', [MocaController::class, 'uploadOrientation'])
+    ->middleware('auth')
+    ->name('Moca.uploadOrientation');
 
     Route::post('/moca/savemis', [MocaController::class, 'saveMiss'])
     ->middleware('auth')

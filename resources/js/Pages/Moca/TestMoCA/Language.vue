@@ -21,6 +21,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, defineProps } from 'vue';
+import axios from 'axios';
 
 const { sendNumber } = defineProps(['sendNumber']); 
 
@@ -137,7 +138,10 @@ const speachSecond = () => {
 }
 
 const evaluar = () => {
-  // Aquí va la lógica para evaluar las respuestas
+  const answer = {
+    language_answer : transcript1.value + ", " + transcript2.value
+  }
+
   if(transcript1.value === phrase1.value){
     result.value += 1
   }
@@ -148,6 +152,11 @@ const evaluar = () => {
     result.value = 2
   }
   console.log("resultado total",result.value);
+  //'/moca/uploadLanguage'
+  axios.post('/moca/uploadLanguage', answer)
+  .catch(error => {
+    console.log(error);
+  });
   sendNumber(result.value);
 }
 

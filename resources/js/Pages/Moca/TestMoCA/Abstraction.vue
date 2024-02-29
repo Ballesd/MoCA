@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -110,7 +111,16 @@ export default {
 
       this.puntuacionTotal = puntuacionTotal;
 
-      // Mostrar la puntuación total en la consola
+      const answer = {
+        abstraction_answer: this.respuestaPregunta1 + ", " + this.respuestaPregunta2 + ", " + this.respuestaPregunta3,
+      };
+      //'/moca/uploadAbstraction'
+      axios.post('/moca/uploadAbstraction', answer)
+        .catch(error => {
+          console.log(error);
+        });
+      
+
       console.log("Puntuación Total:", this.puntuacionTotal);
       this.$emit("answer-score", this.puntuacionTotal);
     },

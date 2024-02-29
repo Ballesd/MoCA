@@ -14,6 +14,7 @@
 <script setup>
 
 import { ref, onMounted, onBeforeUnmount, defineProps } from 'vue'
+import axios from 'axios';
 
 const { sendNumber } = defineProps(['sendNumber']); 
 
@@ -106,6 +107,14 @@ let timerId // Variable para el contador regresivo
     if(result.value >= 11){
         score.value = 1
     }
+    const answer = {
+      verbal_fluency_answer: wordsVec.value,
+    }
+    //'/moca/uploadVerbalFluency'
+    axios.post('/moca/uploadVerbalFluency', answer)
+    .catch(error => {
+      console.log(error)
+    })
     sendNumber(score.value);
   }
   

@@ -40,6 +40,7 @@
 </template>
   
 <script>
+import axios from 'axios';
   export default {
     data() {
       return {
@@ -120,6 +121,14 @@
         this.puntosLocalidad = puntosLocalidad;
         this.resultadoTotal = resultadoTotal;
 
+        const answer ={
+          orientation_answer: this.fecha + ", " + this.mes + ", " + this.año + ", " + this.diaSemana + ", " + this.lugar + ", " + this.localidad
+        }
+        //'/moca/uploadOrientation'
+        axios.post('/moca/uploadOrientation', answer)
+          .catch(error => {
+            console.log(error);
+          });
         this.$emit("answer-score", this.resultadoTotal);
   
         // Muestra los puntos en la consola.
