@@ -107,8 +107,13 @@ let timerId // Variable para el contador regresivo
     if(result.value >= 11){
         score.value = 1
     }
+
+
+    //recorremos el array de palabras y las guardamos en un string
+    const wordsString = words.join(', ')
+
     const answer = {
-      verbal_fluency_answer: wordsVec.value,
+      verbal_fluency_answer: wordsString
     }
     //'/moca/uploadVerbalFluency'
     axios.post('/moca/uploadVerbalFluency', answer)

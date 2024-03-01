@@ -200,14 +200,18 @@ import axios from "axios";
                         'Content-Type': 'multipart/form-data',
                     },
                 });
+
+                const wordsString = this.rememberedWords.join(', ');
                 const answer = {
-                    deferred_recall_answer: this.rememberedWords,
+                    deferred_recall_answer: wordsString
                 };
+
                 //'/moca/uploadDelayedRecall'
-                axios.post('/moca/uploadDelayedRecall', answer)
+                await axios.post('/moca/uploadDelayedRecall', answer)
                 .catch(error => {
                     console.log(error);
                 });
+
                 console.log("respuesta deferred call para la prueba",response);
                 this.$emit("answer-score", this.score_permanent);
             },

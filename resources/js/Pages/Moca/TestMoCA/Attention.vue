@@ -242,7 +242,7 @@ const restNumber = () => {
             totalScore.value += 1 + scoreNumbers.value + scoreInverse.value + scoreStrike.value;
         }
         const answer = {
-            attention_answer: 'Respuesta números: ' + answerOrder.value + ' Respuesta inversa: ' + answerInverse.value + ' Golpes por A: ' + countCorrectStrake.value + ' Resta de 7 en 7: ' + valueRestLog.value
+            attention_answer: 'Respuesta números: ' + answerOrder.value + '.' + ' - Respuesta inversa: ' + answerInverse.value + '.' + ' - Golpes por A: ' + countCorrectStrake.value + '.' + ' - Resta de 7 en 7: ' + valueRestLog.value
         }
 
         //send answer uploadAttention '/moca/uploadAttention'

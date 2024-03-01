@@ -63,7 +63,7 @@
 
                     <div v-if="values" class="mt-8">
                         <h2 class="text-center text-2xl font-semibold">{{ resultMoca }}</h2>
-                        {{ moca.created_at }} and {{ moca.updated_at }}
+                        Inicio la prueba: {{ moca.created_at }}  -- Termino la prueba: {{ moca.updated_at }}
                         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <div class="flex items-center">
@@ -180,10 +180,10 @@
                         <div v-if="updateState" class="mt-8">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <div class="flex items-center">
+                                    <div class="flex items-center mb-4">
                                         <InputLabel for="conceptualalternative" value="Alternancia conceptual:" />
                                         <select
-                                            class="form-select mt-1 block w-full"
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             id="ConceptualAlternative"
                                             v-model="data.ConceptualAlternative"
                                             required
@@ -192,10 +192,10 @@
                                             <option value="1">1</option>
                                         </select>
                                     </div>
-                                    <div class="flex items-center mt-4">
+                                    <div class="flex items-center mb-4">
                                         <InputLabel for="cube" value="Cube:" />
                                         <select
-                                            class="form-select mt-1 block w-full"
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             id="cube"
                                             v-model="data.cube"
                                             required
@@ -204,12 +204,10 @@
                                             <option value="1">1</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="flex items-center">
+                                    <div class="flex items-center mb-4">
                                         <InputLabel for="clock" value="Reloj:" />
                                         <select
-                                            class="form-select mt-1 block w-full"
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             id="clock"
                                             v-model="data.clock"
                                             required
@@ -220,14 +218,119 @@
                                             <option value="3">3</option>
                                         </select>
                                     </div>
-                                    <div class="flex justify-center mt-6">
-                                        <PrimaryButton @click="calificar">
-                                            Guardar
-                                        </PrimaryButton>
+                                    <div class="flex items-center mb-4">
+                                        <InputLabel for="identification" value="Identificación:" />
+                                        <select
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            id="identification"
+                                            v-model="data.identification"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center mb-4">
+                                        <InputLabel for="attention" value="Atención:" />
+                                        <select
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            id="attention"
+                                            v-model="data.attention"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex items-center mb-4">
+                                        <InputLabel for="language" value="Lenguaje:" />
+                                        <select
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            id="language"
+                                            v-model="data.language"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center mb-4">
+                                        <InputLabel for="verbal_fluency" value="Fluidez verbal:" />
+                                        <select
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            id="verbal_fluency"
+                                            v-model="data.verbal_fluency"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center mb-4">
+                                        <InputLabel for="abstraction" value="Abstracción:" />
+                                        <select
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            id="abstraction"
+                                            v-model="data.abstraction"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center mb-4">
+                                        <InputLabel for="deferred_recall" value="Recuerdo diferido:" />
+                                        <select
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            id="deferred_recall"
+                                            v-model="data.deferred_recall"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center mb-4">
+                                        <InputLabel for="orientation" value="Orientación:" />
+                                        <select
+                                            class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                            id="orientation"
+                                            v-model="data.orientation"
+                                            required
+                                        >
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="flex justify-center mt-6">
+                                <PrimaryButton @click="calificar">
+                                    Guardar
+                                </PrimaryButton>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -262,6 +365,13 @@
         ConceptualAlternative: '',
         cube: '',
         clock: '',
+        identification: '',
+        attention: '',
+        language: '',
+        verbal_fluency: '',
+        abstraction: '',
+        deferred_recall: '',
+        orientation: '',
     });
 
 

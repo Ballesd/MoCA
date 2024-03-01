@@ -139,7 +139,7 @@ const speachSecond = () => {
 
 const evaluar = () => {
   const answer = {
-    language_answer : transcript1.value + ", " + transcript2.value
+    language_answer : 'Frase 1: ' + transcript1.value + ", " + 'Frase 2: ' + transcript2.value
   }
 
   if(transcript1.value === phrase1.value){

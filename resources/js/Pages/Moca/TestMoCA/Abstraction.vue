@@ -112,7 +112,7 @@ export default {
       this.puntuacionTotal = puntuacionTotal;
 
       const answer = {
-        abstraction_answer: this.respuestaPregunta1 + ", " + this.respuestaPregunta2 + ", " + this.respuestaPregunta3,
+        abstraction_answer: 'naranja/plátano: ' + this.respuestaPregunta1 + ", " + ' -tren/bicicleta: ' + this.respuestaPregunta2 + ", " + ' -regla/reloj: ' + this.respuestaPregunta3,
       };
       //'/moca/uploadAbstraction'
       axios.post('/moca/uploadAbstraction', answer)
