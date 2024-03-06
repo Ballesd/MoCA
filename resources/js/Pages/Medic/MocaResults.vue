@@ -63,7 +63,26 @@
 
                     <div v-if="values" class="mt-8">
                         <h2 class="text-center text-2xl font-semibold">{{ resultMoca }}</h2>
-                        Inicio la prueba: {{ moca.created_at }}  -- Termino la prueba: {{ moca.updated_at }}
+                        <div class="text-lg font-semibold p-4 bg-gray-100 rounded-lg shadow">
+                            <p class="mb-2">
+                                Inicio de prueba: <span class="font-normal">{{ date_start }}</span>
+                            </p>
+                            <p>
+                                Fin de la prueba: <span class="font-normal">{{ date_end }}</span>
+                            </p>
+
+                            <div v-if= "users.schooling === 0" >
+                                <p class="mt-4">
+                                    No tiene punto extra sobre el nivel de escolaridad.
+                                </p>
+                            </div>
+                            <div v-else-if= "users.schooling === 1" >
+                                <p class="mt-4">
+                                    Tiene un punto extra sobre el nivel de escolaridad +1.
+                                </p>
+                            </div>
+                        </div>
+
                         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <div class="flex items-center">
@@ -102,7 +121,7 @@
                                 </div>
                                 <div class="flex items-center">
                                     <label class="mr-2">Total:</label>
-                                    <span>{{ moca.total }}</span>
+                                    <span>{{ moca.total }} + {{ users.schooling }} </span> 
                                 </div>
                                 <div class="mt-6">
                                     <h3 class="text-lg font-semibold">Imágenes para calificar</h3>
@@ -165,7 +184,9 @@
                                 <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
                                     <div>
                                         <h3 class="font-semibold text-lg">Recuerdo diferido</h3>
-                                        <p>{{ moca.deferred_recall_answer }}</p>
+                                        <p class="break-words overflow-auto text-sm md:text-base">
+                                            {{ moca.deferred_recall_answer }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
@@ -181,7 +202,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <div class="flex items-center mb-4">
-                                        <InputLabel for="conceptualalternative" value="Alternancia conceptual:" />
+                                        <InputLabel for="conceptualalternative" value="Alternancia conceptual:"  />
                                         <select
                                             class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                             id="ConceptualAlternative"
@@ -348,12 +369,41 @@
     import { useForm } from '@inertiajs/vue3';
 
     // Define a reactive variable to store the fetched data
-    const moca = ref();
+    const moca = ref({
+        identification: '',
+        memory: '',
+        attention: '',
+        language: '',
+        verbal_fluency: '',
+        abstraction: '',
+        deferred_recall: '',
+        orientation: '',
+        total: '',
+        created_at: '',
+        updated_at: '',
+        image_conceptual_alternative: '',
+        image_cube: '',
+        image_clock: '',
+        ConceptualAlternative: '',
+        cube: '',
+        clock: '',
+        identification_answer: '',
+        attention_answer: '',
+        language_answer: '',
+        verbal_fluency_answer: '',
+        abstraction_answer: '',
+        deferred_recall_answer: '',
+        orientation_answer: '',
+        mis: '',
+    });
+
     const url_conceptual_alternative = ref('');
     const url_cube = ref('');
     const url_clock = ref('');
     const identification = ref('');
     const users = ref();
+    const date_start = ref('');
+    const date_end = ref('');
     const updateState = ref(false);
     const resultMoca = ref('');
     const values = ref(false);
@@ -365,7 +415,7 @@
         ConceptualAlternative: '',
         cube: '',
         clock: '',
-        identification: '',
+        identification:  '',
         attention: '',
         language: '',
         verbal_fluency: '',
@@ -395,7 +445,13 @@
                 }
                 else{
                     moca.value = response.data.moca;
+
+                    //transromamos el datetime a un formato mas legible
+                    date_start.value = new Date(moca.value.created_at).toLocaleString();
+                    date_end.value = new Date(moca.value.updated_at).toLocaleString();
+
                     users.value = response.data.user;
+                    console.log("users", users.value);
                     values.value = true;
 
                     //sacamos los la ruta del storage remplezando el primer tramo "public" por "storage" y añadimos al principio "/"
@@ -409,13 +465,51 @@
     };
     const calificar = async () => {
         data.user_id = users.value.id;
-        console.log("data", data);
         
+        if(data.ConceptualAlternative === ''){
+            data.ConceptualAlternative = moca.value.ConceptualAlternative;
+        }
+        if(data.cube === ''){
+            data.cube = moca.value.cube;
+        }
+        if(data.clock === ''){
+            data.clock = moca.value.clock;
+        }
+        if(data.identification === ''){
+            data.identification = moca.value.identification;
+        }
+        if(data.attention === ''){
+            data.attention = moca.value.attention;
+        }
+        if(data.language === ''){
+            data.language = moca.value.language;
+        }
+        if(data.verbal_fluency === ''){
+            data.verbal_fluency = moca.value.verbal_fluency;
+        }
+        if(data.abstraction === ''){
+            data.abstraction = moca.value.abstraction;
+        }
+        if(data.deferred_recall === ''){
+            data.deferred_recall = moca.value.deferred_recall;
+        }
+        if(data.orientation === ''){
+            data.orientation = moca.value.orientation;
+        }
+        console.log("data", data);
+
         const response = await axios.put(`/medic/editMoca`, {
             user_id: data.user_id,
             ConceptualAlternative: data.ConceptualAlternative,
             cube: data.cube,
             clock: data.clock,
+            identification: data.identification,
+            attention: data.attention,
+            language: data.language,
+            verbal_fluency: data.verbal_fluency,
+            abstraction: data.abstraction,
+            deferred_recall: data.deferred_recall,
+            orientation: data.orientation,
         });
 
         console.log("respuesta en calificar", response.data);
@@ -424,6 +518,7 @@
             updateState.value = false;
             search();
         }
+
 
     };
 

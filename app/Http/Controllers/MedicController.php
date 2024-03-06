@@ -59,12 +59,20 @@ class MedicController extends Controller
 
     public function editMoca(Request $request)
     {
+
         $moca = Moca::where('user_id', $request->user_id)->first();
         $moca->ConceptualAlternative = $request->ConceptualAlternative;
         $moca->cube = $request->cube;
         $moca->clock = $request->clock;
+        $moca->identification = $request->identification;
+        $moca->language = $request->language;
+        $moca->abstraction = $request->abstraction;
+        $moca->attention = $request->attention;
+        $moca->verbal_fluency = $request->verbal_fluency;
+        $moca->deferred_recall = $request->deferred_recall;
+        $moca->orientation = $request->orientation;
 
-        $moca->total = $moca->total + $request->ConceptualAlternative + $request->cube + $request->clock;
+        $moca->total = $moca->cube + $moca->clock + $moca->identification + $moca->language + $moca->abstraction + $moca->attention + $moca->verbal_fluency + $moca->deferred_recall + $moca->orientation + $moca->ConceptualAlternative;
         
         $moca->save();
         return $moca;

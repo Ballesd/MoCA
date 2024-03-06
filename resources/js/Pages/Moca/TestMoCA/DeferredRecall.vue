@@ -108,6 +108,7 @@ import axios from "axios";
                 rememberedWords: [],
                 score: 0, // puntuación del tercer intento
                 score_permanent: 0,
+                comulative_answer: [],
                 answer: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"], // Respuesta predefinida
             };
         },
@@ -128,15 +129,20 @@ import axios from "axios";
             },
             vectorAnswer(saveAnswer){
                 let correctCount = 0;
+                // Mantén un registro temporal de respuestas correctas para este intento
+                let tempCorrectAnswers = [];
                 for (let i = 0; i < this.rememberedWords.length; i++) {
-                    //preguntamos si la palabra se encunetra en el vector de respuestas
                     if(this.answer.includes(this.rememberedWords[i])){
                         correctCount++;
-                        saveAnswer.push(this.rememberedWords[i]);
+                        tempCorrectAnswers.push(this.rememberedWords[i]);
                     }
                 }
+
+                // Actualiza los arrays y estados solo con respuestas correctas
+                saveAnswer.push(...tempCorrectAnswers);
                 return correctCount;
             },
+
             Deletetrakwords(){
                 for (let i = 0; i < this.goodanswer1.length; i++) {
                     delete this.trakwords[this.goodanswer1[i]];
@@ -151,6 +157,7 @@ import axios from "axios";
                 }
             },
             recordAttempt() {
+                this.comulative_answer.push(...this.rememberedWords);
                 if( !this.track && !this.selectTest){
                     const goodanswer = this.vectorAnswer(this.goodanswer1);
                     this.score = goodanswer * 3;
@@ -167,6 +174,7 @@ import axios from "axios";
                 }
             },
             recordAttemptTrack(){
+                this.comulative_answer.push(...this.rememberedWords);
                 const goodanswer = (this.vectorAnswer(this.goodanswer2));
                 this.score += goodanswer * 2;
                 this.score_permanent += goodanswer;
@@ -180,6 +188,7 @@ import axios from "axios";
                 }
             },
             recordAttemptSelect(){
+                this.comulative_answer.push(...this.rememberedWords);
                 const goodanswer = (this.vectorAnswer(this.goodanswer2));
                 this.score += goodanswer;
                 this.score_permanent += goodanswer;
@@ -201,7 +210,7 @@ import axios from "axios";
                     },
                 });
 
-                const wordsString = this.rememberedWords.join(', ');
+                const wordsString = this.comulative_answer.join(',');
                 const answer = {
                     deferred_recall_answer: wordsString
                 };

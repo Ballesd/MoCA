@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string("lastname")->nullable();
             $table->string("identification")->nullable()->unique();
+            $table->string('email')->unique();
+            $table->boolean('schooling')->nullable()->default(false);
             $table->date("birthdate")->nullable();
             $table->string("birthday_place")->nullable();
             #M masculine F feminine
@@ -25,7 +27,6 @@ return new class extends Migration
             $table->string("phone")->nullable();
             $table->string("civil_status")->nullable();            
 
-            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('rol')->default('user');  

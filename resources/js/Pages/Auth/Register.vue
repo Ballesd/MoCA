@@ -14,6 +14,7 @@ const form = useForm({
     lastname: '',
     identification: '',
     birthdate: '',
+    schooling: '',
     birthday_place: '',
     sex: '',
     address: '',
@@ -129,6 +130,17 @@ const submit = () => {
                     autocomplete="new-password"
                 />
                 <InputError class="mt-2" :message="form.errors.birthdate" />
+            </div>
+
+            <!--schooling-->
+            <div class="mt-4">
+                <InputLabel for="schooling" value="¿Su nivel de escolaridad es menor o igual a 12 años?:" />
+                <select id="schooling" v-model="form.schooling" class="mt-1 block
+                w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="0">No, tengo más de 12 años de estudio.</option>
+                    <option value="1">Sí, tengo menos de 12 años o igual.</option>
+                </select>
+                <InputError class="mt-2" :message="form.errors.schooling" />
             </div>
 
             <div class="mt-4">
