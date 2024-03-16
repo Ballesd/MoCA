@@ -3,18 +3,16 @@
     <div class="mb-8 text-center">
       <h2 class="text-2xl font-semibold">7. Repetición de frases</h2>
     </div>
-    <!-- Contenido de tu componente -->
+
     <div v-if="firstaudio">
       <button :class="`mic bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md`" @click="ToggleMic1">{{ isRecording1 ? 'Detener' : '1° Frase' }}</button>
     </div>
     <div class="mt-4" v-text="transcript1"></div>
 
-    <!-- Segundo área para el resultado de voz -->
     <div v-if="secondaudio">
       <button :class="`mic bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md`" @click="ToggleMic2">{{ isRecording2 ? 'Detener' : '2° Frase' }}</button>
     </div>
     <div class="mt-4" v-text="transcript2"></div>
-    <!--Si transcript1 y transcript2 tienen valores mostramos el botón de evaluar resuktados-->
     <button v-if="transcript1 && transcript2" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md mt-4" @click="evaluar">Evaluar</button>
   </div>
 </template>
@@ -26,9 +24,11 @@ import axios from 'axios';
 const { sendNumber } = defineProps(['sendNumber']); 
 
 const transcript1 = ref('');
+//Solo sé que le toca a Juan ayudar hoy
+//El gato siempre se esconde debajo del sofá cuando hay perros en la habitación
 const result = ref(0);
-const phrase1 = ref('Solo sé que le toca a Juan ayudar hoy.');
-const phrase2 = ref('El gato siempre se esconde debajo del sofá cuando hay perros en la habitación.');
+const phrase1 = ref(' El gato se esconde bajo el sofá cuando los perros entran en la sala.');
+const phrase2 = ref('Espero que él le entregue el mensaje una vez que ella se lo pida.');
 const transcript2 = ref('');
 const isRecording1 = ref(false);
 const isRecording2 = ref(false);
@@ -105,13 +105,13 @@ const speachIntroduction = () => {
   const text1 = "Ahora le voy a leer una frase. Dele clic al botón y repítala. Cuando termine de repetirla, dele click al botón nuevamente para detener la grabación. La frase es: "
   const synthesis = window.speechSynthesis;
   const utterance = new SpeechSynthesisUtterance(text1);
-  utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+  utterance.rate = 0.6;
   synthesis.speak(utterance);
 
-  const text2 = "Solo sé que le toca a Juan ayudar hoy";
+  const text2 = "El gato se esconde bajo el sofá cuando los perros entran en la sala.";
   const synthesis1 = window.speechSynthesis;
   const utterance1 = new SpeechSynthesisUtterance(text2);
-  utterance1.rate = 0.5; // Ajusta este valor para cambiar la velocidad
+  utterance1.rate = 0.5;
   synthesis1.speak(utterance1);
 
   utterance1.onend = () => {
@@ -123,13 +123,13 @@ const speachSecond = () => {
   const text1 = "Ahora le voy a leer otra frase. Dele clic al botón y repítala. Cuando termine de repetirla, dele click al botón nuevamente para detener la grabación. La frase es: "
   const synthesis = window.speechSynthesis;
   const utterance = new SpeechSynthesisUtterance(text1);
-  utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+  utterance.rate = 0.6; 
   synthesis.speak(utterance);
 
-  const text2 = "El gato siempre se esconde debajo del sofá cuando hay perros en la habitación.";
+  const text2 = "Espero que él le entregue el mensaje una vez que ella se lo pida.";
   const synthesis1 = window.speechSynthesis;
   const utterance1 = new SpeechSynthesisUtterance(text2);
-  utterance1.rate = 0.5; // Ajusta este valor para cambiar la velocidad
+  utterance1.rate = 0.5; 
   synthesis1.speak(utterance1);
 
   utterance1.onend = () => {
@@ -168,7 +168,7 @@ const ToggleMic1 = () => {
   } else {
     setTimeout(() => {
       sr1.start()
-    }, 500); // Espera 500 milisegundos antes de iniciar la grabación
+    }, 500);
   }
 }
 
@@ -179,7 +179,7 @@ const ToggleMic2 = () => {
   } else {
     setTimeout(() => {
       sr2.start()
-    }, 500); // Espera 500 milisegundos antes de iniciar la grabación
+    }, 500);
   }
 }
 

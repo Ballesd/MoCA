@@ -3,7 +3,6 @@
         <div class="mb-8 text-center">
             <h2 class="text-2xl font-semibold">8. Fluidez verbal</h2>
         </div>
-        <!-- Contenido de tu componente -->
         <button v-if="resultState" :class="`mic bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md`" @click="startRecording" :disabled="isRecording || timeLeft === 0">{{ isRecording ? `${timeLeft} s` : 'Comenzar' }}</button>
         <div v-if="resultState" class="mt-4" v-text="transcript"></div>
         <button v-if="timeLeft === 0" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md mt-4" @click="evaluar">Evaluar</button>
@@ -23,13 +22,13 @@ const wordsVec = ref([])
 const result = ref(0)
 const resultState = ref(true)
 const isRecording = ref(false)
-const timeLeft = ref(60) // Inicializar el tiempo en 60 segundos
+const timeLeft = ref(60)
 const score = ref(0)
 
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition
 const sr = new Recognition()
 
-let timerId // Variable para el contador regresivo
+let timerId 
 
   const startRecording = () => {
     if (!isRecording.value && timeLeft.value > 0) {
@@ -50,17 +49,17 @@ let timerId // Variable para el contador regresivo
   const countDown = () => {
     if (timeLeft.value > 0) {
       timeLeft.value--
-      timerId = setTimeout(countDown, 1000) // Actualizar el contador cada segundo
+      timerId = setTimeout(countDown, 1000)
     } else {
       stopRecording()
     }
   }
 
   const speachIntroduction = () => {
-    const text1 = "Para la prueba de fluidez verbal, necesitaremos que diga el mayor número de palabras posibles que comiencen por la letra F. No se permiten nombres, números y las formas conjugadas de un verbo. ¿Está preparado? Cuando se sienta preparado, pulse el botón de comenzar."
+    const text1 = "Para la prueba de fluidez verbal, necesitaremos que diga el mayor número de palabras posibles que comiencen por la letra P. No se permiten nombres, números y las formas conjugadas de un verbo. ¿Está preparado? Cuando se sienta preparado, pulse el botón de comenzar."
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
-    utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+    utterance.rate = 0.6;
     synthesis.speak(utterance);
 }
   
@@ -85,7 +84,7 @@ let timerId // Variable para el contador regresivo
         if (result.isFinal){
             const words = result[0].transcript.split(' ')
             for (const word of words) {
-                if (word.toLowerCase().startsWith('f')) {
+                if (word.toLowerCase().startsWith('p')) {
                     wordsVec.value.push(word)
                 }
             }
@@ -98,10 +97,8 @@ let timerId // Variable para el contador regresivo
     }
   })
   const evaluar = () => {
-    //Borramos las palabras que se encuentran repetidas
     const words = wordsVec.value.filter((item, index) => wordsVec.value.indexOf(item) === index)
     console.log("words",words)
-    //Contamos las palabras que comienzan con F
     result.value = words.length
     resultState.value = false
     if(result.value >= 11){
@@ -115,7 +112,6 @@ let timerId // Variable para el contador regresivo
     const answer = {
       verbal_fluency_answer: wordsString
     }
-    //'/moca/uploadVerbalFluency'
     axios.post('/moca/uploadVerbalFluency', answer)
     .catch(error => {
       console.log(error)

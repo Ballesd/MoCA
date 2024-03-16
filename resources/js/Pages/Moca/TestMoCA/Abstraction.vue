@@ -8,7 +8,7 @@
       </div>
       <!-- Pregunta 1 -->
       <div class="mb-4">
-        <label class="block text-lg font-medium mb-2">1. "naranja/plátano"</label>
+        <label class="block text-lg font-medium mb-2">1. "manzana-naranja"</label>
         <input
           v-model="respuestaPregunta1"
           @input="calificarPregunta1"
@@ -20,7 +20,7 @@
   
       <!-- Pregunta 2 -->
       <div class="mb-4">
-        <label class="block text-lg font-medium mb-2">2. "tren/bicicleta"</label>
+        <label class="block text-lg font-medium mb-2">2. "tren-bicicleta"</label>
         <input
           v-model="respuestaPregunta2"
           @input="calificarPregunta2"
@@ -32,7 +32,7 @@
   
       <!-- Pregunta 3 -->
       <div class="mb-4">
-        <label class="block text-lg font-medium mb-2">3. "regla/reloj"</label>
+        <label class="block text-lg font-medium mb-2">3. "reloj-regla"</label>
         <input
           v-model="respuestaPregunta3"
           @input="calificarPregunta3"
@@ -42,7 +42,6 @@
         <p class="text-sm text-gray-500 mt-1">Escriba la respuesta y presione Enter para calificar.</p>
       </div>
   
-      <!-- Botón para enviar respuestas -->
       <button @click="calcularPuntuacion" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mt-4">
         Enviar Respuestas
       </button>
@@ -74,7 +73,6 @@ export default {
   },
   methods: {
     calificarPregunta1() {
-      // Comparar la respuesta de la pregunta 1 con la respuesta esperada (sin distinguir tildes ni mayúsculas)
       if (this.normalizeString(this.respuestaPregunta1) === this.normalizeString("frutas")) {
         this.puntuacionPregunta1 = "Correcto";
       } else {
@@ -82,7 +80,6 @@ export default {
       }
     },
     calificarPregunta2() {
-      // Comparar la respuesta de la pregunta 2 con la respuesta esperada (sin distinguir tildes ni mayúsculas)
       if (this.normalizeString(this.respuestaPregunta2) === this.normalizeString("medios de transporte")) {
         this.puntuacionPregunta2 = "Correcto";
       } else {
@@ -90,7 +87,6 @@ export default {
       }
     },
     calificarPregunta3() {
-      // Comparar la respuesta de la pregunta 3 con la respuesta esperada (sin distinguir tildes ni mayúsculas)
       if (this.normalizeString(this.respuestaPregunta3) === this.normalizeString("instrumentos de medición")) {
         this.puntuacionPregunta3 = "Correcto";
       } else {
@@ -98,7 +94,6 @@ export default {
       }
     },
     calcularPuntuacion() {
-      // Calcular la puntuación total
       let puntuacionTotal = 0;
 
       if (this.puntuacionPregunta2 === "Correcto") {
@@ -114,7 +109,6 @@ export default {
       const answer = {
         abstraction_answer: 'naranja/plátano: ' + this.respuestaPregunta1 + ", " + ' -tren/bicicleta: ' + this.respuestaPregunta2 + ", " + ' -regla/reloj: ' + this.respuestaPregunta3,
       };
-      //'/moca/uploadAbstraction'
       axios.post('/moca/uploadAbstraction', answer)
         .catch(error => {
           console.log(error);
@@ -125,7 +119,6 @@ export default {
       this.$emit("answer-score", this.puntuacionTotal);
     },
     normalizeString(str) {
-      // Función para normalizar una cadena eliminando tildes y convirtiendo a minúsculas
       return str
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")

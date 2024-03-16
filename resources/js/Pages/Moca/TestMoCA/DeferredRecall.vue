@@ -85,18 +85,18 @@ import axios from "axios";
     export default {
         data() {
             return {
-                words: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"],
+                words: ["ROSTRO", "SEDA", "IGLESIA", "CLAVEL", "ROJO"],
                 trakwords: {
                     "ROSTRO": "parte del cuerpo",
                     "SEDA": "tipo de tela",
-                    "TEMPLO": "tipo de edificio",
+                    "IGLESIA": "tipo de edificio",
                     "CLAVEL": "tipo de flor",
                     "ROJO": "color"
                 },
                 multiSelection: {
                     "ROSTRO": ["NARIZ","ROSTRO", "MANO" ,"HOMBRO"],
                     "SEDA": ["TELA", "VAQUERA", "SEDA", "ALGODÓN"],
-                    "TEMPLO": ["TEMPLO", "ESCUELA", "HOSPITAL"],
+                    "IGLESIA": ["IGLESIA", "ESCUELA", "HOSPITAL"],
                     "CLAVEL": ["ROSA", "CLAVEL", "TULIPÁN", "GIRASOL"],
                     "ROJO": ["ROJO", "AZUL", "VERDE", "AMARILLO"]      
                 },
@@ -109,7 +109,7 @@ import axios from "axios";
                 score: 0, // puntuación del tercer intento
                 score_permanent: 0,
                 comulative_answer: [],
-                answer: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"], // Respuesta predefinida
+                answer: ["ROSTRO", "SEDA", "IGLESIA", "CLAVEL", "ROJO"], // Respuesta predefinida
             };
         },
         mounted() {

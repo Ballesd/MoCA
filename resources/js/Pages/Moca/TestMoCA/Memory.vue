@@ -44,13 +44,13 @@
   export default {
     data() {
       return {
-        words: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"],
+        words: ["ROSTRO", "SEDA", "IGLESIA", "CLAVEL", "ROJO"],
         showAttempt: false,
         attempt: 1,
         button_band: true,
         maxAttempts: 3,
         rememberedWords: ["", "", "", "", ""],
-        answer: ["ROSTRO", "SEDA", "TEMPLO", "CLAVEL", "ROJO"], // Respuesta predefinida
+        answer: ["ROSTRO", "SEDA", "IGLESIA", "CLAVEL", "ROJO"], 
       };
     },
     methods: {

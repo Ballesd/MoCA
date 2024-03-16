@@ -128,7 +128,6 @@ const totalscoreState = ref(false);
 
 const startNumberTest = () => {
     buttonState.value = true;
-    //activamos la voz y decimos la seri de palabras
     const text1 = "Le voy a leer una serie de números y, cuando haya terminado, deberá escribirlos en el mismo orden en el que yo los he dicho. La primera serie es: 2,  1,  8,  5,  4."
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
@@ -141,7 +140,6 @@ const startNumberTest = () => {
     utterance1.rate = 0.7; // Ajusta este valor para cambiar la velocidad
     synthesis1.speak(utterance1);
 
-    //Ponemos un temporizador de 30 seg para poder cambiar el estado de orderNumber
     setTimeout(() => {
         orderNumber.value = true;
     }, 28000);
