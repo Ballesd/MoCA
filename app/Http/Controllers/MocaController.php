@@ -226,20 +226,4 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function show(Moca $moca)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Moca $moca)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
 }

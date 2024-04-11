@@ -94,7 +94,6 @@ class MedicController extends Controller
 
     public function makeHistiryCLinic(Request $request)
     {
-        //$cardiovascular_events = Cardiovascular_events::create($request->cardiovascular_events);
 
         $cardiovascular_events = new Cardiovascular_events();
         $cardiovascular_events->ischemic_cardiac = $request->cardiovascular_events['ischemic_cardiac'];

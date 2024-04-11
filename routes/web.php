@@ -7,6 +7,7 @@ use App\Http\Controllers\Security\PermissionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MocaController;
 use App\Http\Controllers\MedicController;
+use App\Http\Controllers\ExportExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,7 +136,9 @@ Route::middleware([
     Route::post('/medic/getHistoryClinic', [MedicController::class, 'getHistoryClinic'])
     ->middleware('auth.medic')
     ->name('Medic.getHistoryClinic');
-    
+
+    //-----------------------ExportExcel-------------------------------
+    Route::get('/export', [ExportExcelController::class, 'exportExcel' ])->name('export');
 });
 
 
