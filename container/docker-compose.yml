@@ -1,0 +1,44 @@
+services:
+    backend:
+        container_name: ${COMPOSE_PROJECT_NAME}_backend
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                USER_ID: ${USER_ID:-0}
+                GROUP_ID: ${GROUP_ID:-0}
+                USER_NAME: ${CONTAINER_USER}
+        ports:
+            - "${APACHE_PORT_MAPPING}:80"
+            - "${VITE_PORT_MAPPING}:5173"
+        volumes:
+            - ${PROJECTFOLDER}:/var/www/html/
+        working_dir: /var/www/html/
+        user: ${CONTAINER_USER}
+    # Servicio de mysql
+    db:
+        image: mysql:5.7
+        container_name: ${COMPOSE_PROJECT_NAME}_db
+        volumes:
+            - ${DB_BACKUP_FOLDER}:/var/lib/mysql
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_USER=${DB_USERNAME}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+        restart: unless-stopped
+    # Servicio de phpmyadmin. Se accede a él usando la ruta localhost:puerto
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin
+        links:
+            - db
+        environment:
+            PMA_HOST: db
+            PMA_PORT: 3306
+        ports:
+            - '${PHPMYADMIN_PORT_MAPPING}:80'
+networks:
+    backend:
+        name: ${COMPOSE_PROJECT_NAME}_backend
