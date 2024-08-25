@@ -6,10 +6,12 @@
     <div>
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
-            <h1 class="mt-8 text-2xl font-medium text-gray-900">
-                Test de Moca
+            <h1 class="mt-8 text-title text-5xl font-sans">
+                Bienvenido, 
             </h1>
-
+            <h1 class="mt-8 text-midnight text-5xl font-sans">
+                 nombre del paciente
+            </h1>
             <p class="mt-6 text-gray-500 leading-relaxed">
                 MoCA (Evaluación Cognitiva de Montreal o Prueba MoCA) fue validada como una herramienta altamente sensible para la detección temprana del deterioro cognitivo leve (DCL) en cientos de estudios revisados ​​por pares desde 2000. MoCA ha sido ampliamente adoptado en entornos clínicos y utilizado en ámbitos académicos y investigación no académica en todo el mundo. La sensibilidad del MoCA para detectar DCL es del 90%, en comparación con el 18% del MMSE.
 
@@ -114,5 +116,6 @@ COVID y más
                 </p>
             </div>
         </div>
+        
     </div>
 </template>
