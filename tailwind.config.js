@@ -4,27 +4,27 @@ import typography from '@tailwindcss/typography';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './vendor/laravel/jetstream/**/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        './resources/js/**/*.vue',
-    ],
+    content: ['./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php', './vendor/laravel/jetstream/**/*.blade.php', './storage/framework/views/*.php', './resources/views/**/*.blade.php', './resources/js/**/*.vue'],
 
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Adele Sans', ...defaultTheme.fontFamily.sans]
             },
             colors: {
-                'main': '#6e9bc2',
-                'secondary': '#d8d8d8',
-                'midnight': '#9e9e9e',
-                'title': '#537cbc',
+                primary: '#537CBC',
+                secondary: '#6E9BC2',
+                tertiary: '#A8C6E5',
+                quaternary: '#9E9E9E',
+                quinary: '#D8D8D8',
+                senary: '#F4F4F4'
             },
-        },
+            backgroundImage: {
+                network: "url('../../public/storage/images/network.png')",
+                main: "url('../../public/storage/images/main.png')"
+            }
+        }
     },
 
-    plugins: [forms, typography],
+    plugins: [forms, typography]
 };

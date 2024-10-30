@@ -1,140 +1,125 @@
 <template>
     <AppLayout title="Dashboard">
-        <div class="bg-green-200  min-h-screen flex items-center justify-center">
-            <div class="bg-neutral-300 max-w-xl mx-4 bg-white shadow-lg rounded-lg overflow-hidden sm:rounded-xl sm:shadow-2xl md:max-w-2xl lg:max-w-4xl xl:max-w-5xl sm:mx-auto">
-                <div class="relative">
-                    <transition name="slide-fade" mode="out-in">
-                        <component :sendNumber="receive_number"  @answer-score="receive_number" :is="currentComponent" :key="componentKey" />
-                    </transition>
-                </div>
-                <div class="text-center mt-4">
-                    <button @click="showNext" type="button" class="relative group bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center inline-flex items-center dark:bg-gradient-to-r dark:from-blue-600 dark:to-blue-800 dark:hover:from-blue-700 dark:hover:to-blue-900 dark:focus:ring-blue-800 transition-transform transform-gpu duration-300 ease-in-out">
-                        <svg class="w-6 h-6 ml-2 transition-transform transform-gpu group-hover:translate-x-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                        </svg>
-                    </button>
+        <div v-if="!showEndTest" class="flex flex-col items-center justify-center my-5">
+            <transition name="slide-fade" mode="out-in">
+                <component :sendNumber="receive_number" @answer-score="receive_number" :is="currentComponent" :key="componentKey" />
+            </transition>
+            <ButtonCustom mode="button" @click="showNext" class="mt-16">Siguiente pregunta</ButtonCustom>
+        </div>
+        <div v-else class="flex justify-end mt-24">
+            <div class="w-1/2"></div>
+            <div class="flex flex-col gap-16 w-1/2">
+                <h2 class="text-primary text-5xl font-thin text-end">Usted ha finalizado el test de MoCA</h2>
+                <p class="text-end text-quaternary text-xl">
+                    Ha finalizado. Los resultados serán analizados por el profesional tratante y posteriormente recibirá las recomendaciones derivadas de sus desempeños. ¡Gracias por su participación!. Por favor avísame si se requiere
+                    algo más. Gracias!
+                </p>
+                <div class="flex justify-end">
+                    <LinkCustom :href="route('dashboard')">VOLVER AL INICIO</LinkCustom>
                 </div>
             </div>
         </div>
     </AppLayout>
 </template>
-  
+
 <script setup>
-    import { ref, computed } from 'vue';
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    
-    import ConceptualAlternative from '@/Pages/Moca/TestMoCA/ConceptualAlternative.vue';
-    import Cube from '@/Pages/Moca/TestMoCA/Cube.vue';
-    import Clock from '@/Pages/Moca/TestMoCA/Clock.vue';
-    import Identification from '@/Pages/Moca/TestMoCA/Identification.vue';
-    import Memory from '@/Pages/Moca/TestMoCA/Memory.vue';
-    import Attention from '@/Pages/Moca/TestMoCA/Attention.vue';
-    import Lemgua from '@/Pages/Moca/TestMoCA/Language.vue';
-    import VerbalFluency from '@/Pages/Moca/TestMoCA/Verbalfluency.vue';
-    import Abstraction from '@/Pages/Moca/TestMoCA/Abstraction.vue';
-    import DeferredRecall from '@/Pages/Moca/TestMoCA/DeferredRecall.vue';
-    import Orientation from '@/Pages/Moca/TestMoCA/Orientation.vue';
-    import endTest from '@/Pages/Moca/TestMoCA/EndTest.vue';
-    
-    // Definir un array con los componentes
-    const components = [
-        ConceptualAlternative,
-        Cube,
-        Clock,
-        Identification,
-        Memory,
-        Attention,
-        Lemgua,
-        VerbalFluency,
-        Abstraction,
-        DeferredRecall,
-        Orientation,
-        endTest
-    ];
-    const componentCalification = ref({
-        ConceptualAlternative: 0,
-        Cube: 0,
-        Clock: 0,
-        Identification: 0,
-        Memory: 0,
-        Attention: 0,
-        Lemgua: 0,
-        VerbalFluency: 0,
-        Abstraction: 0,
-        DeferredRecall: 0,
-        Orientation: 0,
-        total: 0
-    });
+import { ref, computed } from 'vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
 
-    const componentVector = ref([
-        "ConceptualAlternative",
-        "Cube",
-        "Clock",
-        "Identification",
-        "Memory",
-        "Attention",
-        "Lemgua",
-        "VerbalFluency",
-        "Abstraction",
-        "DeferredRecall",
-        "Orientation"
-    ]);
+import ConceptualAlternative from '@/Pages/Moca/TestMoCA/ConceptualAlternative.vue';
+import Cube from '@/Pages/Moca/TestMoCA/Cube.vue';
+import Clock from '@/Pages/Moca/TestMoCA/Clock.vue';
+import Identification from '@/Pages/Moca/TestMoCA/Identification.vue';
+import Memory from '@/Pages/Moca/TestMoCA/Memory.vue';
+import Attention from '@/Pages/Moca/TestMoCA/Attention.vue';
+import Lemgua from '@/Pages/Moca/TestMoCA/Language.vue';
+import VerbalFluency from '@/Pages/Moca/TestMoCA/Verbalfluency.vue';
+import Abstraction from '@/Pages/Moca/TestMoCA/Abstraction.vue';
+import DeferredRecall from '@/Pages/Moca/TestMoCA/DeferredRecall.vue';
+import Orientation from '@/Pages/Moca/TestMoCA/Orientation.vue';
+import EndTest from '@/Pages/Moca/TestMoCA/EndTest.vue';
+import ButtonCustom from '@/Components/ButtonCustom.vue';
+import LinkCustom from '@/Components/LinkCustom.vue';
 
-    const total = ref(0);
+// Definir un array con los componentes
+const components = [ConceptualAlternative, Cube, Clock, Identification, Memory, Attention, Lemgua, VerbalFluency, Abstraction, DeferredRecall, Orientation, EndTest];
+const componentCalification = ref({
+    ConceptualAlternative: 0,
+    Cube: 0,
+    Clock: 0,
+    Identification: 0,
+    Memory: 0,
+    Attention: 0,
+    Lemgua: 0,
+    VerbalFluency: 0,
+    Abstraction: 0,
+    DeferredRecall: 0,
+    Orientation: 0,
+    total: 0
+});
 
-    const receive_number = (number) => {
-        console.log("index",currentComponentIndex.value);
-        console.log("vector",componentVector.value[currentComponentIndex.value]);
+const componentVector = ref(['ConceptualAlternative', 'Cube', 'Clock', 'Identification', 'Memory', 'Attention', 'Lemgua', 'VerbalFluency', 'Abstraction', 'DeferredRecall', 'Orientation', 'EndTest']);
 
-        componentCalification.value[componentVector.value[currentComponentIndex.value]] = number;
+const total = ref(0);
 
-        console.log("calificacion",componentCalification.value);
-        // Call the showNext function to display the next component
+const showEndTest = ref(false);
 
-        //Sumamos todas las calificaciones
-        if( number != null){
-            total.value += number;
-            console.log("total value en el if",total.value);
-        }
-        //SI ya ha recorrido todos los componentes
-        if(currentComponentIndex.value == components.length - 2){
-            console.log("ya recorrio todos los componentes")
-            sendCalification();
-        }
-        console.log("total de la pruba MOCA",total.value);
-        showNext();
+const receive_number = (number) => {
+    console.log('index', currentComponentIndex.value);
+    console.log('vector', componentVector.value[currentComponentIndex.value]);
 
-    };
+    componentCalification.value[componentVector.value[currentComponentIndex.value]] = number;
 
-    const sendCalification = async() => {
-        console.log("enviando calificacion",total.value);
-        componentCalification.value.total = total.value;
-        console.log("calificacion",componentCalification.value);
-        const response = await axios.post('/moca/calification', componentCalification.value);
+    console.log('calificacion', componentCalification.value);
+    // Call the showNext function to display the next component
 
-        console.log("respuesta:",response);
-    };
+    //Sumamos todas las calificaciones
+    if (number != null) {
+        total.value += number;
+        console.log('total value en el if', total.value);
+    }
+    //SI ya ha recorrido todos los componentes
+    if (currentComponentIndex.value == components.length - 2) {
+        console.log('ya recorrio todos los componentes');
+        sendCalification();
+    }
+    console.log('total de la pruba MOCA', total.value);
+    showNext();
+};
 
-    const currentComponentIndex = ref(0);
-    
-    const componentKey = ref(0);
-    
-    const currentComponent = computed(() => components[currentComponentIndex.value]);
-    
-    const showNext = () => {
-        if (currentComponentIndex.value < components.length - 1) {
+const sendCalification = async () => {
+    console.log('enviando calificacion', total.value);
+    componentCalification.value.total = total.value;
+    console.log('calificacion', componentCalification.value);
+    const response = await axios.post('/moca/calification', componentCalification.value);
+
+    console.log('respuesta:', response);
+};
+
+const currentComponentIndex = ref(0);
+
+const componentKey = ref(0);
+
+const currentComponent = computed(() => components[currentComponentIndex.value]);
+
+const showNext = () => {
+    if (currentComponentIndex.value < components.length - 1) {
         currentComponentIndex.value++;
         componentKey.value++;
-        }
-    };
+    }
+    if (currentComponentIndex.value == 11) {
+        showEndTest.value = true;
+    }
+};
 </script>
-  
+
 <style scoped>
-  .slide-fade-enter-active, .slide-fade-leave-active {
+.slide-fade-enter-active,
+.slide-fade-leave-active {
     transition: opacity 0.5s;
-  }
-  .slide-fade-enter, .slide-fade-leave-to {
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
     opacity: 0;
-  }
+}
 </style>
-  
