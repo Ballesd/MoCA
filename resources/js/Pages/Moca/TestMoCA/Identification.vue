@@ -12,13 +12,13 @@
                 <div class="bg-tertiary rounded-xl shadow-lg p-5 flex gap-4 relative w-full">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="bg-gray-100 p-4 rounded-lg shadow-md text-center flex flex-col justify-center items-center">
-                            <img class="w-36 h-full object-contain object-center" src="../../../../../public/storage/images/lion.png" alt="Logo" />
+                            <img class="w-36 h-full object-contain object-center" src="../../../../../public/images/lion.png" alt="Logo" />
                         </div>
                         <div class="bg-gray-100 p-4 rounded-lg shadow-md text-center flex flex-col justify-center items-center">
-                            <img class="w-48 h-full object-contain object-center" src="../../../../../public/storage/images/rhino.png" alt="Logo" />
+                            <img class="w-48 h-full object-contain object-center" src="../../../../../public/images/rhino.png" alt="Logo" />
                         </div>
                         <div class="bg-gray-100 p-4 rounded-lg shadow-md text-center flex flex-col justify-center items-center">
-                            <img class="w-36 h-full object-contain object-center" src="../../../../../public/storage/images/camel.png" alt="Logo" />
+                            <img class="w-36 h-full object-contain object-center" src="../../../../../public/images/camel.png" alt="Logo" />
                         </div>
                     </div>
                 </div>

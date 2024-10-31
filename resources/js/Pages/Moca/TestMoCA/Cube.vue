@@ -11,7 +11,7 @@
             <UploadFile :uploadedImage="uploadedImage" />
         </div>
         <div class="p-4 h-64">
-            <img class="w-full h-full" src="../../../../../public/storage/images/cube.png" alt="Logo" />
+            <img class="w-full h-full" src="../../../../../public/images/cube.png" alt="Logo" />
         </div>
     </div>
 </template>

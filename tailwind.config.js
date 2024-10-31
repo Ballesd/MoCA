@@ -20,8 +20,8 @@ export default {
                 senary: '#F4F4F4'
             },
             backgroundImage: {
-                network: "url('../../public/storage/images/network.png')",
-                main: "url('../../public/storage/images/main.png')"
+                network: "url('../../public/images/network.png')",
+                main: "url('../../public/images/main.png')"
             }
         }
     },

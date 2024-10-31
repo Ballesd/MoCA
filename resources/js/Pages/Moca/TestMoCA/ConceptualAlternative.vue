@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center justify-center space-x-12">
         <div class="p-4 h-96">
-            <img class="w-full h-full" src="../../../../../public/storage/images/grafo.gif" alt="Logo" />
+            <img class="w-full h-full" src="../../../../../public/images/grafo.gif" alt="Logo" />
         </div>
         <div class="w-1/2 flex flex-col gap-4">
             <div class="flex justify-center items-center space-x-3">
