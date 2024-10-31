@@ -36,6 +36,5 @@ class UserSeeder extends Seeder
         $user->password = bcrypt('12345678');
         $user->rol = 'medic';
         $user->save();
-
     }
 }
