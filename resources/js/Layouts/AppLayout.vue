@@ -49,7 +49,7 @@ const logout = () => {
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
                         <Link :href="route('dashboard')">
-                            <img class="w-auto h-16" src="../../../public/storage/images/logo.png" alt="Logo" />
+                            <img class="w-auto h-16" src="../../../public/images/logo.png" alt="Logo" />
                         </Link>
                     </div>
                     <div class="flex">
