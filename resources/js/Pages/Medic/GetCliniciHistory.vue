@@ -739,8 +739,6 @@ const search = async () => {
             users.value = response.data;
             values.value = true;
 
-            console.log(response.data);
-
             const responseClinicHistories = await axios.post('/medic/getHistoryClinic', {
                 user_id: users.value.id
             });

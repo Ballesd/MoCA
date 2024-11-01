@@ -131,7 +131,6 @@ const updateUser = async () => {
         rol: data.rol
     });
     if (response.status === 200) {
-        console.log(response.data);
         updateState.value = false;
         search();
     }

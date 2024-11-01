@@ -208,7 +208,6 @@ export default {
                 console.log(error);
             });
 
-            console.log('respuesta deferred call para la prueba', response);
             this.$emit('answer-score', this.score_permanent);
         }
     }

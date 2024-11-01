@@ -104,9 +104,6 @@ const calcularPuntuacion = () => {
         console.log('error: ', error);
     });
 
-    // Mostrar la puntuación en la consola
-    console.log('Puntuación Total: ' + score);
-
     puntuacion.value = score;
     // Emitir el evento
     // Esto asume que tienes un componente padre escuchando este evento

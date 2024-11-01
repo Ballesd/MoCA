@@ -359,7 +359,6 @@ function downloadExcel() {
         user_id: users.value.id,
         moca_id: moca.value.id
     };
-    console.log('exportURL', exportURL.value);
     exportURL.value = `/export?${new URLSearchParams(params).toString()}`;
     window.location.href = exportURL.value;
 }
@@ -389,7 +388,6 @@ const search = async () => {
                 date_end.value = new Date(moca.value.updated_at).toLocaleString();
 
                 users.value = response.data.user;
-                console.log('users', users.value);
                 values.value = true;
 
                 //sacamos los la ruta del storage remplezando el primer tramo "public" por "storage" y añadimos al principio "/"
@@ -433,7 +431,6 @@ const calificar = async () => {
     if (data.orientation === '') {
         data.orientation = moca.value.orientation;
     }
-    console.log('data', data);
 
     const response = await axios.put(`/medic/editMoca`, {
         user_id: data.user_id,
@@ -449,9 +446,7 @@ const calificar = async () => {
         orientation: data.orientation
     });
 
-    console.log('respuesta en calificar', response.data);
     if (response.status === 200) {
-        console.log(response.data);
         updateState.value = false;
         search();
     }

@@ -48,6 +48,8 @@ const puntuacionPregunta2 = ref(null);
 const puntuacionPregunta3 = ref(null);
 const puntuacionTotal = ref(null);
 
+const emit = defineEmits(['answer-score']);
+
 // Función para normalizar strings
 const normalizeString = (str) => {
     return str
@@ -102,8 +104,6 @@ const calcularPuntuacion = () => {
     axios.post('/moca/uploadAbstraction', answer).catch((error) => {
         console.log(error);
     });
-
-    console.log('Puntuación Total:', puntuacionTotal.value);
     // Emitir el resultado usando el composable emit
     emit('answer-score', puntuacionTotal.value);
 };

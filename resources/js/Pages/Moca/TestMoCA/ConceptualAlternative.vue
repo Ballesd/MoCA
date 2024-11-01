@@ -42,7 +42,6 @@ const uploadedImage = async (fileInfo) => {
             'Content-Type': 'multipart/form-data'
         }
     });
-    console.log('respuesta:', response);
     result.value = null;
     sendNumber(result.value);
 };
