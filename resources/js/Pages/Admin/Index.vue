@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-center w-1/5 items-center mx-auto mt-5">
+                <div v-if="updateState" class="flex justify-center w-1/5 items-center mx-auto mt-5">
                     <ButtonCustom class="w-full mx-auto" mode="button" @click="updateUser">GUARDAR</ButtonCustom>
                 </div>
             </div>
