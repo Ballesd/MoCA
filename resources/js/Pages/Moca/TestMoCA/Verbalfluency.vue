@@ -104,7 +104,6 @@ onMounted(() => {
 });
 const evaluar = () => {
     const words = wordsVec.value.filter((item, index) => wordsVec.value.indexOf(item) === index);
-    console.log('words', words);
     result.value = words.length;
     resultState.value = false;
     if (result.value >= 11) {

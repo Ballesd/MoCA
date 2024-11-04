@@ -49,9 +49,6 @@ const submit = () => {
                     <TextInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="current-password" />
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>
-                <div class="flex items-center justify-center mt-4">
-                    <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-400 hover:text-gray-600 rounded-md focus:outline-none"> Olvidé mi contraseña </Link>
-                </div>
             </AuthenticationCard>
             <div class="flex items-center justify-center mt-5">
                 <div class="flex items-center justify-center space-x-2 text-gray-400">

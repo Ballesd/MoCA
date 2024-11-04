@@ -781,6 +781,15 @@
                 </div>
             </div>
         </div>
+        <div v-if="succesSave" class="flex justify-center bg-green-500 border border-green-200 text-white px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Se guardó con éxito. </strong>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" @click="closeSucces">
+                <svg class="fill-current h-6 w-6 text-bone-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>Close</title>
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </span>
+        </div>
     </AppLayout>
 </template>
 

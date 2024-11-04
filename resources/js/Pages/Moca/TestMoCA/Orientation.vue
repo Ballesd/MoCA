@@ -13,7 +13,7 @@
     <div class="w-full flex flex-col gap-5 mt-3">
         <div class="">
             <InputLabel value="Fecha (YYYY-MM-DD)" />
-            <TextInput v-model="fecha" type="date" class="block w-full" />
+            <TextInput v-model="fecha" type="date" class="block w-full no-calendar-icon" />
         </div>
         <div class="w-full flex gap-5">
             <div class="w-full">
@@ -153,14 +153,6 @@ export default {
             });
             this.$emit('answer-score', this.resultadoTotal);
 
-            // Muestra los puntos en la consola.
-            console.log('Puntos Fecha:', puntosFecha);
-            console.log('Puntos Mes:', puntosMes);
-            console.log('Puntos Año:', puntosAño);
-            console.log('Puntos Día de la semana:', puntosDiaSemana);
-            console.log('Puntos Lugar:', puntosLugar);
-            console.log('Puntos Localidad:', puntosLocalidad);
-            console.log('Resultado Total:', resultadoTotal);
         },
         obtenerNumeroMes(nombreMes) {
             const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];

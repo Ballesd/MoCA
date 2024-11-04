@@ -4,7 +4,6 @@
             <transition name="slide-fade" mode="out-in">
                 <component :sendNumber="receive_number" @answer-score="receive_number" :is="currentComponent" :key="componentKey" />
             </transition>
-            <ButtonCustom mode="button" @click="showNext" class="mt-16">Siguiente pregunta</ButtonCustom>
         </div>
         <div v-else class="flex justify-end mt-24">
             <div class="w-1/2"></div>
@@ -38,7 +37,6 @@ import Abstraction from '@/Pages/Moca/TestMoCA/Abstraction.vue';
 import DeferredRecall from '@/Pages/Moca/TestMoCA/DeferredRecall.vue';
 import Orientation from '@/Pages/Moca/TestMoCA/Orientation.vue';
 import EndTest from '@/Pages/Moca/TestMoCA/EndTest.vue';
-import ButtonCustom from '@/Components/ButtonCustom.vue';
 import LinkCustom from '@/Components/LinkCustom.vue';
 
 // Definir un array con los componentes
@@ -65,35 +63,24 @@ const total = ref(0);
 const showEndTest = ref(false);
 
 const receive_number = (number) => {
-    console.log('index', currentComponentIndex.value);
-    console.log('vector', componentVector.value[currentComponentIndex.value]);
 
     componentCalification.value[componentVector.value[currentComponentIndex.value]] = number;
-
-    console.log('calificacion', componentCalification.value);
-    // Call the showNext function to display the next component
 
     //Sumamos todas las calificaciones
     if (number != null) {
         total.value += number;
-        console.log('total value en el if', total.value);
     }
     //SI ya ha recorrido todos los componentes
     if (currentComponentIndex.value == components.length - 2) {
-        console.log('ya recorrio todos los componentes');
         sendCalification();
     }
-    console.log('total de la pruba MOCA', total.value);
     showNext();
 };
 
 const sendCalification = async () => {
-    console.log('enviando calificacion', total.value);
     componentCalification.value.total = total.value;
-    console.log('calificacion', componentCalification.value);
     const response = await axios.post('/moca/calification', componentCalification.value);
 
-    console.log('respuesta:', response);
 };
 
 const currentComponentIndex = ref(0);

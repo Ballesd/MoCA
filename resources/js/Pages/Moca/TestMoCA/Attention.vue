@@ -181,9 +181,7 @@ const letterACount = () => {
 
 const restNumber = () => {
     valueRestLog.value = valueRestLog.value + ', ' + valuRest.value;
-    console.log('valueRestLog', valueRestLog.value);
     let diference = valueStart.value - valuRest.value;
-    console.log('diference', diference);
     if (diference === 7) {
         if (valueStart.value <= 2) {
             sevenMinSeven.value = false;
@@ -193,7 +191,6 @@ const restNumber = () => {
         valueStart.value -= 7;
     } else if (incorrectRest.value < 1 && diference != 7) {
         incorrectRest.value += 1;
-        console.log('incorrectRest', incorrectRest.value);
     } else if (diference != 7 || valueStart.value <= 2) {
         sevenMinSeven.value = false;
         totalscoreState.value = true;
@@ -209,7 +206,6 @@ const restNumber = () => {
         };
 
         const response = axios.post('/moca/uploadAttention', answer);
-        console.log('respuesta:', response);
 
         sendNumber(totalScore.value);
     } else {
