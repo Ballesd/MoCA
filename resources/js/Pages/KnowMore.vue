@@ -6,9 +6,9 @@ import LinkCustom from '@/Components/LinkCustom.vue';
 <template>
     <AppLayout title="Dashboard">
         <div class="my-7 flex justify-start">
-            <div class="bg-quinary rounded-xl shadow-lg p-10 w-1/2">
+            <div class="bg-quinary rounded-xl shadow-lg p-6 sm:p-8 md:p-10 w-1/2">
                 <div class="flex flex-col">
-                    <p class="text-lg">
+                    <p class="text-sm sm:text-base md:text-lg">
                         El Grupo de Neurociencias de la Universidad Nacional de Colombia, cuenta con una trayectoria de 26 años, tiempo en que se han adelantando investigaciones en las áreas de la neurogenética molecular, neurología clínica,
                         neuropsicología, terapias y rehabilitación a través de trabajos interdisciplinarios con proyectos reconocidos a nivel de la universidad e internacional. En esta trayectoria se han logrado avances a nivel nacional en la
                         identificación de mutaciones en genes particulares, características clínicas y cognitivas involucradas en enfermedades neuropsiquiátricas, tales como las enfermedades de Alzheimer y Parkinson. Actualmente, participa de dos
