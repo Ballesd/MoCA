@@ -27,11 +27,13 @@ const result = ref(null);
 
 const speachIntroduction = () => {
     const text1 =
-        'Me gustaría que dibujara una línea alternando entre cifras y letras, respetando el orden numérico y el orden alfabético. Comience en el numero 1 y dibuje una línea desde el 1 hacia la letra A y, a continuación, de la A hacia el 2 y así sucesivamente. Termine en la letra E.';
+        'Me gustaría que dibujara una línea alternando entre cifras y letras, respetando el orden numérico y el orden alfabético. Comience en el numero 1 y dibuje una línea desde el 1 hacia la letra A , a continuación, de la A hacia el 2 y así sucesivamente. Termine en la letra E.';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
-    utterance.rate = 0.6;
+    utterance.rate = 0.7;
+    utterance.lang = "es-CO" 
     synthesis.speak(utterance);
+    
 };
 
 const uploadedImage = async (fileInfo) => {
@@ -44,5 +46,7 @@ const uploadedImage = async (fileInfo) => {
     });
     result.value = null;
     sendNumber(result.value);
+    window.speechSynthesis.cancel();
+    
 };
 </script>

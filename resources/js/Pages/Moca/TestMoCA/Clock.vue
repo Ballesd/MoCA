@@ -26,7 +26,8 @@ const speachIntroduction = () => {
     const text1 = 'Dibuje un reloj. Incluya todos los números y dibújelo señalando las 11 y 10 minutos. Recalco  11 y 10 minutos. Posteriormente suba la imagen.';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
-    utterance.rate = 0.6; // Ajusta este valor para cambiar la velocidad
+    utterance.rate = 0.7;
+    utterance.lang = "es-CO" 
     synthesis.speak(utterance);
 };
 
@@ -40,5 +41,6 @@ const uploadedImage = async (fileInfo) => {
     });
     result.value = null;
     sendNumber(result.value);
+    window.speechSynthesis.cancel();
 };
 </script>
