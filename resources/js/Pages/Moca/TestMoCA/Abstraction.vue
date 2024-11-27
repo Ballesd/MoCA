@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center space-x-12 mb-4">
         <div class="w-8/12 flex flex-col items-center justify-center gap-4">
             <div class="flex justify-start items-center space-x-3 self-start">
-                <font-awesome-icon @click="" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
+                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
                 <h2 class="text-primary text-3xl">9. Abstracción</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
@@ -21,13 +21,13 @@
                 <TextInput id="1" v-model="respuestaPregunta3" @input="calificarPregunta3" class="mt-1 block w-full" />
             </div>
             <ButtonCustom class="w-1/2 mt-2" mode="button" @click="calcularPuntuacion">Enviar Respuestas</ButtonCustom>
-            <div class="mt-2" v-if="puntuacionPregunta1 !== null && puntuacionPregunta2 !== null && puntuacionPregunta3 !== null">
+            <!-- <div class="mt-2" v-if="puntuacionPregunta1 !== null && puntuacionPregunta2 !== null && puntuacionPregunta3 !== null">
                 <h2 class="text-lg font-semibold mb-2">Resultados:</h2>
                 <p>Pregunta 1: {{ puntuacionPregunta1 }}</p>
                 <p>Pregunta 2: {{ puntuacionPregunta2 }}</p>
                 <p>Pregunta 3: {{ puntuacionPregunta3 }}</p>
                 <p class="text-xl font-bold mt-2">Puntuación Total: {{ puntuacionTotal }}</p>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -56,6 +56,16 @@ const normalizeString = (str) => {
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase();
+};
+
+const speachIntroduction = () => {
+    const text1 = 'En cada uno de los cuadros de texto ingrese el concepto que tienen en común cada pareja de palabras.';
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.7;
+    utterance.lang = "es-CO" 
+    synthesis.speak(utterance);
+
 };
 
 // Funciones para calificar preguntas

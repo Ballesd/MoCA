@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center space-x-12 my-12">
         <div class="w-9/12 flex flex-col items-center gap-4">
             <div class="flex justify-start items-center space-x-3">
-                <font-awesome-icon @click="" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
+                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
                 <h2 class="text-primary text-3xl">7. Lenguaje</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
@@ -10,8 +10,8 @@
                 <font-awesome-icon v-if="!stateSecondAudio" @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
                 <font-awesome-icon v-if="stateSecondAudio" @click="speachSecond" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
             </div>
-            <ButtonCustom v-if="firstaudio" mode="button" @click="ToggleMic1">{{ isRecording1 ? 'DETENER' : 'GRABAR FRASE' }}</ButtonCustom>
-            <ButtonCustom v-if="secondaudio" mode="button" @click="ToggleMic2">{{ isRecording2 ? 'DETENER' : 'GRABAR FRASE' }}</ButtonCustom>
+            <ButtonCustom v-if="firstaudio" mode="button" @click="ToggleMic1">{{ isRecording1 ? 'DETENER' : 'GRABAR FRASE 1' }}</ButtonCustom>
+            <ButtonCustom v-if="secondaudio" mode="button" @click="ToggleMic2">{{ isRecording2 ? 'DETENER' : 'GRABAR FRASE 2' }}</ButtonCustom>
             <div v-text="transcript1" class="flex justify-center text-gray-500"></div>
             <div v-text="transcript2" class="flex justify-center text-gray-500"></div>
             <ButtonCustom v-if="transcript1 && transcript2" class="w-full" mode="button" @click="evaluar">EVALUAR</ButtonCustom>
@@ -108,12 +108,14 @@ const speachIntroduction = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.6;
+    utterance.lang = "es-CO" 
     synthesis.speak(utterance);
 
     const text2 = 'El gato se esconde bajo el sofá cuando los perros entran en la sala.';
     const synthesis1 = window.speechSynthesis;
     const utterance1 = new SpeechSynthesisUtterance(text2);
     utterance1.rate = 0.5;
+    utterance1.lang = "es-CO" 
     synthesis1.speak(utterance1);
 };
 
@@ -122,12 +124,14 @@ const speachSecond = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.6;
+    utterance.lang = "es-CO" 
     synthesis.speak(utterance);
 
     const text2 = 'Espero que él le entregue el mensaje una vez que ella se lo pida.';
     const synthesis1 = window.speechSynthesis;
     const utterance1 = new SpeechSynthesisUtterance(text2);
     utterance1.rate = 0.5;
+    utterance1.lang = "es-CO" 
     synthesis1.speak(utterance1);
 };
 

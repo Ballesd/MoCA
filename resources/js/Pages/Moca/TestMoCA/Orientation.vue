@@ -2,7 +2,8 @@
     <div class="flex items-center justify-center space-x-12 mb-4">
         <div class="w-11/12 flex flex-col gap-4">
             <div class="flex justify-start items-center space-x-3">
-                <font-awesome-icon :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="" />
+                <font-awesome-icon :icon="['fas', 'volume-up']" size="2x"
+                    class="text-secondary cursor-pointer hover:text-primary" @click="" />
                 <h2 class="text-primary text-3xl">11. Orientación</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
@@ -11,9 +12,29 @@
         </div>
     </div>
     <div class="w-full flex flex-col gap-5 mt-3">
-        <div class="">
+        <!-- <div class="">
             <InputLabel value="Fecha (YYYY-MM-DD)" />
             <TextInput v-model="fecha" type="date" class="block w-full no-calendar-icon" />
+        </div> -->
+        <div class="flex gap-3">
+            <div class="w-1/3">
+                <InputLabel value="Año" />
+                <select v-model="año" class="block w-full border rounded p-2">
+                    <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+                </select>
+            </div>
+            <div class="w-1/3">
+                <InputLabel value="Mes" />
+                <select v-model="mes" class="block w-full border rounded p-2">
+                    <option v-for="(month, index) in months" :key="index" :value="index">{{ month }}</option>
+                </select>
+            </div>
+            <div class="w-1/3">
+                <InputLabel value="Día" />
+                <select v-model="dia" class="block w-full border rounded p-2">
+                    <option v-for="day in daysInMonth" :key="day" :value="day">{{ day }}</option>
+                </select>
+            </div>
         </div>
         <div class="w-full flex gap-5">
             <div class="w-full">
@@ -70,6 +91,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import axios from 'axios';
 export default {
+
     components: {
         ButtonCustom,
         TextInput,
@@ -77,6 +99,22 @@ export default {
     },
     data() {
         return {
+
+            years: Array.from({ length: 80 }, (_, i) => new Date().getFullYear() +20 - i),
+            months: [
+                'Enero',
+                'Febrero',
+                'Marzo',
+                'Abril',
+                'Mayo',
+                'Junio',
+                'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre',
+            ],
             fecha: '',
             mes: '',
             año: '',
@@ -92,7 +130,24 @@ export default {
             resultadoTotal: 0
         };
     },
+    computed: {
+        daysInMonth() {
+            // Retorna la cantidad de días según el año y mes seleccionado
+            return Array.from(
+                { length: new Date(this.año, this.mes + 1, 0).getDate() },
+                (_, i) => i + 1
+            );
+        },
+    },
     methods: {
+        speachIntroduction() {
+            const text1 = 'Ingrese la información que solicita en cada uno de los 6 cuadros de texto.';
+            const synthesis = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text1);
+            utterance.rate = 0.6;
+            utterance.lang = "es-CO" 
+            synthesis.speak(utterance);
+        },
         calcularPuntos() {
             // Define las respuestas correctas para cada campo.
             const respuestaFecha = new Date().toISOString().slice(0, 10); // Obtén la fecha actual en formato 2023-10-02
@@ -110,7 +165,7 @@ export default {
             const respuestaLocalidadSinAcentos = respuestaLocalidad.map((localidad) => this.quitarAcentos(localidad.toLowerCase()));
 
             // Convierte las entradas del usuario a minúsculas y quita los acentos.
-            const mesUsuarioSinAcentos = this.quitarAcentos(this.mes.toLowerCase());
+            // const mesUsuarioSinAcentos = this.quitarAcentos(this.mes.toLowerCase());
             const añoUsuarioSinAcentos = this.año.toLowerCase();
             const diaSemanaUsuarioSinAcentos = this.quitarAcentos(this.diaSemana.toLowerCase());
             const lugarUsuarioSinAcentos = this.quitarAcentos(this.lugar.toLowerCase());
@@ -124,8 +179,13 @@ export default {
             let puntosLugar = 0;
             let puntosLocalidad = 0;
 
+            // Construye la fecha en formato YYYY-MM-DD
+            const fecha = `${this.año}-${String(this.mes + 1).padStart(2, '0')}-${String(this.dia).padStart(2, '0')}`;
+            console.log('Fecha seleccionada:', fechaSeleccionada);
+            console.log('Fecha seleccionada:', respuestaFecha);
+
             // Compara las respuestas ingresadas con las respuestas correctas y asigna puntos.
-            if (this.fecha === String(respuestaFecha)) puntosFecha++;
+            if (fecha === String(respuestaFecha)) puntosFecha++;
             if (this.obtenerNumeroMes(mesUsuarioSinAcentos) === respuestaMesSinAcentos) puntosMes++;
             if (parseInt(añoUsuarioSinAcentos) === respuestaAñoSinAcentos) puntosAño++;
             if (this.obtenerNumeroDiaSemana(diaSemanaUsuarioSinAcentos) === respuestaDiaSemanaSinAcentos) puntosDiaSemana++;
@@ -166,5 +226,6 @@ export default {
             return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         }
     }
+
 };
 </script>

@@ -3,7 +3,7 @@
         <div class="flex flex-col items-center justify-center gap-4">
             <div class="flex justify-center items-center space-x-3">
                 <font-awesome-icon :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />
-                <h2 class="text-primary text-3xl">4. Identificación de animales</h2>
+                <h2 class="text-primary text-3xl">4. Identificación</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 w-full">
                 <p class="text-gray-500">Ingrese dentro de cada uno de los cuadros de texto el nombre que corresponde a cada animal.</p>
@@ -34,7 +34,7 @@
                 >Resultado: <br />
                 {{ puntuacion }}</ButtonCustom
             >
-            <ButtonCustom class="w-full" v-else mode="button" @click="calcularPuntuacion">Calcular Puntaje</ButtonCustom>
+            <ButtonCustom class="w-full" v-else mode="button" @click="calcularPuntuacion">Siguiente</ButtonCustom>
         </div>
     </div>
 </template>
@@ -67,6 +67,7 @@ const speachIntroduction = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
+    utterance.lang = "es-CO" 
     synthesis.speak(utterance);
 };
 

@@ -3,6 +3,8 @@
         <div class="w-9/12 flex flex-col gap-4">
             <div class="flex justify-start items-center space-x-3">
                 <h2 class="text-primary text-3xl">10. Recuerdo diferido</h2>
+                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
+
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
                 <p class="text-gray-500">Ingrese en cada uno de los cuadros de texto las 5 palabras dictadas en la pregunta 5.</p>

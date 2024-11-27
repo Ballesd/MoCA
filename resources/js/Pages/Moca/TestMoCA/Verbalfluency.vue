@@ -67,6 +67,7 @@ const speachIntroduction = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.6;
+    utterance.lang = "es-CO" 
     synthesis.speak(utterance);
 };
 
