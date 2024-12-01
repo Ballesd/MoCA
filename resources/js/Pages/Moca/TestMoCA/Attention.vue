@@ -1,146 +1,129 @@
 <template>
-    <div class="m-4 p-4 bg-white shadow-md rounded-lg text-center">
-        <div class="flex justify-center items-center space-x-2">
-            <h2 class="text-lg font-semibold flex items-center">6. Atención</h2>
-            <div v-if="!countAleter && !sevenMinusSeven">
-                <button class="flex items-center" @click="speachIntroduction">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512" fill="none" stroke="currentColor">
-                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                            <path d="M3834 4426 c-86 -38 -154 -139 -154 -230 0 -77 19 -122 82 -194 145 -167 187 -220 251 -315 132 -198 250 -480 296 -712 131 -657 -51 -1310 -501 -1802 -105 -115 -122 -149 -123 -238 0 -59 5 -78 29 -123 52 -93 140 -139 247 -129 80 7 131 39 222 139 310 343 525 753 621 1189 75 338 75 760 0 1098 -63 287 -202 614 -362 856 -144 218 -316 414 -396 451 -59 27 -161 32 -212 10z"/>
-                            <path d="M2219 4336 c-20 -7 -49 -22 -65 -34 -16 -11 -243 -235 -504 -496 l-475 -476 -345 0 c-204 0 -360 -4 -382 -10 -65 -18 -130 -70 -160 -129 l-28 -53 0 -574 c0 -621 -1 -606 54 -679 13 -17 48 -44 77 -60 l54 -30 365 -3 365 -3 490 -488 c270 -269 505 -497 524 -506 52 -26 139 -31 199 -11 58 20 119 73 147 131 20 39 20 70 20 1645 0 1575 0 1606 -20 1645 -57 115 -197 174 -316 131z"/>
-                            <path d="M3105 3697 c-66 -32 -120 -93 -139 -158 -32 -106 -13 -165 93 -289 154 -180 238 -366 262 -582 16 -146 1 -284 -48 -431 -44 -132 -109 -245 -214 -367 -106 -124 -125 -183 -93 -289 33 -111 144 -188 259 -179 99 8 160 52 282 203 145 179 266 446 310 685 24 131 24 409 0 540 -35 188 -120 403 -225 565 -85 133 -203 264 -267 297 -63 33 -158 35 -220 5z"/>
-                        </g>
-                    </svg>
-                </button>
+    <div class="flex items-center justify-center space-x-12 mt-16 mb-10 w-full">
+        <div class="w-7/12 flex flex-col gap-4">
+            <!-- Intro -->
+            <div class="flex justify-start items-center space-x-3">
+                <h2 class="text-primary text-3xl">6. Atención</h2>
+                <font-awesome-icon v-if="!orderNumber && !inverseNumber && !countAleter && !sevenMinusSeven"
+                    :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary"
+                    @click="speachIntroduction" />
+                <font-awesome-icon v-if="!heard_audio1 && countAleter && !sevenMinusSeven" :icon="['fas', 'volume-up']"
+                    size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="countAleterSpeach" />
+                <font-awesome-icon v-if="!heard_audio2 && countAleter && sevenMinusSeven" :icon="['fas', 'volume-up']"
+                    size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="audioSevenMinus" />
             </div>
-            <div v-if="countAleter && !sevenMinusSeven">
-                <button class="flex items-center" @click="countAleterSpeach">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512" fill="none" stroke="currentColor">
-                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                            <path d="M3834 4426 c-86 -38 -154 -139 -154 -230 0 -77 19 -122 82 -194 145 -167 187 -220 251 -315 132 -198 250 -480 296 -712 131 -657 -51 -1310 -501 -1802 -105 -115 -122 -149 -123 -238 0 -59 5 -78 29 -123 52 -93 140 -139 247 -129 80 7 131 39 222 139 310 343 525 753 621 1189 75 338 75 760 0 1098 -63 287 -202 614 -362 856 -144 218 -316 414 -396 451 -59 27 -161 32 -212 10z"/>
-                            <path d="M2219 4336 c-20 -7 -49 -22 -65 -34 -16 -11 -243 -235 -504 -496 l-475 -476 -345 0 c-204 0 -360 -4 -382 -10 -65 -18 -130 -70 -160 -129 l-28 -53 0 -574 c0 -621 -1 -606 54 -679 13 -17 48 -44 77 -60 l54 -30 365 -3 365 -3 490 -488 c270 -269 505 -497 524 -506 52 -26 139 -31 199 -11 58 20 119 73 147 131 20 39 20 70 20 1645 0 1575 0 1606 -20 1645 -57 115 -197 174 -316 131z"/>
-                            <path d="M3105 3697 c-66 -32 -120 -93 -139 -158 -32 -106 -13 -165 93 -289 154 -180 238 -366 262 -582 16 -146 1 -284 -48 -431 -44 -132 -109 -245 -214 -367 -106 -124 -125 -183 -93 -289 33 -111 144 -188 259 -179 99 8 160 52 282 203 145 179 266 446 310 685 24 131 24 409 0 540 -35 188 -120 403 -225 565 -85 133 -203 264 -267 297 -63 33 -158 35 -220 5z"/>
-                        </g>
-                    </svg>
-                </button>
+            <div v-if="!orderNumber">
+                <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
+                    <p class="text-gray-500 text-center">A continuación deberá completar 3 tareas, las cuales tendrán
+                        audio incorporado. Recuerde que solo tendrá una oportunidad para reproducirlos.</p>
+                </div>
+                <div class="w-full mt-4">
+                    <ButtonCustom class="w-full" mode="button" :disabled="buttonState" @click="startNumberTest">INICIAR
+                        LAS PRUEBAS DE NÚMEROS</ButtonCustom>
+                </div>
             </div>
-            <div v-if="countAleter && sevenMinusSeven">
-                <button class="flex items-center" @click="audioSevenMinus">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512" fill="none" stroke="currentColor">
-                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                            <path d="M3834 4426 c-86 -38 -154 -139 -154 -230 0 -77 19 -122 82 -194 145 -167 187 -220 251 -315 132 -198 250 -480 296 -712 131 -657 -51 -1310 -501 -1802 -105 -115 -122 -149 -123 -238 0 -59 5 -78 29 -123 52 -93 140 -139 247 -129 80 7 131 39 222 139 310 343 525 753 621 1189 75 338 75 760 0 1098 -63 287 -202 614 -362 856 -144 218 -316 414 -396 451 -59 27 -161 32 -212 10z"/>
-                            <path d="M2219 4336 c-20 -7 -49 -22 -65 -34 -16 -11 -243 -235 -504 -496 l-475 -476 -345 0 c-204 0 -360 -4 -382 -10 -65 -18 -130 -70 -160 -129 l-28 -53 0 -574 c0 -621 -1 -606 54 -679 13 -17 48 -44 77 -60 l54 -30 365 -3 365 -3 490 -488 c270 -269 505 -497 524 -506 52 -26 139 -31 199 -11 58 20 119 73 147 131 20 39 20 70 20 1645 0 1575 0 1606 -20 1645 -57 115 -197 174 -316 131z"/>
-                            <path d="M3105 3697 c-66 -32 -120 -93 -139 -158 -32 -106 -13 -165 93 -289 154 -180 238 -366 262 -582 16 -146 1 -284 -48 -431 -44 -132 -109 -245 -214 -367 -106 -124 -125 -183 -93 -289 33 -111 144 -188 259 -179 99 8 160 52 282 203 145 179 266 446 310 685 24 131 24 409 0 540 -35 188 -120 403 -225 565 -85 133 -203 264 -267 297 -63 33 -158 35 -220 5z"/>
-                        </g>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <p class="text-gray-600">Lectura de números - Golpe por la letra A - Resta de 7 en 7.</p>
-        <div v-if="repeatNumeber">
-            <div v-if="!orderNumber" class="flex justify-center mt-4">
-                <button
-                    :disabled="buttonState"
-                    @click="startNumberTest"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    Iniciar las pruebas de números
-                </button>
-            </div>
-            <!--Orden de numeros-->
-            <div v-if="orderNumber && !inverseNumber" class="mt-8">
-                <p class="flex justify-center text-gray-800">Ingrese la primera serie de numeros en el mismo orden:</p>
-                <div class="flex justify-center">
-                    <div class="grid grid-cols-5 gap-4">
-                        <div v-for="(number, index) in orderNumbers" :key="index">
-                            <input
-                                v-model="answerOrder[index]"
-                                ref="inputField"
-                                maxlength="1"
-                                class="h-16 w-12 border mx-2 rounded-lg text-center font-thin text-3xl text-gray-800"
-                            />
+            <!-- / Intro -->
+            <div v-if="repeatNumeber">
+                <!-- Orden de numeros -->
+                <div v-if="orderNumber && !inverseNumber" class="flex flex-col items-center gap-4 w-full">
+                    <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
+                        <p class="text-gray-500">Oprima el botón para reproducir el primer audio.</p>
+                        <font-awesome-icon v-if="!heard_audio1" :icon="['fas', 'volume-up']" size="2x"
+                            class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2"
+                            @click="speachFirstSeries" />
+                    </div>
+                    <p class="flex justify-center text-gray-500">Ingrese la primera serie de numeros en el mismo orden
+                    </p>
+                    <div class="flex justify-center">
+                        <div class="grid grid-cols-5 gap-7">
+                            <div v-for="(number, index) in orderNumbers" :key="index">
+                                <TextInput v-model="answerOrder[index]" :ref="el => inputFields[index] = el"
+                                    maxlength="1" class="h-12 w-12 text-center text-xl text-gray-600"
+                                    @input="handleInput(index)" />
+                            </div>
                         </div>
                     </div>
+                    <ButtonCustom class="w-1/3 mt-4" mode="button" @click="recordAttemptOrder">SIGUIENTE</ButtonCustom>
                 </div>
-
-                <div class="flex justify-center mt-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="recordAttemptOrder">
-                        Registrar Intento
-                    </button>
-                </div>
-            </div>
-            <!--Orden de numeros al inverso-->
-            <div v-if="inverseNumber && orderNumber" class="mt-8">
-                <p class="flex justify-center text-gray-800">Ingrese la segunda serie de numeros en orden inverso:</p>
-                <div class="flex justify-center">
-                    <div class="grid grid-cols-5 gap-4">
-                        <div v-for="(number, index) in InverseNumbers" :key="index">
-                            <input
-                                v-model="answerInverse[index]"
-                                ref="inputField"
-                                maxlength="1"
-                                class="h-16 w-12 border mx-2 rounded-lg text-center font-thin text-3xl text-gray-800"
-                            />
+                <!-- /Orden de numeros -->
+                <!-- Orden de numeros al inverso -->
+                <div v-if="inverseNumber && orderNumber" class="flex flex-col items-center gap-4 w-full">
+                    <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
+                        <p class="text-gray-500">Oprima el botón para reproducir el segundo audio.</p>
+                        <font-awesome-icon v-if="!heard_audio3" :icon="['fas', 'volume-up']" size="2x"
+                            class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2"
+                            @click="speachSecondSeries" />
+                    </div>
+                    <p class="flex justify-center text-gray-500">Ingrese la segunda serie de numeros en orden inverso
+                    </p>
+                    <div class="flex justify-center">
+                        <div class="grid grid-cols-3 gap-7">
+                            <div v-for="(number, index) in InverseNumbers" :key="index">
+                                <TextInput 
+                                    v-model="answerInverse[index]" :ref="el => inputFields[index] = el"
+                                    maxlength="1"
+                                    class="h-12 w-12 text-center text-xl text-gray-600" 
+                                    @input="handleInputInverse(index)"
+                                    />
+                                </div>
                         </div>
                     </div>
+                    <ButtonCustom class="w-1/3 mt-4" mode="button" @click="recordAttemptOrderInve">SIGUIENTE
+                    </ButtonCustom>
                 </div>
-
-                <div class="flex justify-center mt-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="recordAttemptOrderInve">
-                        Registrar Intento
-                    </button>
-                </div>
+                <!-- /Orden de numeros al inverso -->
             </div>
-        </div>
-        <!--Golpear por cada letra A-->
-        <div>
-            <div v-if="strikestate" class="mt-4 p-4 border rounded shadow-md">
-                <p class="flex justify-center text-gray-800">Ingrese la cantidad de toques finales por la letra A:</p>
-                <div class="flex justify-center items-center space-x-4">
-                    <input type="number" v-model="word" class="border rounded p-2 w-">
-                    <div>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="letterACount">Responder final</button>
-                    </div>
+            <!-- Golpear por cada letra A -->
+            <div v-if="strikestate" class="flex flex-col items-center gap-4 w-full">
+                <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
+                    <p class="text-gray-500 text-justify">Ingrese la cantidad de toques finales por la letra A:</p>
+                    <font-awesome-icon v-if="!heard_audio2" :icon="['fas', 'volume-up']" size="2x"
+                        class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2"
+                        @click="countAleterSpeach" />
                 </div>
+                <TextInput v-model="word" type="number" class="w-24" />
+                <ButtonCustom class="w-1/3 mt-4" mode="button" @click="letterACount">SIGUIENTE</ButtonCustom>
             </div>
-        </div>
-
-        <!--desde 100 restado de 7 en 7-->
-        <div v-if="sevenMinSeven" class="mt-4 p-4 border rounded shadow-md">
-            <p class="text-lg font-semibold mb-2">Restar de 7 en 7 empezando desde 100.</p>
-            <div class="flex items-center space-x-4">
-                <input type="number" v-model="valuRest" class="border rounded p-2 w-">
-                <div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="restNumber">Responder</button>
+            <!-- / Golpear por cada letra A -->
+            <!-- Desde 100 restado de 7 en 7 -->
+            <div v-if="sevenMinSeven" class="flex flex-col items-center gap-4 w-full">
+                <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
+                    <p class="text-gray-500">Va a restar de 7 en 7 desde 100. Por ejemplo, ¿cuánto es 100 menos 7?</p>
                 </div>
+                <TextInput type="number" v-model="valuRest" class="w-24" />
+                <p class="flex justify-center text-gray-500 text-center">Digite el número en el cuadro de texto y oprima
+                    la flecha de abajo para escribir el siguiente número.</p>
+                <ButtonCustom class="w-1/3 mt-4" mode="button" @click="restNumber">SIGUIENTE</ButtonCustom>
             </div>
-        </div>
-
-        <div v-if="totalscoreState">
-            <p>
-                Score: {{ totalScore }}
-            </p>
+            <!-- / Desde 100 restado de 7 en 7 -->
+            <div v-if="totalscoreState">
+                <p class="text-gray-500 text-center text-xl">Puntaje: {{ totalScore }}</p>
+            </div>
         </div>
     </div>
 </template>
-  
 
 <script setup>
-import { ref, defineProps  } from 'vue';
+import ButtonCustom from '@/Components/ButtonCustom.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { ref, defineProps, nextTick } from 'vue';
 import axios from 'axios';
 
-const { sendNumber } = defineProps(['sendNumber']); 
+const { sendNumber } = defineProps(['sendNumber']);
 
 const buttonState = ref(false);
-
+const heard_audio1 = ref(false);
+const heard_audio2 = ref(false);
+const heard_audio3 = ref(false);
 const repeatNumeber = ref(true);
 const orderNumber = ref(false);
 const orderNumbers = ref([2, 1, 8, 5, 4]);
 const answerOrder = ref([]);
+const inputFields = ref([]); // Array to hold references to input fields
 const scoreNumbers = ref(0);
 
 const inverseNumber = ref(false);
-const InverseNumbers = ref([2, 4, 7]); 
+const InverseNumbers = ref([2, 4, 7]);
 const answerInverse = ref([]);
 const scoreInverse = ref(0);
 
@@ -159,36 +142,76 @@ const incorrectRest = ref(0);
 const totalScore = ref(0);
 const totalscoreState = ref(false);
 
+
 const countAleter = ref(false);
 const sevenMinusSeven = ref(false);
 
-const speachIntroduction = () => {
-    const text1 = "Le voy a leer una serie de números y, cuando haya terminado, deberá escribirlos en el mismo orden en el que yo los he dicho. La primera serie es: 2,  1,  8,  5,  4."
+const speachIntroduction = () => {  //Audio introducción
+    const text1 = 'A continuación deberá completar 3 tareas, las cuales tendrán audio incorporado. Recuerde que solo tendrá una oportunidad para reproducirlos';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
+    utterance.lang = "es-CO"
     synthesis.speak(utterance);
 
-    const text2 = "Ahora le voy a leer otra serie de números y, cuando haya terminado, deberá escribirlos en orden inverso al que yo los he dicho. La segunda serie es: 7,  4,  2."
+};
+const speachFirstSeriesInstruction = () => {  //Instrucción Primer ejercicio Sección 6
+    const text1 = 'Le voy a leer una serie de números y, cuando haya terminado, deberá escribirlos en el mismo orden en el que yo los he dicho. La primera serie es: 2,  1,  8,  5,  4.';
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.7;
+    utterance.lang = "es-CO"
+    synthesis.speak(utterance);
+    heard_audio1.value = true;
+
+};
+const speachFirstSeries = () => {  //Audio del Primer ejercicio Sección 6
+    const text1 = 'Le voy a leer una serie de números y, cuando haya terminado, deberá escribirlos en el mismo orden en el que yo los he dicho. La primera serie es: 2,  1,  8,  5,  4.';
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.7;
+    utterance.lang = "es-CO"
+    synthesis.speak(utterance);
+    heard_audio1.value = true;
+
+};
+
+const speachSecondSeriesInstruction = () => {  //Instrucción Segundo ejercicio Sección 6
+    const text1 = 'Le voy a leer una serie de números y, cuando haya terminado, deberá escribirlos en el mismo orden en el que yo los he dicho. La primera serie es: 2,  1,  8,  5,  4.';
+    const synthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text1);
+    utterance.rate = 0.7;
+    utterance.lang = "es-CO"
+    synthesis.speak(utterance);
+    heard_audio1.value = true;
+
+};
+const speachSecondSeries = () => {  //Audio del segundo ejercicio Sección 6
+
+    const text2 = 'Ahora le voy a leer otra serie de números y, cuando haya terminado, deberá escribirlos en orden inverso al que yo los he dicho. La segunda serie es: 7,  4,  2.';
     const synthesis1 = window.speechSynthesis;
     const utterance1 = new SpeechSynthesisUtterance(text2);
     utterance1.rate = 0.7; // Ajusta este valor para cambiar la velocidad
+    utterance1.lang = "es-CO"
     synthesis1.speak(utterance1);
+    heard_audio3.value = true;
+
 }
 
 const countAleterSpeach = () => {
-    const text1 = "Ingrese la cantidad de golpes por la letra A elavorada por el paciente."
+    const text1 = 'Ingrese la cantidad de golpes por la letra A elaborada por el paciente.';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
+    utterance.lang = "es-CO"
     synthesis.speak(utterance);
-}
+    heard_audio2.value = true;
+};
 
 const startNumberTest = () => {
     buttonState.value = true;
-
     orderNumber.value = true;
-}
+};
 
 const recordAttemptOrder = () => {
     if (answerOrder.value.toString() == orderNumbers.value.toString()) {
@@ -197,7 +220,7 @@ const recordAttemptOrder = () => {
         scoreNumbers.value = 0;
     }
     inverseNumber.value = true;
-}
+};
 
 const recordAttemptOrderInve = () => {
     if (answerInverse.value.toString() == InverseNumbers.value.toString()) {
@@ -208,62 +231,82 @@ const recordAttemptOrderInve = () => {
     repeatNumeber.value = false;
     strikestate.value = true;
     countAleter.value = true;
-}
+};
 const audioSevenMinus = () => {
-    const text1 = "Ahora reste de 7 en 7 empezando desde 100, ponga el resultado en el input y oprima responder."
+    const text1 = 'Ahora reste de 7 en 7 empezando desde 100, ponga el resultado en el input y oprima siguiente.';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
+    utterance.lang = "es-CO"
     synthesis.speak(utterance);
-}
+};
 
 const letterACount = () => {
     sevenMinusSeven.value = true;
     sevenMinSeven.value = true;
     strikestate.value = false;
-}
+};
 
 const restNumber = () => {
     valueRestLog.value = valueRestLog.value + ', ' + valuRest.value;
-    console.log("valueRestLog", valueRestLog.value)
     let diference = valueStart.value - valuRest.value;
-    console.log("diference", diference);
-    if(diference === 7){
-        if(valueStart.value <= 2){
+    if (diference === 7) {
+        if (valueStart.value <= 2) {
             sevenMinSeven.value = false;
             totalscoreState.value = true;
         }
         countCorrect.value += 1;
         valueStart.value -= 7;
-    }
-    else if(incorrectRest.value < 1 && diference != 7){
+    } else if (incorrectRest.value < 1 && diference != 7) {
         incorrectRest.value += 1;
-        console.log("incorrectRest", incorrectRest.value);
-    }
-    else if(diference != 7 || valueStart.value <= 2){
+    } else if (diference != 7 || valueStart.value <= 2) {
         sevenMinSeven.value = false;
         totalscoreState.value = true;
-        if (countCorrect.value >= 4){
+        if (countCorrect.value >= 4) {
             totalScore.value += 3 + scoreNumbers.value + scoreInverse.value + scoreStrike.value;
-        }
-        else if (countCorrect.value >= 2){
+        } else if (countCorrect.value >= 2) {
             totalScore.value += 2 + scoreNumbers.value + scoreInverse.value + scoreStrike.value;
-        }
-        else if (countCorrect.value >= 1){
+        } else if (countCorrect.value >= 1) {
             totalScore.value += 1 + scoreNumbers.value + scoreInverse.value + scoreStrike.value;
         }
         const answer = {
             attention_answer: 'Respuesta números: ' + answerOrder.value + '.' + ' - Respuesta inversa: ' + answerInverse.value + '.' + ' - Golpes por A: ' + word.value + '.' + ' - Resta de 7 en 7: ' + valueRestLog.value
-        }
+        };
 
         const response = axios.post('/moca/uploadAttention', answer);
-        console.log("respuesta:",response);
 
         sendNumber(totalScore.value);
-    }
-    else{
+    } else {
         incorrectRest.value += 1;
     }
-    valuRest.value = "";
-}
+    valuRest.value = '';
+};
+
+const handleInput = (index) => {
+    if (answerOrder.value[index].length === 1) {
+        nextTick(() => {
+            const nextIndex = index + 1;
+            if (nextIndex < orderNumbers.value.length) {
+                const nextInput = inputFields.value[nextIndex];
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            }
+        });
+    }
+};
+
+const handleInputInverse = (index) => {
+    if (answerInverse.value[index].length === 1) {
+        nextTick(() => {
+            const nextIndex = index + 1;
+            if (nextIndex < InverseNumbers.value.length) {
+                const nextInput = inputFields.value[nextIndex];
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            }
+        });
+    }
+};  
 </script>

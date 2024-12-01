@@ -29,6 +29,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/saber-mas', function () {
+    return Inertia::render('KnowMore');
+})->name('knowmore');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -38,108 +42,109 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+    Route::get('/reglas', function () {
+        return Inertia::render('Rules');
+    })->name('rules');
+
     //---------------------MOCA--------------------------------
     Route::get('/moca', function () {
         return Inertia::render('Moca/Index');
     })->name('Moca.Index');
 
     Route::post('/moca/uploadConceptualAlternative', [MocaController::class, 'uploadConceptualAlternative'])
-    ->middleware('auth')
-    ->name('Moca.UploadConceptualAlternative');
+        ->middleware('auth')
+        ->name('Moca.UploadConceptualAlternative');
 
     Route::post('/moca/uploadcube', [MocaController::class, 'uploadCube'])
-    ->middleware('auth')
-    ->name('Moca.uploadCube');
-    
+        ->middleware('auth')
+        ->name('Moca.uploadCube');
+
     Route::post('/moca/uploadclock', [MocaController::class, 'uploadClock'])
-    ->middleware('auth')
-    ->name('Moca.uploadclock');
+        ->middleware('auth')
+        ->name('Moca.uploadclock');
 
     Route::post('/moca/uploadIdentification', [MocaController::class, 'uploadIdentification'])
-    ->middleware('auth')
-    ->name('Moca.uploadIdentification');
+        ->middleware('auth')
+        ->name('Moca.uploadIdentification');
 
     Route::post('/moca/uploadAttention', [MocaController::class, 'uploadAttention'])
-    ->middleware('auth')
-    ->name('Moca.uploadAttention'); 
+        ->middleware('auth')
+        ->name('Moca.uploadAttention');
 
     Route::post('/moca/uploadLanguage', [MocaController::class, 'uploadLanguage'])
-    ->middleware('auth')
-    ->name('Moca.uploadLanguage');
+        ->middleware('auth')
+        ->name('Moca.uploadLanguage');
 
     Route::post('/moca/uploadVerbalFluency', [MocaController::class, 'uploadVerbalFluency'])
-    ->middleware('auth')
-    ->name('Moca.uploadVerbalFluency');
+        ->middleware('auth')
+        ->name('Moca.uploadVerbalFluency');
 
     Route::post('/moca/uploadAbstraction', [MocaController::class, 'uploadAbstraction'])
-    ->middleware('auth')
-    ->name('Moca.uploadAbstraction');
+        ->middleware('auth')
+        ->name('Moca.uploadAbstraction');
 
     Route::post('/moca/uploadDelayedRecall', [MocaController::class, 'uploadDeferredRecall'])
-    ->middleware('auth')
-    ->name('Moca.uploadDeferredRecall');
+        ->middleware('auth')
+        ->name('Moca.uploadDeferredRecall');
 
     Route::post('/moca/uploadOrientation', [MocaController::class, 'uploadOrientation'])
-    ->middleware('auth')
-    ->name('Moca.uploadOrientation');
+        ->middleware('auth')
+        ->name('Moca.uploadOrientation');
 
     Route::post('/moca/savemis', [MocaController::class, 'saveMiss'])
-    ->middleware('auth')
-    ->name('Moca.savemis');
+        ->middleware('auth')
+        ->name('Moca.savemis');
 
     Route::post('/moca/calification', [MocaController::class, 'editMoca'])
-    ->middleware('auth')
-    ->name('Moca.senData');
+        ->middleware('auth')
+        ->name('Moca.senData');
 
     //-----------------------Admin-------------------------------
     Route::get('/admin/index', [AdminController::class, 'index'])
-    ->middleware('auth.admin')
-    ->name('Admin.Index');
+        ->middleware('auth.admin')
+        ->name('Admin.Index');
 
     Route::put('/admin/update', [AdminController::class, 'update'])
-    ->middleware('auth.admin')
-    ->name('admin.update');
+        ->middleware('auth.admin')
+        ->name('admin.update');
 
     //-----------------------Medic-------------------------------
     Route::get('/medic/index', [MedicController::class, 'index'])
-    ->middleware('auth.medic')
-    ->name('Medic.Index');
+        ->middleware('auth.medic')
+        ->name('Medic.Index');
 
     Route::get('/medic/history', [MedicController::class, 'history'])
-    ->middleware('auth.medic')
-    ->name('Medic.History');
+        ->middleware('auth.medic')
+        ->name('Medic.History');
 
     Route::get('/medic/show', [MedicController::class, 'show'])
-    ->middleware('auth.medic')
-    ->name('Medic.Show');
+        ->middleware('auth.medic')
+        ->name('Medic.Show');
 
     Route::post('/medic/getMoca', [MedicController::class, 'getMoca'])
-    ->middleware('auth.medic')
-    ->name('Medic.getMoca');
+        ->middleware('auth.medic')
+        ->name('Medic.getMoca');
 
     Route::put('/medic/editMoca', [MedicController::class, 'editMoca'])
-    ->middleware('auth.medic')
-    ->name('Medic.editMoca');
+        ->middleware('auth.medic')
+        ->name('Medic.editMoca');
 
     Route::get('/medic/clinicHistory', [MedicController::class, 'clinicHistory'])
-    ->middleware('auth.medic')
-    ->name('Medic.clinicHistory');
+        ->middleware('auth.medic')
+        ->name('Medic.clinicHistory');
 
     Route::post('/medic/getUser', [MedicController::class, 'getUser'])
-    ->middleware('auth.medic')
-    ->name('Medic.getUser');
-   
+        ->middleware('auth.medic')
+        ->name('Medic.getUser');
+
     Route::post('/medic/makeHistiryCLinic', [MedicController::class, 'makeHistiryCLinic'])
-    ->middleware('auth.medic')
-    ->name('Medic.makeHistiryCLinic');
+        ->middleware('auth.medic')
+        ->name('Medic.makeHistiryCLinic');
 
     Route::post('/medic/getHistoryClinic', [MedicController::class, 'getHistoryClinic'])
-    ->middleware('auth.medic')
-    ->name('Medic.getHistoryClinic');
+        ->middleware('auth.medic')
+        ->name('Medic.getHistoryClinic');
 
     //-----------------------ExportExcel-------------------------------
-    Route::get('/export', [ExportExcelController::class, 'exportExcel' ])->name('export');
+    Route::get('/export', [ExportExcelController::class, 'exportExcel'])->name('export');
 });
-
-
-
