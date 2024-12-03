@@ -1,23 +1,70 @@
 <template>
-    <div class="flex items-center justify-center space-x-12 mt-16 mb-10">
-        <div class="w-7/12 flex flex-col gap-4">
+    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12 space-y-6 lg:space-y-0 mt-16 mb-10 px-4">
+        <!-- Contenedor Principal -->
+        <div class="w-full lg:w-7/12 flex flex-col gap-6">
             <div class="flex justify-center items-center space-x-3">
-                <font-awesome-icon :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction1" />
-                <h2 class="text-primary text-3xl">5. Memoria</h2>
+                <font-awesome-icon
+                    :icon="['fas', 'volume-up']"
+                    size="2x"
+                    class="text-secondary cursor-pointer hover:text-primary"
+                    @click="speachIntroduction1"
+                />
+                <h2 class="text-primary text-xl sm:text-2xl md:text-3xl text-center lg:text-left">
+                    5. Memoria
+                </h2>
             </div>
-            <div v-if="attempt==0"  class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                <p class="text-gray-500">Memorice las palabras que escuchará al presionar el botón a la derecha de este recuadro y luego ingreselas en las entradas de texto, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
-                <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction2" />
+
+            <!-- Mensajes según el intento -->
+            <div
+                v-if="attempt == 0"
+                class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4"
+            >
+                <p class="text-gray-500 text-sm sm:text-base text-center sm:text-left">
+                    Memorice las palabras que escuchará al presionar el botón a la derecha de este recuadro y luego
+                    ingreselas en las entradas de texto, sin importar el orden. Solo tendrá una oportunidad de escucha.
+                </p>
+                <font-awesome-icon
+                    v-if="!heard_audio"
+                    :icon="['fas', 'volume-up']"
+                    size="2x"
+                    class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
+                    @click="speachIntroduction2"
+                />
             </div>
-            <div v-if="attempt==1"  class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                <p class="text-gray-500">Presione nuevamente el botón para repetir las palabras e ingreselas en las entradas de texto. Recuerde que el orden no importa.</p>
-                <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction2" />
+
+            <div
+                v-if="attempt == 1"
+                class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4"
+            >
+                <p class="text-gray-500 text-sm sm:text-base text-center sm:text-left">
+                    Presione nuevamente el botón para repetir las palabras e ingreselas en las entradas de texto.
+                    Recuerde que el orden no importa.
+                </p>
+                <font-awesome-icon
+                    v-if="!heard_audio"
+                    :icon="['fas', 'volume-up']"
+                    size="2x"
+                    class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
+                    @click="speachIntroduction2"
+                />
             </div>
-            <div v-if="!button_band && attempt < maxAttempts" class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
+
+            <!-- Entradas de Texto -->
+            <div
+                v-if="!button_band && attempt < maxAttempts"
+                class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            >
                 <div v-for="(word, index) in words" :key="index">
-                    <TextInput v-model="rememberedWords[index]" @input="removeSpaces(index)" type="text" class="block w-full" />
+                    <TextInput
+                        v-model="rememberedWords[index]"
+                        @input="removeSpaces(index)"
+                        type="text"
+                        class="block w-full"
+                    />
                 </div>
-                <ButtonCustom mode="button" @click="recordAttempt">REGISTRAR INTENTO</ButtonCustom>
+                <div class="sm:col-span-2 lg:col-span-3 flex justify-center">
+                    <ButtonCustom mode="button" @click="recordAttempt">REGISTRAR INTENTO</ButtonCustom>
+                </div>
             </div>
         </div>
     </div>
@@ -26,7 +73,7 @@
 <script setup>
 import ButtonCustom from '@/Components/ButtonCustom.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive } from 'vue';
 
 // Variables reactivas
 const words = ['ROSTRO', 'SEDA', 'IGLESIA', 'CLAVEL', 'ROJO'];
@@ -36,21 +83,17 @@ const heard_audio = ref(false);
 const button_band = ref(true);
 const maxAttempts = ref(3);
 const rememberedWords = reactive(['', '', '', '', '']);
-const answer = ['ROSTRO', 'SEDA', 'IGLESIA', 'CLAVEL', 'ROJO'];
-
 
 const emit = defineEmits(['answer-score']);
 
-
-
 const speachIntroduction1 = () => {
     const synthesis = window.speechSynthesis;
-    const text1 = 'Esta es una prueba de memoria. Le voy a leer una lista de palabras que debe recordar. Escuche con atención. Cuando acabe, dígame todas las palabras que pueda recordar. No importa el orden en el que las escriba';
+    const text1 =
+        'Esta es una prueba de memoria. Le voy a leer una lista de palabras que debe recordar. Escuche con atención. Cuando acabe, dígame todas las palabras que pueda recordar. No importa el orden en el que las escriba';
     const utterance1 = new SpeechSynthesisUtterance(text1);
     utterance1.rate = 0.7;
-    utterance1.lang = "es-CO" 
+    utterance1.lang = 'es-CO';
     synthesis.speak(utterance1);
-
 };
 
 const speachIntroduction2 = () => {
@@ -58,13 +101,12 @@ const speachIntroduction2 = () => {
     const text1 = 'Las palabras son: ROSTRO, Seda, Iglesia, Clavel, Rojo';
     const utterance1 = new SpeechSynthesisUtterance(text1);
     utterance1.rate = 0.6;
-    utterance1.lang = "es-CO" 
+    utterance1.lang = 'es-CO';
     synthesis.speak(utterance1);
     heard_audio.value = true;
     utterance1.onend = () => {
         startAttempt();
     };
-
 };
 
 const startAttempt = () => {
@@ -73,13 +115,11 @@ const startAttempt = () => {
 };
 
 const recordAttempt = () => {
-    
     attempt.value++;
-    if (attempt.value == 1){
+    if (attempt.value == 1) {
         heard_audio.value = false;
         removeAttempt();
-    }
-    else if (attempt.value == 2) {
+    } else if (attempt.value == 2) {
         emit('answer-score', 0);
     }
 };
