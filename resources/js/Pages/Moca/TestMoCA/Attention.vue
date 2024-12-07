@@ -3,19 +3,19 @@
         <div class="w-7/12 flex flex-col gap-4">
             <!-- Intro -->
             <div class="flex justify-start items-center space-x-3">
-                <h2 class="text-primary text-3xl">6. Atención</h2>
-                <font-awesome-icon v-if="!orderNumber && !inverseNumber && !countAleter && !sevenMinusSeven"
+                <h2 v-if= "!final" class="text-primary text-3xl">6. Atención</h2>
+                <font-awesome-icon v-if="!final && !orderNumber && !inverseNumber && !countAleter && !sevenMinSeven"
                     :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary"
                     @click="speachIntroduction" />
-                <font-awesome-icon v-if="orderNumber && !inverseNumber && !countAleter && !sevenMinusSeven"
+                <font-awesome-icon v-if="!final && orderNumber && !inverseNumber && !countAleter && !sevenMinSeven"
                     :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary"
                     @click="speachFirstSeriesInstruction" />
-                <font-awesome-icon v-if="orderNumber && inverseNumber && !countAleter && !sevenMinusSeven"
+                <font-awesome-icon v-if="!final && orderNumber && inverseNumber && !countAleter && !sevenMinSeven"
                     :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary"
                     @click="speachSecondSeriesInstruction" />
-                <font-awesome-icon v-if="countAleter && !sevenMinusSeven" :icon="['fas', 'volume-up']" size="2x"
+                <font-awesome-icon v-if="!final && countAleter && !sevenMinSeven" :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" @click="countAleterSpeachInstruction" />
-                <font-awesome-icon v-if="!heard_audio2 && countAleter && sevenMinusSeven" :icon="['fas', 'volume-up']"
+                <font-awesome-icon v-if="!final && sevenMinSeven" :icon="['fas', 'volume-up']"
                     size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="audioSevenMinus" />
             </div>
             <div v-if="!orderNumber">
@@ -40,7 +40,7 @@
                     </div>
 
                     <p v-if="first_series_field" class="flex justify-center text-gray-500">Ingrese la primera serie de
-                        numeros en el mismo orden
+                        numeros en el mismo orden.
                     </p>
                     <div v-if="first_series_field" class="flex justify-center">
                         <div class="grid grid-cols-5 gap-7">
@@ -87,7 +87,7 @@
             <!-- Golpear por cada letra A -->
             <div v-if="strikestate" class="flex flex-col items-center gap-4 w-full">
                 <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
-                    <p class="text-gray-500 text-justify px-4">
+                    <p class="text-gray-500 ">
                         Presione la barra espaciadora (o cualquier tecla) cada vez que escuche la letra "A". Para
                         reproducir el audio, haga clic en el botón a la derecha del recuadro de texto.</p>
                     <font-awesome-icon v-if="!heard_audio2" :icon="['fas', 'volume-up']" size="2x"
@@ -110,16 +110,22 @@
                         desde el número que colocó anteriormente.</p>
                 </div>
                 <!-- <p class="flex justify-center text-5xl font-semibold">{{ valueStart }}</p> -->
-                <p class="flex justify-center text-black text-3xl text-center font-bold">¿Cuánto es {{ valueStart }} - 7?</p>
+                <p v-if = "!isInputFocused" class="flex justify-center text-black text-3xl text-center font-bold">¿Cuánto es {{ valueStart }} - 7?</p>
                 <div class="flex justify-center">
-                    <TextInput type="number" v-model="valuRest" class="w-24" />
-                    <button class="bg-secondary text-white px-4 py-2 rounded-lg ml-4" @click="restNumber">
-                        Siguiente resta
+                    <TextInput 
+                        type="number" 
+                        v-model="valuRest" 
+                        class="w-24" 
+                        @focus="isInputFocused = true"
+                        @unfocus="isInputFocused = false"
+                    />
+                    <button v-if="restCount<4" class="bg-secondary text-white px-4 py-2 rounded-lg ml-4" @click="restNumber">
+                        SIGUIENTE RESTA
                     </button>
                 </div>
                 
 
-                <ButtonCustom class="w-1/3 mt-4" mode="button" @click="restNumber">
+                <ButtonCustom v-if="restCount===4" class="w-1/3 mt-4" mode="button" @click="restNumber">
                     SIGUIENTE
                 </ButtonCustom>
             </div>
@@ -150,9 +156,10 @@ const answerOrder = ref([]);
 const inputFields = ref([]); // Array to hold references to input fields
 const scoreNumbers = ref(0);
 const restCount = ref(0);
+const final = ref(false);
 const first_series_field = ref(false);
 const second_series_field = ref(false);
-
+const isInputFocused = ref(false);
 
 
 const inverseNumber = ref(false);
@@ -179,8 +186,8 @@ const totalscoreState = ref(false);
 
 const countAleter = ref(false);
 const sevenMinusSeven = ref(false);
-const a = ref(0);
 
+const a = ref(0);
 
 const speachIntroduction = () => {  //Audio introducción
     const text1 = 'En los siguientes pasos, se le presentarán tres tareas para completar. Cada una de estas incluirá un audio que deberá escuchar atentamente. Es importante tener en cuenta que solo podrá reproducir cada audio una vez, por lo que le recomendamos prestar mucha atención al escucharlos.';
@@ -290,7 +297,7 @@ const recordAttemptOrderInve = () => {
     addEventListener('keydown', countKeyPresses);
 };
 const audioSevenMinus = () => {
-    const text1 = 'Ahora reste de 7 en 7 empezando desde 100, ponga el resultado en el input y oprima siguiente.';
+    const text1 = 'Ahora reste de 7 en 7 empezando desde 100, ponga el resultado en el input y oprima siguiente resta.';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
@@ -299,8 +306,8 @@ const audioSevenMinus = () => {
 };
 
 const letterACount = () => {
-    sevenMinusSeven.value = true;
     sevenMinSeven.value = true;
+
     strikestate.value = false;
 };
 
@@ -308,6 +315,7 @@ const restNumber = async () => {
     valueRestLog.value = valueRestLog.value + ', ' + valuRest.value;
     let difference = valueStart.value - valuRest.value;
     restCount.value += 1;
+    isInputFocused.value = false;
 
     if (difference === 7) {
         countCorrect.value += 1;
@@ -317,9 +325,11 @@ const restNumber = async () => {
         valueStart.value = valuRest.value;
     }
 
+    
     if (restCount.value === 5) {
         sevenMinSeven.value = false;
         totalscoreState.value = true;
+        final.value = true;
 
         if (countCorrect.value >= 4) {
             totalScore.value += 3 + scoreNumbers.value + scoreInverse.value + scoreStrike.value;
@@ -336,6 +346,7 @@ const restNumber = async () => {
         await axios.post('/moca/uploadAttention', answer);
         sendNumber(totalScore.value);
     }
+
 
     valuRest.value = '';
 };
