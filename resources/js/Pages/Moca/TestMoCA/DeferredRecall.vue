@@ -21,7 +21,6 @@
                     <div class="flex w-full justify-center items-end">
                         <ButtonCustom class="w-full" mode="button" @click="recordAttempt">REGISTRAR</ButtonCustom>
                     </div>
-                    <ButtonCustom mode="button" @click="this.track = true">AYUDA</ButtonCustom>
                 </div>
             </div>
             <!-- / Intento sin pistas -->
@@ -38,7 +37,6 @@
                     <div class="flex w-full justify-center items-end">
                         <ButtonCustom class="w-full" mode="button" @click="recordAttemptTrack">REGISTRAR</ButtonCustom>
                     </div>
-                    <ButtonCustom mode="button" @click="this.selectTest = true">SELECCIONAR</ButtonCustom>
                 </div>
             </div>
             <!-- / Intento con pistas -->
@@ -57,7 +55,7 @@
                         </select>
                     </div>
                     <div class="flex w-full justify-center items-end">
-                        <ButtonCustom class="w-full" mode="button" @click="recordAttemptSelect">INTENTO FINAL</ButtonCustom>
+                        <ButtonCustom class="w-full" mode="button" @click="recordAttemptSelect">REGISTRAR</ButtonCustom>
                     </div>
                 </div>
             </div>

@@ -2,15 +2,30 @@
     <div class="flex items-center justify-center space-x-12 my-12">
         <div class="w-7/12 flex flex-col items-center justify-center gap-4">
             <div class="flex justify-start items-center space-x-3 self-start">
-                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
+                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x"
+                    class="text-secondary cursor-pointer hover:text-primary" />
                 <h2 class="text-primary text-3xl">8. Fluidez verbal</h2>
             </div>
-            <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-gray-500">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de personas o lugares que empiecen con la letra P.</p>
+            <div v-if="showLetter"
+                class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
+                <p class="text-gray-500">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
+                    personas o lugares que empiecen con la letra P.</p>
             </div>
-            <ButtonCustom v-if="resultState" mode="button" @click="startRecording" :disabled="isRecording || timeLeft === 0">{{ isRecording ? `${timeLeft} s` : 'COMENZAR' }}</ButtonCustom>
+            <div v-if="!showLetter"
+                class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
+                <p class="text-gray-500">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
+                    personas o lugares que empiecen con la letra dicha anteriormente.</p>
+            </div>
+            <p v-if ="isRemembering" class="flex justify-center text-3xl">La letra es la P</p>
+
+
+            <ButtonCustom v-if="resultState && timeLeft > 0" mode="button" @click="startRecording"
+                :disabled="isRecording">{{ isRecording ? `${timeLeft} s` : 'COMENZAR' }}
+            </ButtonCustom>
             <div v-if="resultState" v-text="transcript" class="flex justify-center text-gray-500"></div>
-            <ButtonCustom v-if="timeLeft === 0" mode="button" @click="evaluar">EVALUAR</ButtonCustom>
+            <ButtonCustom v-if="rememberButton" mode="button" @click="rememberLetter">¿Olvidó la letra?
+            </ButtonCustom>
+            <ButtonCustom v-if="timeLeft === 0" mode="button" @click="evaluar">SIGUIENTE</ButtonCustom>
             <div v-if="!resultState" v-text="`Puntuación: ${score}`" class="flex justify-center text-gray-500"></div>
         </div>
     </div>
@@ -30,13 +45,18 @@ const resultState = ref(true);
 const isRecording = ref(false);
 const timeLeft = ref(60);
 const score = ref(0);
-
+const showLetter = ref(true);
+const isRemembering = ref(false);
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const sr = new Recognition();
+
+const rememberButton = ref(false);
 
 let timerId;
 
 const startRecording = () => {
+    showLetter.value = false;
+    rememberButton.value = true;
     if (!isRecording.value && timeLeft.value > 0) {
         isRecording.value = true;
         sr.start();
@@ -67,8 +87,18 @@ const speachIntroduction = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.6;
-    utterance.lang = "es-CO" 
+    utterance.lang = "es-CO"
     synthesis.speak(utterance);
+};
+
+const rememberLetter = () => {
+    
+    isRemembering.value = true;
+
+    setTimeout(() => {
+        isRemembering.value = false;
+        rememberButton.value = false;
+    }, 3000);
 };
 
 onMounted(() => {
