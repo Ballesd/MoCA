@@ -43,7 +43,10 @@
                             </div>
                         </div>
                     </div>
-                    <ButtonCustom class="w-1/3 mt-4" mode="button" @click="recordAttemptOrder">SIGUIENTE</ButtonCustom>
+                    <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="recordAttemptOrder">
+                        SIGUIENTE
+                    </ButtonCustom>
+
                 </div>
                 <!-- /Orden de numeros -->
                 <!-- Orden de numeros al inverso -->
@@ -59,16 +62,13 @@
                     <div class="flex justify-center">
                         <div class="grid grid-cols-3 gap-7">
                             <div v-for="(number, index) in InverseNumbers" :key="index">
-                                <TextInput 
-                                    v-model="answerInverse[index]" :ref="el => inputFields[index] = el"
-                                    maxlength="1"
-                                    class="h-12 w-12 text-center text-xl text-gray-600" 
-                                    @input="handleInputInverse(index)"
-                                    />
-                                </div>
+                                <TextInput v-model="answerInverse[index]" :ref="el => inputFields[index] = el"
+                                    maxlength="1" class="h-12 w-12 text-center text-xl text-gray-600"
+                                    @input="handleInputInverse(index)" />
+                            </div>
                         </div>
                     </div>
-                    <ButtonCustom class="w-1/3 mt-4" mode="button" @click="recordAttemptOrderInve">SIGUIENTE
+                    <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="recordAttemptOrderInve">SIGUIENTE
                     </ButtonCustom>
                 </div>
                 <!-- /Orden de numeros al inverso -->
@@ -82,7 +82,7 @@
                         @click="countAleterSpeach" />
                 </div>
                 <TextInput v-model="word" type="number" class="w-24" />
-                <ButtonCustom class="w-1/3 mt-4" mode="button" @click="letterACount">SIGUIENTE</ButtonCustom>
+                <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="letterACount">SIGUIENTE</ButtonCustom>
             </div>
             <!-- / Golpear por cada letra A -->
             <!-- Desde 100 restado de 7 en 7 -->
@@ -93,7 +93,7 @@
                 <TextInput type="number" v-model="valuRest" class="w-24" />
                 <p class="flex justify-center text-gray-500 text-center">Digite el número en el cuadro de texto y oprima
                     la flecha de abajo para escribir el siguiente número.</p>
-                <ButtonCustom class="w-1/3 mt-4" mode="button" @click="restNumber">SIGUIENTE</ButtonCustom>
+                <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="restNumber">SIGUIENTE</ButtonCustom>
             </div>
             <!-- / Desde 100 restado de 7 en 7 -->
             <div v-if="totalscoreState">

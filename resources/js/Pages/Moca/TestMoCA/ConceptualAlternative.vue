@@ -1,20 +1,37 @@
 <template>
-    <div class="flex items-center justify-center space-x-12">
-        <div class="p-4 h-96">
-            <img class="w-full h-full" src="../../../../../public/images/grafo.gif" alt="Logo" />
+    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12 space-y-6 lg:space-y-0">
+        <!-- Contenedor de la Imagen -->
+        <div class="p-4 h-96 w-full lg:w-auto">
+            <img
+                class="w-full h-full object-contain lg:object-cover rounded-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none"
+                src="../../../../../public/images/grafo.gif"
+                alt="Logo"
+            />
         </div>
-        <div class="w-1/2 flex flex-col gap-4">
+
+        <!-- Contenedor del Texto -->
+        <div class="w-full lg:w-1/2 flex flex-col gap-4 px-4">
             <div class="flex justify-center items-center space-x-3">
-                <font-awesome-icon :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />
-                <h2 class="text-primary text-3xl">1. Fase de Alternancia Conceptual</h2>
+                <font-awesome-icon
+                    :icon="['fas', 'volume-up']"
+                    size="2x"
+                    class="text-secondary cursor-pointer hover:text-primary"
+                    @click="speachIntroduction"
+                />
+                <h2 class="text-primary text-xl sm:text-2xl md:text-3xl text-center lg:text-left">
+                    1. Fase de Alternancia Conceptual
+                </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
-                <p class="text-gray-500">Una los círculos con una línea alternando entre número y letra siguiendo el orden numérico y del abecedario.</p>
+                <p class="text-gray-500 text-sm sm:text-base">
+                    Una los círculos con una línea alternando entre número y letra siguiendo el orden numérico y del abecedario.
+                </p>
             </div>
             <UploadFile :uploadedImage="uploadedImage" />
         </div>
     </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue';
