@@ -1,4 +1,4 @@
-name: Deploy to Production MoCA App
+name: Deploy to Server with VPN and SSH
 
 on:
   push:
@@ -6,61 +6,60 @@ on:
       - main
 
 jobs:
-
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    
     - name: Checkout Code
       uses: actions/checkout@v3
 
     - name: Install FortiClient VPN
       run: |
-        sudo apt-get update
-        sudo apt-get install -y forticlient
-      if: \${{ failure() }}
-      continue-on-error: true
-      
-    - name: Connect to VPN
-      if: \${{ success() }}
-      env:
-        VPN_USERNAME: \${{ secrets.VPN_USERNAME }}
-        VPN_PASSWORD: \${{ secrets.VPN_PASSWORD }}
-      run: |
-        ./connect_vpn.sh
+        # Importar la clave GPG
+        wget -O - https://repo.fortinet.com/repo/forticlient/7.4/ubuntu22/DEB-GPG-KEY | gpg --dearmor | sudo tee /usr/share/keyrings/repo.fortinet.com.gpg
 
-    - name: Deploy to Production Server
-      if: \${{ success() }}
+        # Añadir el repositorio de Fortinet
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/repo.fortinet.com.gpg] https://repo.fortinet.com/repo/forticlient/7.4/ubuntu22/ stable non-free" | sudo tee /etc/apt/sources.list.d/repo.fortinet.com.list
+
+        # Actualizar listas de paquetes e instalar FortiClient
+        sudo apt-get update
+        sudo apt install -y forticlient || { echo "Failed to install FortiClient"; exit 1; }
+
+    # 3️⃣ Conectar a la VPN
+    - name: Connect to VPN
       env:
-        SSH_USER: \${{ secrets.PRODUCTION_SSH_USER }}
-        SSH_HOST: \${{ secrets.PRODUCTION_SSH_HOST }}
-        SSH_PASSWORD: \${{ secrets.PRODUCTION_SSH_PASSWORD }}
+        VPN_USERNAME: ${{ secrets.VPN_USERNAME }}
+        VPN_PASSWORD: ${{ secrets.VPN_PASSWORD }}
       run: |
-        # Conectarse al servidor mediante SSH
-        sshpass -p "\$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "\$SSH_USER@\$SSH_HOST" << EOF
-        
-        set -e # Habilitar manejo de errores
-        echo "Starting deployment on production server..."
+        # Conectarse a la VPN
+        echo $VPN_PASSWORD | forticlient connect --username $VPN_USERNAME --password-stdin || { echo "Failed to connect to VPN"; exit 1; }
+
+    # 4️⃣ Configurar la clave SSH
+    - name: Setup SSH Key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    # 5️⃣ Conectar al servidor y desplegar
+    - name: Deploy to Server
+      env:
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+      run: |
+        ssh -o StrictHostKeyChecking=no $SSH_USER@$SERVER_IP << EOF
+        set -e
 
         # Navegar al directorio del proyecto
-        cd /var/www/MoCA/
+        cd /var/www/MoCA
 
-        # Actualizar el código
-        echo "Pulling latest changes..."
-        git pull origin main || { echo "Git pull failed"; exit 1; }
+        # Obtener los últimos cambios del repositorio
+        git pull origin main
 
-        # Limpiar caché
-        echo "Clearing application cache..."
-        php artisan cache:clear || { echo "Failed to clear cache"; exit 1; }
+        # Limpiar la caché
+        php artisan cache:clear
 
-        # Instalar dependencias de Node.js
-        echo "Building front-end assets..."
-        npm run build || { echo "Build failed"; exit 1; }
+        # Reiniciar el servicio
+        sudo systemctl restart apache2
 
-        # Reiniciar la aplicación
-        echo "Restarting application..."
-        sudo systemctl restart apache2 || { echo "Failed to restart application"; exit 1; }
-
-        echo "Deployment completed successfully!"
+        echo "Deployment complete!"
         EOF
