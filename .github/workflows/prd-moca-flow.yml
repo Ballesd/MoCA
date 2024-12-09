@@ -1,0 +1,51 @@
+name: Deploy to Production MoCA App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Configure VPN (FortiClient)
+      env:
+        VPN_USERNAME: \${{ secrets.VPN_USERNAME }}
+        VPN_PASSWORD: \${{ secrets.VPN_PASSWORD }}
+      run: |
+        # Install FortiClient
+        sudo apt-get install -y forticlient
+        
+        # Configure VPN connection
+        fortinclient connect --username \$VPN_USERNAME --password \$VPN_PASSWORD
+
+    - name: Deploy to Production Server
+      env:
+        SSH_USER: \${{ secrets.PRODUCTION_SSH_USER }}
+        SSH_PASSWORD: \${{ secrets.PRODUCTION_SSH_PASSWORD }}
+        SSH_HOST: \${{ secrets.PRODUCTION_SSH_HOST }}
+      run: |
+        # Connect to the production server via SSH
+        sshpass -p "\$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no \$SSH_USER@\$SSH_HOST << EOF
+        
+        # Navigate to the project directory
+        cd /var/www/MoCA/
+        
+        # Pull the latest changes from the repository
+        git pull origin main --force
+        
+        # Clear the cache
+        php artisan cache:clear
+  
+        # Compile node-files
+        npm run build
+        
+        # Restart the application
+        sudo systemctl restart apache2
+        
+        EOF
