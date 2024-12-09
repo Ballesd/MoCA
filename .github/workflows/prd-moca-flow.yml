@@ -71,9 +71,6 @@ jobs:
         # Limpiar la caché
         php artisan cache:clear
 
-        # Instalar dependencias
-        composer install --no-dev --optimize-autoloader
-
         # Reiniciar el servicio
         sudo systemctl restart apache2
 
