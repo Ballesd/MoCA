@@ -6,35 +6,39 @@ on:
       - main
 
 jobs:
+
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+    
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Configure VPN (FortiClient)
-      env:
-        VPN_USERNAME: ${{ secrets.VPN_USERNAME }}
-        VPN_PASSWORD: ${{ secrets.VPN_PASSWORD }}
+    - name: Install FortiClient VPN
       run: |
         sudo apt-get update
-        sudo apt-get install -y forticlient || { echo "Failed to install FortiClient"; exit 1; }
-        
-        # Configurar VPN (asegúrate de que forticlient esté disponible y configurado correctamente)
-        echo $VPN_PASSWORD | forticlient connect --username $VPN_USERNAME --password-stdin || { echo "VPN connection failed"; exit 1; }
-
-    - name: Configure SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        sudo apt-get install -y forticlient
+      if: \${{ failure() }}
+      continue-on-error: true
+      
+    - name: Connect to VPN
+      if: \${{ success() }}
+      env:
+        VPN_USERNAME: \${{ secrets.VPN_USERNAME }}
+        VPN_PASSWORD: \${{ secrets.VPN_PASSWORD }}
+      run: |
+        ./connect_vpn.sh
 
     - name: Deploy to Production Server
+      if: \${{ success() }}
       env:
-        SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
-        SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+        SSH_USER: \${{ secrets.PRODUCTION_SSH_USER }}
+        SSH_HOST: \${{ secrets.PRODUCTION_SSH_HOST }}
+        SSH_PASSWORD: \${{ secrets.PRODUCTION_SSH_PASSWORD }}
       run: |
-        ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << EOF
+        # Conectarse al servidor mediante SSH
+        sshpass -p "\$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "\$SSH_USER@\$SSH_HOST" << EOF
         
         set -e # Habilitar manejo de errores
         echo "Starting deployment on production server..."
