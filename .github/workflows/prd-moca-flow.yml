@@ -27,25 +27,21 @@ jobs:
         sudo apt-get update
         sudo apt install -y forticlient || { echo "Failed to install FortiClient"; exit 1; }
 
-    # 3️⃣ Crear configuración de VPN
-    - name: Create VPN Configuration
-      run: |
-        # Crear el archivo de configuración (asegúrate de usar los detalles correctos de tu servidor VPN)
-        sudo mkdir -p /etc/forticlient
-        echo "[vpn]" | sudo tee /etc/forticlient/vpn.conf
-        echo "server = ${VPN_SERVER}" | sudo tee -a /etc/forticlient/vpn.conf
-        echo "username = ${VPN_USERNAME}" | sudo tee -a /etc/forticlient/vpn.conf
-        echo "password = ${VPN_PASSWORD}" | sudo tee -a /etc/forticlient/vpn.conf
-
-    # 4️⃣ Conectar a la VPN
-    - name: Connect to VPN
+    # 3️⃣ Crear perfil de VPN
+    - name: Create VPN Profile
       env:
         VPN_SERVER: ${{ secrets.VPN_SERVER }}
         VPN_USERNAME: ${{ secrets.VPN_USERNAME }}
         VPN_PASSWORD: ${{ secrets.VPN_PASSWORD }}
       run: |
-        # Usar FortiClient para conectarse
-        sudo forticlient vpn --connect /etc/forticlient/vpn.conf || { echo "Failed to connect to VPN"; exit 1; }
+        # Crear el perfil de VPN
+        echo "$VPN_PASSWORD" | sudo forticlient vpn edit --name myvpn --server $VPN_SERVER --username $VPN_USERNAME --password-stdin || { echo "Failed to create VPN profile"; exit 1; }
+
+    # 4️⃣ Conectar a la VPN
+    - name: Connect to VPN
+      run: |
+        # Conectarse al perfil creado
+        sudo forticlient vpn connect myvpn || { echo "Failed to connect to VPN"; exit 1; }
 
     # 5️⃣ Configurar la clave SSH
     - name: Setup SSH Key
