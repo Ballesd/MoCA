@@ -6,46 +6,57 @@ on:
       - main
 
 jobs:
-
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v2
-    
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
     - name: Configure VPN (FortiClient)
       env:
-        VPN_USERNAME: \${{ secrets.VPN_USERNAME }}
-        VPN_PASSWORD: \${{ secrets.VPN_PASSWORD }}
+        VPN_USERNAME: ${{ secrets.VPN_USERNAME }}
+        VPN_PASSWORD: ${{ secrets.VPN_PASSWORD }}
       run: |
-        # Install FortiClient
-        sudo apt-get install -y forticlient
+        sudo apt-get update
+        sudo apt-get install -y forticlient || { echo "Failed to install FortiClient"; exit 1; }
         
-        # Configure VPN connection
-        fortinclient connect --username \$VPN_USERNAME --password \$VPN_PASSWORD
+        # Configurar VPN (asegúrate de que forticlient esté disponible y configurado correctamente)
+        echo $VPN_PASSWORD | forticlient connect --username $VPN_USERNAME --password-stdin || { echo "VPN connection failed"; exit 1; }
+
+    - name: Configure SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Deploy to Production Server
       env:
-        SSH_USER: \${{ secrets.PRODUCTION_SSH_USER }}
-        SSH_PASSWORD: \${{ secrets.PRODUCTION_SSH_PASSWORD }}
-        SSH_HOST: \${{ secrets.PRODUCTION_SSH_HOST }}
+        SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+        SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
       run: |
-        # Connect to the production server via SSH
-        sshpass -p "\$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no \$SSH_USER@\$SSH_HOST << EOF
+        ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << EOF
         
-        # Navigate to the project directory
+        set -e # Habilitar manejo de errores
+        echo "Starting deployment on production server..."
+
+        # Navegar al directorio del proyecto
         cd /var/www/MoCA/
-        
-        # Pull the latest changes from the repository
-        git pull origin main --force
-        
-        # Clear the cache
-        php artisan cache:clear
-  
-        # Compile node-files
-        npm run build
-        
-        # Restart the application
-        sudo systemctl restart apache2
-        
+
+        # Actualizar el código
+        echo "Pulling latest changes..."
+        git pull origin main || { echo "Git pull failed"; exit 1; }
+
+        # Limpiar caché
+        echo "Clearing application cache..."
+        php artisan cache:clear || { echo "Failed to clear cache"; exit 1; }
+
+        # Instalar dependencias de Node.js
+        echo "Building front-end assets..."
+        npm run build || { echo "Build failed"; exit 1; }
+
+        # Reiniciar la aplicación
+        echo "Restarting application..."
+        sudo systemctl restart apache2 || { echo "Failed to restart application"; exit 1; }
+
+        echo "Deployment completed successfully!"
         EOF
