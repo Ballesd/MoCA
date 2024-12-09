@@ -63,7 +63,7 @@ jobs:
         set -e
 
         # Navegar al directorio del proyecto
-        cd /var/www/your-application
+        cd /var/www/MoCA
 
         # Obtener los últimos cambios del repositorio
         git pull origin main
