@@ -22,17 +22,11 @@
                 <InputLabel for="3" value="Reloj - Regla" />
                 <TextInput id="3" v-model="respuestaPregunta3" @input="calificarPregunta3" class="mt-1 block w-full" />
             </div>
+
             <ButtonCustom class="w-full sm:w-1/2 mt-4 px-2" mode="button" @click="calcularPuntuacion">
-                Enviar Respuestas
+                Siguiente
             </ButtonCustom>
 
-            <!-- <div class="mt-2" v-if="puntuacionPregunta1 !== null && puntuacionPregunta2 !== null && puntuacionPregunta3 !== null">
-                <h2 class="text-lg font-semibold mb-2">Resultados:</h2>
-                <p>Pregunta 1: {{ puntuacionPregunta1 }}</p>
-                <p>Pregunta 2: {{ puntuacionPregunta2 }}</p>
-                <p>Pregunta 3: {{ puntuacionPregunta3 }}</p>
-                <p class="text-xl font-bold mt-2">Puntuación Total: {{ puntuacionTotal }}</p>
-            </div> -->
         </div>
     </div>
 </template>

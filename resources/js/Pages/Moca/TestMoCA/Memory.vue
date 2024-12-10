@@ -14,39 +14,14 @@
                 </h2>
             </div>
 
-            <!-- Mensajes según el intento -->
-            <div
-                v-if="attempt == 0"
-                class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4"
-            >
-                <p class="text-gray-500 text-sm sm:text-base text-center sm:text-left">
-                    Memorice las palabras que escuchará al presionar el botón a la derecha de este recuadro y luego
-                    ingreselas en las entradas de texto, sin importar el orden. Solo tendrá una oportunidad de escucha.
-                </p>
-                <font-awesome-icon
-                    v-if="!heard_audio"
-                    :icon="['fas', 'volume-up']"
-                    size="2x"
-                    class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
-                    @click="speachIntroduction2"
-                />
+            <div v-if="attempt==0"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
+                <p class="text-gray-500">Memorice las palabras que escuchará al presionar el botón a la derecha de este recuadro y luego ingréselas en las entradas de texto, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
+                <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction2" />
             </div>
+            <div v-if="attempt==1"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
+                <p class="text-gray-500">Este es un segundo intento. Presione nuevamente el botón para repetir las palabras e ingréselas en las entradas de texto. Recuerde que el orden no importa.</p>
+                <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction3" />
 
-            <div
-                v-if="attempt == 1"
-                class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4"
-            >
-                <p class="text-gray-500 text-sm sm:text-base text-center sm:text-left">
-                    Presione nuevamente el botón para repetir las palabras e ingreselas en las entradas de texto.
-                    Recuerde que el orden no importa.
-                </p>
-                <font-awesome-icon
-                    v-if="!heard_audio"
-                    :icon="['fas', 'volume-up']"
-                    size="2x"
-                    class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
-                    @click="speachIntroduction2"
-                />
             </div>
 
             <!-- Entradas de Texto -->
@@ -107,6 +82,20 @@ const speachIntroduction2 = () => {
     utterance1.onend = () => {
         startAttempt();
     };
+};
+
+const speachIntroduction3 = () => {
+    const synthesis = window.speechSynthesis;
+    const text1 = 'Este es un segundo intento. Las palabras son: ROSTRO, Seda, Iglesia, Clavel, Rojo';
+    const utterance1 = new SpeechSynthesisUtterance(text1);
+    utterance1.rate = 0.6;
+    utterance1.lang = "es-CO" 
+    synthesis.speak(utterance1);
+    heard_audio.value = true;
+    utterance1.onend = () => {
+        startAttempt();
+    };
+
 };
 
 const startAttempt = () => {

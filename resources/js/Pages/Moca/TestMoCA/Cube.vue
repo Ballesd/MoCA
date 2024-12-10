@@ -59,6 +59,7 @@ const uploadedImage = async (fileInfo) => {
             'Content-Type': 'multipart/form-data',
         },
     });
+    console.log(response.data);
     result.value = null;
     sendNumber(result.value);
     window.speechSynthesis.cancel();
