@@ -3,11 +3,13 @@
         <div class="w-9/12 flex flex-col gap-4">
             <div class="flex justify-start items-center space-x-3">
                 <h2 class="text-primary text-3xl">10. Recuerdo diferido</h2>
-                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
+                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x"
+                    class="text-secondary cursor-pointer hover:text-primary" />
 
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                <p class="text-gray-500">Ingrese en cada uno de los cuadros de texto las 5 palabras dictadas en la pregunta 5.</p>
+                <p class="text-gray-500">Ingrese en cada uno de los cuadros de texto las 5 palabras dictadas en la
+                    pregunta 5.</p>
             </div>
             <!-- Intento sin pistas -->
             <div v-if="!this.track && !this.selectTest" class="flex flex-col gap-4">
@@ -16,7 +18,8 @@
                 </div>
                 <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
-                        <TextInput v-model="rememberedWords[index]" @input="removeSpaces(index)" type="text" class="block w-full" />
+                        <TextInput v-model="rememberedWords[index]" @input="removeSpaces(index)" type="text"
+                            class="block w-full" />
                     </div>
                     <div class="flex w-full justify-center items-end">
                         <ButtonCustom class="w-full" mode="button" @click="recordAttempt">REGISTRAR</ButtonCustom>
@@ -32,11 +35,15 @@
                 <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
                         <InputLabel :value="this.trakwords[word]" />
-                        <TextInput v-model="rememberedWords[index]" @input="removeSpaces(index)" type="text" class="block w-full" />
+                        <TextInput v-model="rememberedWords[index]" @input="removeSpaces(index)" type="text"
+                            class="block w-full" />
                     </div>
                     <div class="flex w-full justify-center items-end">
-                        <ButtonCustom class="w-full" mode="button" @click="recordAttemptTrack">REGISTRAR</ButtonCustom>
+                        <ButtonCustom class="w-full sm:w-1/2 lg:w-1/3 mt-2" mode="button" @click="recordAttemptTrack">
+                            REGISTRAR
+                        </ButtonCustom>
                     </div>
+
                 </div>
             </div>
             <!-- / Intento con pistas -->
@@ -55,7 +62,9 @@
                         </select>
                     </div>
                     <div class="flex w-full justify-center items-end">
+
                         <ButtonCustom class="w-full" mode="button" @click="recordAttemptSelect">REGISTRAR</ButtonCustom>
+
                     </div>
                 </div>
             </div>

@@ -51,8 +51,10 @@
                             </div>
                         </div>
                     </div>
-                    <ButtonCustom v-if="first_series_field" class="w-1/3 mt-4" mode="button"
+
+                    <ButtonCustom v-if="first_series_field" class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button"
                         @click="recordAttemptOrder">SIGUIENTE</ButtonCustom>
+
                 </div>
                 <!-- /Orden de numeros -->
                 <!-- Orden de numeros al inverso -->
@@ -75,9 +77,10 @@
                                     @input="handleInputInverse(index)" />
                             </div>
 
+
                         </div>
                     </div>
-                    <ButtonCustom v-if="second_series_field" class="w-1/3 mt-4" mode="button"
+                    <ButtonCustom v-if="second_series_field" class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button"
                         @click="recordAttemptOrderInve">SIGUIENTE
                     </ButtonCustom>
 
@@ -94,10 +97,12 @@
                         class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
                         @click="countAleterSpeach" />
                 </div>
+
                 <p class="flex justify-center text-7xl">{{ keyPressCount }}</p>
-                <ButtonCustom class="w-1/3 mt-4" mode="button" @click="letterACount">
+                <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="letterACount">
                     SIGUIENTE
                 </ButtonCustom>
+
 
             </div>
             <!-- / Golpear por cada letra A -->
@@ -109,7 +114,8 @@
                         resultado en la casilla de texto y presione el botón "Siguiente resta" para seguir restando
                         desde el número que colocó anteriormente.</p>
                 </div>
-                <!-- <p class="flex justify-center text-5xl font-semibold">{{ valueStart }}</p> -->
+
+           
                 <p v-if = "!isInputFocused" class="flex justify-center text-black text-3xl text-center font-bold">¿Cuánto es {{ valueStart }} - 7?</p>
                 <div class="flex justify-center">
                     <TextInput 
@@ -125,7 +131,7 @@
                 </div>
                 
 
-                <ButtonCustom v-if="restCount===4" class="w-1/3 mt-4" mode="button" @click="restNumber">
+                <ButtonCustom v-if="restCount===4" class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="restNumber">
                     SIGUIENTE
                 </ButtonCustom>
             </div>

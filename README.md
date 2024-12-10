@@ -1,66 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌟 Proyecto MOCA desarrollado en Laravel con Vue.js
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+¡Bienvenido! Este repositorio contiene una aplicación web desarrollada con **Laravel** (backend) y **Vue.js** (frontend). Aquí encontrarás todo lo necesario para configurar y ejecutar el proyecto en tu entorno local. 🚀
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Requisitos previos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Antes de comenzar, asegúrate de tener instalados los siguientes componentes en tu sistema:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- 🐘 **PHP** v8.1
+- 🎼 **Composer** v2.8
+- 🟢 **Node.js LTS** y **npm**
+- 🗄️ **MySQL**
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ⚡ Instalación rápida
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Sigue estos pasos para tener todo funcionando en minutos:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/Ballesd/MoCA.git
+cd MoCA
 
-## Laravel Sponsors
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 2️⃣ Configurar el entorno
+Duplica el archivo .env.example y renómbralo como .env. Luego, configura la conexión a la base de datos en el archivo .env:
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+## 3️⃣ Instalar dependencias
+Ejecuta los siguientes comandos para instalar las dependencias necesarias:
 
-### Premium Partners
+- Backend (Laravel):
+```bash
+composer install
+```
+- Frontend (Vue.js):
+```bash
+npm install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 4️⃣ Configurar la base de datos
+- Ejecuta las migraciones y rellena las tablas con datos usando los seeders:
+```bash
+php artisan migrate
+php artisan db:seed
+```
+- Correr el Seeder de usuarios:
+```bash
+php artisan db:seed --class=UserSeeder
+```
 
-## Contributing
+## 5️⃣ Crear enlace simbólico para almacenamiento de imágenes
+Para visualizar las imágenes subidas al servidor, debes crear un enlace simbólico entre el directorio storage y la carpeta public. Ejecuta el siguiente comando:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+php artisan storage:link
+```
 
-## Code of Conduct
+## 6️⃣ Ejecutar los servicios
+Inicia ambos servicios para desplegar la aplicación:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Frontend (Vue.js):
+```bash
+npm run dev
+```
 
-## Security Vulnerabilities
+Backend (Laravel):
+```bash
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 7️⃣ Generar la clave del proyecto
+Al correr el proyecto por primera vez, es importante generar una clave única para la aplicación. Para ello, ejecuta el siguiente comando:
+```bash
+php artisan key:generate
+```
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 🌐 Acceso a la aplicación
+- Visita http://localhost:8000.
+
+## 🛠️ Herramientas utilizadas
+- ⚙️ Laravel: Framework PHP para la lógica de negocio.
+- 🌐 Vue.js: Framework JavaScript para la interfaz de usuario.
+- 🗄️ MySQL: Sistema de gestión de bases de datos.
+
+

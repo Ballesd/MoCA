@@ -2,25 +2,31 @@
     <div class="flex items-center justify-center space-x-12 mb-4">
         <div class="w-8/12 flex flex-col items-center justify-center gap-4">
             <div class="flex justify-start items-center space-x-3 self-start">
-                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
+                <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x"
+                    class="text-secondary cursor-pointer hover:text-primary" />
                 <h2 class="text-primary text-3xl">9. Abstracción</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-gray-500">En cada uno de los cuadros de texto ingrese el concepto que tienen en común cada pareja de palabras.</p>
+                <p class="text-gray-500">En cada uno de los cuadros de texto ingrese el concepto que tienen en común
+                    cada pareja de palabras.</p>
             </div>
-            <div class="w-1/2">
+            <div class="w-full sm:w-1/2 px-2">
                 <InputLabel for="1" value="Manzana - Naranja" />
                 <TextInput id="1" v-model="respuestaPregunta1" @input="calificarPregunta1" class="mt-1 block w-full" />
             </div>
-            <div class="w-1/2">
-                <InputLabel for="1" value="Tren - Bicicleta" />
-                <TextInput id="1" v-model="respuestaPregunta2" @input="calificarPregunta2" class="mt-1 block w-full" />
+            <div class="w-full sm:w-1/2 px-2">
+                <InputLabel for="2" value="Tren - Bicicleta" />
+                <TextInput id="2" v-model="respuestaPregunta2" @input="calificarPregunta2" class="mt-1 block w-full" />
             </div>
-            <div class="w-1/2">
-                <InputLabel for="1" value="Reloj - Regla" />
-                <TextInput id="1" v-model="respuestaPregunta3" @input="calificarPregunta3" class="mt-1 block w-full" />
+            <div class="w-full sm:w-1/2 px-2">
+                <InputLabel for="3" value="Reloj - Regla" />
+                <TextInput id="3" v-model="respuestaPregunta3" @input="calificarPregunta3" class="mt-1 block w-full" />
             </div>
-            <ButtonCustom class="w-1/2 mt-2" mode="button" @click="calcularPuntuacion">Siguiente</ButtonCustom>
+
+            <ButtonCustom class="w-full sm:w-1/2 mt-4 px-2" mode="button" @click="calcularPuntuacion">
+                Siguiente
+            </ButtonCustom>
+
         </div>
     </div>
 </template>
@@ -56,7 +62,7 @@ const speachIntroduction = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
-    utterance.lang = "es-CO" 
+    utterance.lang = "es-CO"
     synthesis.speak(utterance);
 
 };
