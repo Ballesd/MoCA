@@ -7,7 +7,7 @@
                 <h2 class="text-primary text-3xl">9. Abstracción</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-gray-500">En cada uno de los cuadros de texto ingrese el concepto que tienen en común
+                <p class="text-base sm:text-lg">En cada uno de los cuadros de texto ingrese el concepto que tienen en común
                     cada pareja de palabras.</p>
             </div>
             <div class="w-full sm:w-1/2 px-2">

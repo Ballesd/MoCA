@@ -8,7 +8,7 @@
 
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                <p class="text-gray-500">Ingrese en cada uno de los cuadros de texto las 5 palabras dictadas en la
+                <p class="text-base sm:text-lg">Ingrese en cada uno de los cuadros de texto las 5 palabras dictadas en la
                     pregunta 5.</p>
             </div>
             <!-- Intento sin pistas -->
@@ -39,7 +39,7 @@
                             class="block w-full" />
                     </div>
                     <div class="flex w-full justify-center items-end">
-                        <ButtonCustom class="w-full sm:w-1/2 lg:w-1/3 mt-2" mode="button" @click="recordAttemptTrack">
+                        <ButtonCustom class="w-full" mode="button" @click="recordAttemptTrack">
                             REGISTRAR
                         </ButtonCustom>
                     </div>

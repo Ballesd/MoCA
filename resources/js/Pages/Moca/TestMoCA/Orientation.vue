@@ -7,7 +7,7 @@
                 <h2 class="text-primary text-3xl">11. Orientación</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                <p class="text-gray-500">Ingrese la información que solicita en cada uno de los 6 cuadros de texto.</p>
+                <p class="text-base sm:text-lg">Ingrese la información que solicita en cada uno de los 6 cuadros de texto.</p>
             </div>
         </div>
     </div>

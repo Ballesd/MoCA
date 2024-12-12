@@ -8,12 +8,12 @@
             </div>
             <div v-if="showLetter"
                 class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-gray-500">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
+                <p class="text-base sm:text-lg">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
                     personas o lugares que empiecen con la letra P.</p>
             </div>
             <div v-if="!showLetter"
                 class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-gray-500">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
+                <p class="text-base sm:text-lg">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
                     personas o lugares que empiecen con la letra dicha anteriormente.</p>
             </div>
             <p v-if ="isRemembering" class="flex justify-center text-3xl">La letra es la P</p>
@@ -40,6 +40,7 @@ const { sendNumber } = defineProps(['sendNumber']);
 
 const transcript = ref('');
 const wordsVec = ref([]);
+const wordsWithP = ref([]);
 const result = ref(0);
 const resultState = ref(true);
 const isRecording = ref(false);
@@ -49,7 +50,7 @@ const showLetter = ref(true);
 const isRemembering = ref(false);
 const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const sr = new Recognition();
-
+const a = ref(0);
 const rememberButton = ref(false);
 
 let timerId;
@@ -121,8 +122,9 @@ onMounted(() => {
             if (result.isFinal) {
                 const words = result[0].transcript.split(' ');
                 for (const word of words) {
+                    wordsVec.value.push(word);
                     if (word.toLowerCase().startsWith('p')) {
-                        wordsVec.value.push(word);
+                        wordsWithP.value.push(word);
                     }
                 }
             }
@@ -135,8 +137,12 @@ onMounted(() => {
 });
 const evaluar = () => {
     const words = wordsVec.value.filter((item, index) => wordsVec.value.indexOf(item) === index);
-    result.value = words.length;
+    console.log(words);
+    const wordsWithPFilt = wordsWithP.value.filter((item, index) => wordsWithP.value.indexOf(item) === index);
+    result.value = wordsWithPFilt.length;
     resultState.value = false;
+
+    
     if (result.value >= 11) {
         score.value = 1;
     }

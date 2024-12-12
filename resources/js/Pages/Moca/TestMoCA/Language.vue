@@ -9,25 +9,25 @@
             <!-- Primer Frase y audio -->
 
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-gray-500">Presione el botón a la derecha para reproducir el audio y de click en "Grabar Frase 1" para grabar la misma frase dictada. Solo podrá hacerlo una vez.</p>
+                <p class="text-base sm:text-lg">Presione el botón a la derecha para reproducir el audio y de click en "Grabar Frase 1" para grabar la misma frase dictada. Solo podrá hacerlo una vez.</p>
                 <font-awesome-icon v-if = "!heard_audio1" @click="speachFirst" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
                 
             </div>
 
             <ButtonCustom v-if="firstaudio" mode="button" @click="ToggleMic1">{{ isRecording1 ? 'DETENER' : 'GRABAR FRASE 1' }}</ButtonCustom>
 
-            <div v-text="transcript1" class="flex justify-center text-gray-500 mb-4"></div>
+            <div v-text="transcript1" class="flex justify-center text-base sm:text-lg mb-4"></div>
             
             <!-- Segunda Frase y audio -->
 
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-gray-500">Presione nuevamente el botón a la derecha para reproducir el audio y presione "Grabar Frase 2" para grabar la misma frase dictada.</p>
+                <p class="text-base sm:text-lg">Presione nuevamente el botón a la derecha para reproducir el audio y presione "Grabar Frase 2" para grabar la misma frase dictada.</p>
                 <font-awesome-icon v-if="stateSecondAudio && !heard_audio2" @click="speachSecond" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
             </div>
 
             <ButtonCustom  v-if="secondaudio" mode="button" @click="ToggleMic2">{{ isRecording2 ? 'DETENER' : 'GRABAR FRASE 2' }}</ButtonCustom>
             
-            <div v-text="transcript2" class="flex justify-center text-gray-500  mb-4"></div>
+            <div v-text="transcript2" class="flex justify-center text-base sm:text-lg  mb-4"></div>
             <ButtonCustom v-if="transcript1 && transcript2" class="w-full" mode="button" @click="evaluar">SIGUIENTE</ButtonCustom>
         </div>
     </div>

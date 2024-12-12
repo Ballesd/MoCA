@@ -6,7 +6,7 @@
                 <h2 class="text-primary text-3xl">3. Capacidades visoconstructivas</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
-                <p class="text-gray-500">Dibuje un reloj colocando los números en las posiciones correctas y ajustando las manecillas para marcar la hora de 11:10.</p>
+                <p class="text-base sm:text-lg">Dibuje un reloj colocando los números en las posiciones correctas y ajustando las manecillas para marcar la hora de 11:10.</p>
             </div>
             <UploadFile :uploadedImage="uploadedImage" />
         </div>
