@@ -25,11 +25,17 @@ const toggleNav = () => {
                 <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold text-secondary leading-tight">
                     Evaluación Cognitiva Montreal
                 </h1>
-                <div class="text-black mt-4">
-                    <LinkCustom :href="route('register')" class="px-6 py-3 border-2 border-black rounded text-base sm:text-lg hover:bg-black hover:text-white transition">
+                <div class="relative">
+                <div class="text-black mt-4 text-center sm:text-left">
+                    <LinkCustom 
+                        :href="route('register')" 
+                        class="inline-block px-4 py-2 sm:px-6 sm:py-3 border-2 border-black rounded text-sm sm:text-base lg:text-lg hover:bg-black hover:text-white transition-all duration-300"
+                    >
                         REGISTRARME
                     </LinkCustom>
                 </div>
+            </div>
+
             </div>
 
             <!-- Sección Derecha -->

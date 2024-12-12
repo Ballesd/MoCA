@@ -1,9 +1,14 @@
 <template>
     <AppLayout title="Dashboard">
+        <!-- Header -->
         <template #header>
-            <h2 class="text-center mt-8 mb-4 font-semibold text-xl text-gray-800 leading-tight">Resultados del test de MoCA</h2>
+            <h2 class="text-center mt-8 mb-4 font-semibold text-xl text-gray-800 leading-tight">
+                Resultados del test de MoCA
+            </h2>
         </template>
-        <div v-if="errorPoint" class="mx-4 md:mx-0 flex justify-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+
+        <!-- Mensaje de error -->
+        <div v-if="errorPoint" class="mx-4 md:mx-8 lg:mx-auto flex justify-between items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative max-w-4xl" role="alert">
             <strong class="font-bold">Error: </strong>
             <span class="block sm:inline">{{ errorMessage }}</span>
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" @click="closeError">
@@ -16,121 +21,95 @@
                 </svg>
             </span>
         </div>
+
+        <!-- Buscador -->
         <div class="py-8">
-            <div class="flex gap-4 w-8/12 mx-auto">
-                <TextInput placeholder="Digite el número de cédula de la persona que desea buscar" id="search" type="text" v-model="identification" @keyup.enter="search" required autofocus class="block w-full" />
-                <div class="w-1/3">
-                    <ButtonCustom class="w-full" mode="button" @click="search">BUSCAR</ButtonCustom>
-                </div>
+            <div class="flex flex-wrap gap-4 w-full max-w-4xl mx-auto">
+                <TextInput placeholder="Digite el número de cédula de la persona que desea buscar" id="search" type="text" v-model="identification" @keyup.enter="search" required autofocus class="block w-full lg:w-2/3" />
+                <ButtonCustom class="w-full lg:w-1/3" mode="button" @click="search">BUSCAR</ButtonCustom>
             </div>
-            <div class="rounded-lg">
+
+            <!-- Tabla de resultados -->
+            <div class="rounded-lg overflow-x-auto">
                 <div v-if="users" class="mt-5">
                     <table class="table-auto w-full rounded-lg overflow-hidden">
                         <thead>
                             <tr>
-                                <th class="px-4 py-4 bg-secondary text-white rounded-tl-lg rounded-bl-lg">Nombre</th>
-                                <th class="px-4 py-4 bg-secondary text-white">Email</th>
-                                <th class="px-4 py-4 bg-secondary text-white">Cédula</th>
-                                <th class="px-4 py-4 bg-secondary text-white rounded-tr-lg rounded-br-lg">Acciones</th>
+                                <th class="px-4 py-4 bg-secondary text-white text-center">Nombre</th>
+                                <th class="px-4 py-4 bg-secondary text-white text-center">Email</th>
+                                <th class="px-4 py-4 bg-secondary text-white text-center">Cédula</th>
+                                <th class="px-4 py-4 bg-secondary text-white text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary rounded-tl-lg rounded-bl-lg">{{ users?.name }} {{ users?.lastname }}</td>
+                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.name }} {{ users?.lastname }}</td>
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.email }}</td>
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.identification }}</td>
-                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary rounded-tr-lg rounded-br-lg">
-                                    <Button class="underline text-blue-500" @click="downloadExcel"> Descargar excel </Button>
+                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">
+                                    <Button class="underline text-blue-500" @click="downloadExcel">Descargar Excel</Button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div v-if="values">
-                    <div class="border border-gray-400 rounded-lg bg-white p-6">
-                        <!-- <h2 class="text-center text-2xl font-semibold">{{ resultMoca }}</h2> -->
-                        <div class="grid grid-cols-4 gap-10">
-                            <div class="flex flex-col col-span-2 text-lg font-semibold h-full">
-                                <div class="flex-grow">
-                                    <p>
-                                        Inicio de prueba: <span class="font-normal">{{ date_start }}</span>
-                                    </p>
-                                    <p>
-                                        Fin de la prueba: <span class="font-normal">{{ date_end }}</span>
-                                    </p>
-                                </div>
-                                <div>
-                                    <div v-if="users.schooling === 0">
-                                        <p>No tiene punto extra sobre el nivel de escolaridad.</p>
-                                    </div>
-                                    <div v-else-if="users.schooling === 1">
-                                        <p>Tiene un punto extra sobre el nivel de escolaridad +1.</p>
-                                    </div>
-                                </div>
+            </div>
+
+            <!-- Detalles de resultados -->
+            <div v-if="values" class="border border-gray-400 rounded-lg bg-white p-6 mt-6 max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="col-span-1 md:col-span-2">
+                        <p>Inicio de prueba: <span class="font-normal">{{ date_start }}</span></p>
+                        <p>Fin de la prueba: <span class="font-normal">{{ date_end }}</span></p>
+                        <div>
+                            <div v-if="users.schooling === 0">
+                                <p>No tiene punto extra sobre el nivel de escolaridad.</p>
                             </div>
-                            <div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Identificación:</label>
-                                    <span>{{ moca.identification }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Memoria:</label>
-                                    <span>{{ moca.memory }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Atención:</label>
-                                    <span>{{ moca.attention }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Lenguaje:</label>
-                                    <span>{{ moca.language }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Fluidez verbal:</label>
-                                    <span>{{ moca.verbal_fluency }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Abstracción:</label>
-                                    <span>{{ moca.abstraction }}</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Recuerdo referido:</label>
-                                    <span>{{ moca.deferred_recall }}; MIS: {{ moca.mis }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Orientación:</label>
-                                    <span>{{ moca.orientation }}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <label class="mr-2">Total:</label>
-                                    <span>{{ moca.total }} + {{ users.schooling }} </span>
-                                </div>
+                            <div v-else-if="users.schooling === 1">
+                                <p>Tiene un punto extra sobre el nivel de escolaridad +1.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-7">
-                        <h3 class="text-xl font-semibold">Imágenes para calificar</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-3 mt-4 gap-10">
-                            <div>
-                                <label class="mr-2">Alternancia conceptual: {{ moca.ConceptualAlternative }}</label>
-                                <img :src="url_conceptual_alternative" alt="" class="w-full h-auto" />
-                            </div>
-                            <div>
-                                <label class="mr-2">Cubo: {{ moca.cube }}</label>
-                                <img :src="url_cube" alt="" class="w-full h-auto" />
-                            </div>
-                            <div>
-                                <label class="mr-2">Reloj: {{ moca.clock }}</label>
-                                <img :src="url_clock" alt="" class="w-full h-auto" />
-                            </div>
-                        </div>
+                    <div>
+                        <p>Identificación: {{ moca.identification }}</p>
+                        <p>Memoria: {{ moca.memory }}</p>
+                        <p>Atención: {{ moca.attention }}</p>
+                        <p>Lenguaje: {{ moca.language }}</p>
+                        <p>Fluidez verbal: {{ moca.verbal_fluency }}</p>
+                        <p>Abstracción: {{ moca.abstraction }}</p>
                     </div>
-                    <div class="flex justify-center w-1/5 items-center mx-auto mt-10">
-                        <ButtonCustom class="w-full mx-auto" mode="button" @click="updateState = true">CALIFICAR</ButtonCustom>
+                    <div>
+                        <p>Recuerdo referido: {{ moca.deferred_recall }}; MIS: {{ moca.mis }}</p>
+                        <p>Orientación: {{ moca.orientation }}</p>
+                        <p>Total: {{ moca.total }} + {{ users.schooling }}</p>
                     </div>
                 </div>
+            </div>
+
+            <!-- Imágenes -->
+            <div v-if="values" class="mt-7 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold">Imágenes para calificar</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-4 gap-6">
+                    <div>
+                        <p>Alternancia conceptual: {{ moca.ConceptualAlternative }}</p>
+                        <img :src="url_conceptual_alternative" alt="" class="w-full h-auto" />
+                    </div>
+                    <div>
+                        <p>Cubo: {{ moca.cube }}</p>
+                        <img :src="url_cube" alt="" class="w-full h-auto" />
+                    </div>
+                    <div>
+                        <p>Reloj: {{ moca.clock }}</p>
+                        <img :src="url_clock" alt="" class="w-full h-auto" />
+                    </div>
+                </div>
+            
+
+            <!-- Botón de calificar -->
+            <div class="flex justify-center mt-10">
+                <ButtonCustom class="w-full md:w-1/3" mode="button" @click="updateState = true">CALIFICAR</ButtonCustom>
+            </div>
+        
                 <div v-if="updateState">
                     <div class="mt-8 bg-quinary rounded-lg p-10">
                         <h2 class="text-center text-2xl font-semibold mb-6">Respuestas</h2>
