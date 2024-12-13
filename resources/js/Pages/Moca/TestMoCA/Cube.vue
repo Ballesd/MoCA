@@ -14,7 +14,7 @@
                 </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
-                <p class="text-gray-500 text-sm sm:text-base text-center">
+                <p class="text-base sm:text-lg ">
                     Copie esta figura lo mejor posible.
                 </p>
             </div>

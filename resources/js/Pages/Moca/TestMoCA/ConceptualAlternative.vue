@@ -23,7 +23,7 @@
                 </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
-                <p class="text-gray-500 text-sm sm:text-base">
+                <p class="text-base sm:text-lg">
                     Una los círculos con una línea alternando entre número y letra siguiendo el orden numérico y del abecedario.
                 </p>
             </div>

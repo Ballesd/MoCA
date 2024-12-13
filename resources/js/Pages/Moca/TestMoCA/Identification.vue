@@ -14,7 +14,7 @@
                 </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 w-full">
-                <p class="text-gray-500 text-sm sm:text-base">
+                <p class="text-base sm:text-lg ">
                     Ingrese dentro de cada uno de los cuadros de texto el nombre que corresponde a cada animal.
                 </p>
             </div>

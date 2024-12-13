@@ -15,11 +15,11 @@
             </div>
 
             <div v-if="attempt==0"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
-                <p class="text-gray-500">Memorice las palabras que escuchará al presionar el botón a la derecha de este recuadro y luego ingréselas en las entradas de texto, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
+                <p class="text-base sm:text-lg ">Memorice las palabras que escuchará al presionar el botón a la derecha de este recuadro y luego ingréselas en las entradas de texto, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
                 <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction2" />
             </div>
             <div v-if="attempt==1"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
-                <p class="text-gray-500">Este es un segundo intento. Presione nuevamente el botón para repetir las palabras e ingréselas en las entradas de texto. Recuerde que el orden no importa.</p>
+                <p class="text-base sm:text-lg ">Este es un segundo intento. Presione nuevamente el botón para repetir las palabras e ingréselas en las entradas de texto. Recuerde que el orden no importa.</p>
                 <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction3" />
 
             </div>
