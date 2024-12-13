@@ -146,11 +146,27 @@
                             </div>
                             <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
                                 <div>
-                                    <h3 class="font-semibold text-lg">Recuerdo diferido</h3>
+                                    <h3 class="font-semibold text-lg">Recuerdo diferido sin pistas</h3>
                                     <p class="break-words overflow-auto text-sm md:text-base">
-                                        {{ moca.deferred_recall_answer }}
+                                        {{ moca.deferred_recall_first }}
                                     </p>
                                 </div>
+                                <!-- Linea de separacion -->
+                                <div class="border-t border-gray-300 my-4"></div>
+                                <div>
+                                    <h3 class="font-semibold text-lg">Recuerdo diferido con pistas (NO PUNTÚA)</h3>
+                                    <p class="break-words overflow-auto text-sm md:text-base">
+                                        {{ moca.deferred_recall_second}}
+                                    </p>
+                                </div>
+                                <div class="border-t border-gray-300 my-4"></div>
+                                <div>
+                                    <h3 class="font-semibold text-lg">Recuerdo diferido con selección (NO PUNTÚA)</h3>
+                                    <p class="break-words overflow-auto text-sm md:text-base">
+                                        {{ moca.deferred_recall_third }}
+                                    </p>
+                                </div>
+                                
                             </div>
                             <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
                                 <div>
@@ -301,6 +317,9 @@ const moca = ref({
     verbal_fluency_answer: '',
     abstraction_answer: '',
     deferred_recall_answer: '',
+    deferred_recall_first: '',
+    deferred_recall_second: '',
+    deferred_recall_third: '',
     orientation_answer: '',
     mis: ''
 });
@@ -373,6 +392,13 @@ const search = async () => {
                 url_conceptual_alternative.value = '/' + moca.value.image_conceptual_alternative.replace('public', 'storage');
                 url_cube.value = '/' + moca.value.image_cube.replace('public', 'storage');
                 url_clock.value = '/' + moca.value.image_clock.replace('public', 'storage');
+
+                 // Dividir deferred_recall_answer en 3 partes
+                 const deferredRecallWords = moca.value.deferred_recall_answer.split(',').map(word => word.trim());
+
+                moca.value.deferred_recall_first = deferredRecallWords.slice(0, 5).join(', ');
+                moca.value.deferred_recall_second = deferredRecallWords.slice(5, 10).join(', ');
+                moca.value.deferred_recall_third = deferredRecallWords.slice(10, 15).join(', ');
             }
         }
     }
