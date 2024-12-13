@@ -21,7 +21,7 @@ class MocaController extends Controller
 
     public function uploadConceptualAlternative(Request $request)
     {
-        if(! $request){
+        if (! $request) {
             return "no hay imagen";
         }
         $validator = Validator::make($request->all(), [
@@ -29,7 +29,7 @@ class MocaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error' => $validator->errors()], 401);
             //return redirect()->back()->withErrors($validator->errors());
         }
 
@@ -44,9 +44,10 @@ class MocaController extends Controller
         return "se guardo la imagen";
     }
 
-    public function uploadCube(Request $request){
+    public function uploadCube(Request $request)
+    {
 
-        if(! $request){
+        if (! $request) {
             return "no hay imagen";
         }
 
@@ -56,7 +57,7 @@ class MocaController extends Controller
 
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error' => $validator->errors()], 401);
             //return redirect()->back()->withErrors($validator->errors());
         }
 
@@ -70,12 +71,12 @@ class MocaController extends Controller
         $moca->save();
 
         return 'se guardo con exito';
-
     }
 
-    public function uploadClock(Request $request){
-        
-        if(! $request){
+    public function uploadClock(Request $request)
+    {
+
+        if (! $request) {
             return "no hay imagen";
         }
 
@@ -85,7 +86,7 @@ class MocaController extends Controller
 
 
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error' => $validator->errors()], 401);
             //return redirect()->back()->withErrors($validator->errors());
         }
 
@@ -101,7 +102,8 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function uploadIdentification(Request $request){
+    public function uploadIdentification(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -114,7 +116,8 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function uploadAttention(Request $request){
+    public function uploadAttention(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -127,7 +130,8 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function uploadLanguage(Request $request){
+    public function uploadLanguage(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -140,7 +144,8 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function uploadVerbalFluency(Request $request){
+    public function uploadVerbalFluency(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -153,7 +158,8 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function uploadAbstraction(Request $request){
+    public function uploadAbstraction(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -166,7 +172,8 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function uploadDeferredRecall(Request $request){
+    public function uploadDeferredRecall(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -179,7 +186,9 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function uploadOrientation(Request $request){
+
+    public function uploadOrientation(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -192,7 +201,8 @@ class MocaController extends Controller
         return 'se guardo con exito';
     }
 
-    public function saveMiss(Request $request){
+    public function saveMiss(Request $request)
+    {
 
         $user_id = Auth::user()->id;
 
@@ -202,10 +212,10 @@ class MocaController extends Controller
         $moca->save();
 
         return 'se guardo con exito';
-        
     }
 
-    public function editMoca(Request $request){
+    public function editMoca(Request $request)
+    {
         $user_id = Auth::user()->id;
 
         $moca = Moca::where('user_id', $user_id)->first();
@@ -225,5 +235,4 @@ class MocaController extends Controller
 
         return 'se guardo con exito';
     }
-
 }
