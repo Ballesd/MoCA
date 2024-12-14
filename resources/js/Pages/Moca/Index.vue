@@ -5,13 +5,12 @@
                 <component :sendNumber="receive_number" @answer-score="receive_number" :is="currentComponent" :key="componentKey" />
             </transition>
         </div>
-        <div v-else class="flex justify-end mt-24">
-            <div class="w-1/2"></div>
+        <div v-else class="flex justify-center items-center mt-16">
+            
             <div class="flex flex-col gap-16 w-1/2">
-                <h2 class="text-primary text-5xl font-thin text-end">Usted ha finalizado el test de MoCA</h2>
-                <p class="text-end text-quaternary text-xl">
-                    Ha finalizado. Los resultados serán analizados por el profesional tratante y posteriormente recibirá las recomendaciones derivadas de sus desempeños. ¡Gracias por su participación!. Por favor avísame si se requiere
-                    algo más. Gracias!
+                <h2 class="text-primary text-5xl font-thin text-center">Usted ha finalizado el test de MoCA</h2>
+                <p class=" flex flex-col text-2xl gap-4 ">
+                    Ha finalizado. Los resultados serán analizados por el profesional tratante y posteriormente recibirá las recomendaciones derivadas de sus desempeños. ¡Gracias por su participación!.
                 </p>
                 <div class="flex justify-end">
                     <LinkCustom :href="route('dashboard')">VOLVER AL INICIO</LinkCustom>

@@ -275,7 +275,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center w-1/5 items-center mx-auto mt-10">
-                        <ButtonCustom class="w-full mx-auto" mode="button" @click="calificar">GUARDAR</ButtonCustom>
+                        <ButtonCustom class="" mode="button" @click="calificar">GUARDAR</ButtonCustom>
                     </div>
                 </div>
             </div>
