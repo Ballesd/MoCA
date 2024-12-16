@@ -155,6 +155,20 @@ export default {
         },
         recordAttempt() {
             this.comulative_answer.push(...this.rememberedWords);
+            console.log(this.comulative_answer);  
+
+            for (let i = 0; i < this.rememberedWords.length; i++) {
+                if (this.rememberedWords[i] === undefined) {
+                    this.rememberedWords[i] = ' ';
+                }
+            }
+            
+            if (this.comulative_answer.length < 5){
+                for (let i = this.comulative_answer.length; i < 5; i++) {
+                   this.comulative_answer.push(' ');
+                }
+            }        
+            console.log(this.comulative_answer); 
             if (!this.track && !this.selectTest) {
                 const goodanswer = this.vectorAnswer(this.goodanswer1);
                 this.score = goodanswer * 3;
@@ -170,9 +184,20 @@ export default {
         },
         recordAttemptTrack() {
             this.comulative_answer.push(...this.rememberedWords);
+            for (let i = 5; i < this.rememberedWords.length; i++) {
+                if (this.rememberedWords[i] === undefined) {
+                    this.rememberedWords[i] = ' ';
+                }
+            }
+            
+            if (this.comulative_answer.length < 10){
+                for (let i = this.comulative_answer.length; i < 10; i++) {
+                   this.comulative_answer.push(' ');
+                }
+            } 
+            console.log(this.comulative_answer);
             const goodanswer = this.vectorAnswer(this.goodanswer2);
             this.score += goodanswer * 2;
-            this.score_permanent += goodanswer;
             if (this.goodanswer1.length < 5) {
                 this.DeleteMultiSelection();
                 this.selectTest = true;
@@ -183,15 +208,26 @@ export default {
         },
         recordAttemptSelect() {
             this.comulative_answer.push(...this.rememberedWords);
+            for (let i = 10; i < this.rememberedWords.length; i++) {
+                if (this.rememberedWords[i] === undefined) {
+                    this.rememberedWords[i] = ' ';
+                }
+            }
+            if (this.comulative_answer.length < 15){
+                for (let i = this.comulative_answer.length; i < 15; i++) {
+                   this.comulative_answer.push(' ');
+                }
+            }
+
             const goodanswer = this.vectorAnswer(this.goodanswer2);
             this.score += goodanswer;
-            this.score_permanent += goodanswer;
             this.endTest = true;
             this.sendAnswer();
         },
         removeSpaces(index) {
+            console.log(this.rememberedWords[index]);
             // Elimina espacios en blanco de la palabra recordada y se pasa a maysuculas
-            this.rememberedWords[index] = this.rememberedWords[index].trim();
+            
             this.rememberedWords[index] = this.rememberedWords[index].toUpperCase();
         },
 

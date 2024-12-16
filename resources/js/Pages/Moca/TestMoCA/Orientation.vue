@@ -56,35 +56,7 @@
     <div class="flex justify-center mt-8">
         <ButtonCustom mode="button" @click="calcularPuntos">finalizar test</ButtonCustom>
     </div>
-    <!-- <div class="m-4 p-4 bg-white shadow-md rounded-lg">
-        <div class="mb-4">
-            <label class="block text-sm font-semibold">Fecha (YYYY-MM-DD)</label>
-            <input type="date" class="border rounded p-2 w-full" v-model="fecha" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-sm font-semibold">Mes</label>
-            <input type="text" class="border rounded p-2 w-full" v-model="mes" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-sm font-semibold">Año</label>
-            <input type="text" class="border rounded p-2 w-full" v-model="año" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-sm font-semibold">Día de la semana</label>
-            <input type="text" class="border rounded p-2 w-full" v-model="diaSemana" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-sm font-semibold">Lugar</label>
-            <input type="text" class="border rounded p-2 w-full" v-model="lugar" placeholder="Hogar, casa, domicilio, vivienda" />
-        </div>
-        <div class="mb-4">
-            <label class="block text-sm font-semibold">ciudad</label>
-            <input type="text" class="border rounded p-2 w-full" v-model="ciudad" placeholder="Ciudad, pueblo, municipio, departamento" />
-        </div>
-        <div class="mb-4">
-            <button @click="calcularPuntos" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Calcular Puntos</button>
-        </div>
-    </div> -->
+    
 </template>
 
 <script>

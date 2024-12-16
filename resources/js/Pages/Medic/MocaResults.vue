@@ -8,16 +8,16 @@
         </template>
 
         <!-- Mensaje de error -->
-        <div v-if="errorPoint" class="mx-4 md:mx-8 lg:mx-auto flex justify-between items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative max-w-4xl" role="alert">
+        <div v-if="errorPoint"
+            class="mx-4 md:mx-8 lg:mx-auto flex justify-between items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative max-w-4xl"
+            role="alert">
             <strong class="font-bold">Error: </strong>
             <span class="block sm:inline">{{ errorMessage }}</span>
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" @click="closeError">
                 <svg class="fill-current h-6 w-6 text-red-500" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        fill-rule="evenodd"
+                    <path fill-rule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
-                    />
+                        clip-rule="evenodd" />
                 </svg>
             </span>
         </div>
@@ -25,7 +25,9 @@
         <!-- Buscador -->
         <div class="py-8">
             <div class="flex flex-wrap gap-4 w-full max-w-4xl mx-auto">
-                <TextInput placeholder="Digite el número de cédula de la persona que desea buscar" id="search" type="text" v-model="identification" @keyup.enter="search" required autofocus class="block w-full lg:w-2/3" />
+                <TextInput placeholder="Digite el número de cédula de la persona que desea buscar" id="search"
+                    type="text" v-model="identification" @keyup.enter="search" required autofocus
+                    class="block w-full lg:w-2/3" />
                 <ButtonCustom class="w-full lg:w-1/3" mode="button" @click="search">BUSCAR</ButtonCustom>
             </div>
 
@@ -43,11 +45,14 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.name }} {{ users?.lastname }}</td>
+                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.name }} {{
+                                    users?.lastname }}</td>
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.email }}</td>
-                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.identification }}</td>
+                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.identification }}
+                                </td>
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">
-                                    <Button class="underline text-blue-500" @click="downloadExcel">Descargar Excel</Button>
+                                    <Button class="underline text-blue-500" @click="downloadExcel">Descargar
+                                        Excel</Button>
                                 </td>
                             </tr>
                         </tbody>
@@ -103,13 +108,14 @@
                         <img :src="url_clock" alt="" class="w-full h-auto" />
                     </div>
                 </div>
-            
 
-            <!-- Botón de calificar -->
-            <div class="flex justify-center mt-10">
-                <ButtonCustom class="w-full md:w-1/3" mode="button" @click="updateState = true">CALIFICAR</ButtonCustom>
-            </div>
-        
+
+                <!-- Botón de calificar -->
+                <div class="flex justify-center mt-10">
+                    <ButtonCustom class="w-full md:w-1/3" mode="button" @click="updateState = true">CALIFICAR
+                    </ButtonCustom>
+                </div>
+
                 <div v-if="updateState">
                     <div class="mt-8 bg-quinary rounded-lg p-10">
                         <h2 class="text-center text-2xl font-semibold mb-6">Respuestas</h2>
@@ -156,7 +162,7 @@
                                 <div>
                                     <h3 class="font-semibold text-lg">Recuerdo diferido con pistas (NO PUNTÚA)</h3>
                                     <p class="break-words overflow-auto text-sm md:text-base">
-                                        {{ moca.deferred_recall_second}}
+                                        {{ moca.deferred_recall_second }}
                                     </p>
                                 </div>
                                 <div class="border-t border-gray-300 my-4"></div>
@@ -166,7 +172,7 @@
                                         {{ moca.deferred_recall_third }}
                                     </p>
                                 </div>
-                                
+
                             </div>
                             <div class="bg-white shadow rounded-lg p-4 flex flex-col justify-between">
                                 <div>
@@ -181,21 +187,27 @@
                             <div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="conceptualalternative" value="Alternancia conceptual:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="ConceptualAlternative" v-model="data.ConceptualAlternative" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="ConceptualAlternative" v-model="data.ConceptualAlternative" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="cube" value="Cube:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="cube" v-model="data.cube" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="cube" v-model="data.cube" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="clock" value="Reloj:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="clock" v-model="data.clock" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="clock" v-model="data.clock" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -204,7 +216,9 @@
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="identification" value="Identificación:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="identification" v-model="data.identification" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="identification" v-model="data.identification" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -213,7 +227,9 @@
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="attention" value="Atención:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="attention" v-model="data.attention" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="attention" v-model="data.attention" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -227,7 +243,9 @@
                             <div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="language" value="Lenguaje:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="language" v-model="data.language" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="language" v-model="data.language" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -235,14 +253,18 @@
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="verbal_fluency" value="Fluidez verbal:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="verbal_fluency" v-model="data.verbal_fluency" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="verbal_fluency" v-model="data.verbal_fluency" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="abstraction" value="Abstracción:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="abstraction" v-model="data.abstraction" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="abstraction" v-model="data.abstraction" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -250,7 +272,9 @@
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="deferred_recall" value="Recuerdo diferido:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="deferred_recall" v-model="data.deferred_recall" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="deferred_recall" v-model="data.deferred_recall" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -261,7 +285,9 @@
                                 </div>
                                 <div class="flex items-center mb-4">
                                     <InputLabel for="orientation" value="Orientación:" />
-                                    <select class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="orientation" v-model="data.orientation" required>
+                                    <select
+                                        class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                        id="orientation" v-model="data.orientation" required>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -393,9 +419,9 @@ const search = async () => {
                 url_cube.value = '/' + moca.value.image_cube.replace('public', 'storage');
                 url_clock.value = '/' + moca.value.image_clock.replace('public', 'storage');
 
-                 // Dividir deferred_recall_answer en 3 partes
-                 const deferredRecallWords = moca.value.deferred_recall_answer.split(',').map(word => word.trim());
-
+                // Dividir deferred_recall_answer en 3 partes
+                const deferredRecallWords = moca.value.deferred_recall_answer.split(',').map(word => word.trim());
+                console.log(deferredRecallWords);  
                 moca.value.deferred_recall_first = deferredRecallWords.slice(0, 5).join(', ');
                 moca.value.deferred_recall_second = deferredRecallWords.slice(5, 10).join(', ');
                 moca.value.deferred_recall_third = deferredRecallWords.slice(10, 15).join(', ');
