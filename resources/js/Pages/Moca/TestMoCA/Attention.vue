@@ -87,24 +87,45 @@
                 </div>
                 <!-- /Orden de numeros al inverso -->
             </div>
-            <!-- Golpear por cada letra A -->
-            <div v-if="strikestate" class="flex flex-col items-center gap-4 w-full">
-                <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
-                    <p class="text-base sm:text-lg">
-                        Presione la barra espaciadora (o cualquier tecla) cada vez que escuche la letra "A". Para
-                        reproducir el audio, haga clic en el botón a la derecha del recuadro de texto.</p>
-                    <font-awesome-icon v-if="!heard_audio2" :icon="['fas', 'volume-up']" size="2x"
-                        class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
-                        @click="countAleterSpeach" />
-                </div>
+           <!-- Golpear por cada letra A -->
+    <div v-if="strikestate" class="flex flex-col items-center gap-4 w-full">
+        <!-- Instrucciones -->
+        <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
+            <p class="text-base sm:text-lg">
+                <span v-if="!isMobile">
+                    Presione cualquier tecla cada vez que escuche la letra "A".
+                </span>
+                <span v-else>
+                    Presione el botón cada vez que escuche la letra "A".
+                </span>
+                Para reproducir el audio, haga clic en el botón a la derecha del recuadro de texto.
+            </p>
+            <font-awesome-icon
+                v-if="!heard_audio2"
+                :icon="['fas', 'volume-up']"
+                size="2x"
+                class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
+                @click="countAleterSpeach"
+            />
+        </div>
 
-                <p class="flex justify-center text-7xl">{{ keyPressCount }}</p>
-                <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="letterACount">
-                    SIGUIENTE
-                </ButtonCustom>
+        <!-- Contador -->
+        <p class="flex justify-center text-7xl">{{ keyPressCount }}</p>
 
+        <!-- Botón para móviles -->
+        <button
+            v-if="isMobile"
+            class="bg-secondary text-white font-semibold rounded-lg px-6 py-3 mt-4 sm:w-1/2 md:w-1/3 hover:bg-secondary-dark active:bg-secondary-darker"
+            @click="handleButtonPress"
+        >
+            Presione aquí
+        </button>
 
-            </div>
+        <!-- Botón "Siguiente" -->
+        <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="letterACount">
+            SIGUIENTE
+        </ButtonCustom>
+    </div>
             <!-- / Golpear por cada letra A -->
             <!-- Desde 100 restado de 7 en 7 -->
             <div v-if="sevenMinSeven" class="flex flex-col items-center gap-4 w-full">
@@ -140,8 +161,51 @@
 <script setup>
 import ButtonCustom from '@/Components/ButtonCustom.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { ref, defineProps, nextTick, onMounted } from 'vue';
+import { ref, defineProps, nextTick, onMounted, onUnmounted} from 'vue';
 import axios from 'axios';
+
+
+const isMobile = ref(false); // Estado para detectar si es móvil
+
+let keyPressed = false; // Variable para evitar duplicados
+
+// Detectar el tipo de dispositivo al montar el componente
+onMounted(() => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    isMobile.value = /android|iPad|iPhone|iPod/i.test(userAgent);
+
+    if (!isMobile.value) {
+        // Agregar evento de teclado solo en web
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', resetKeyPress);
+    }
+});
+
+// Limpiar los eventos al desmontar
+onUnmounted(() => {
+    if (!isMobile.value) {
+        window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('keyup', resetKeyPress);
+    }
+});
+
+// Incrementar contador al presionar cualquier tecla (web)
+const handleKeyDown = (event) => {
+    if (!keyPressed) {
+        keyPressCount.value++;
+        keyPressed = true; // Marcar que la tecla fue presionada
+    }
+};
+
+// Reiniciar la variable al soltar la tecla
+const resetKeyPress = () => {
+    keyPressed = false;
+};
+
+// Incrementar contador al presionar el botón (móvil)
+const handleButtonPress = () => {
+    keyPressCount.value++;
+};
 
 const { sendNumber } = defineProps(['sendNumber']);
 
@@ -281,10 +345,6 @@ const recordAttemptOrder = () => {
         scoreNumbers.value = 0;
     }
     inverseNumber.value = true;
-};
-const countKeyPresses = () => {
-    keyPressCount.value++;
-
 };
 
 const recordAttemptOrderInve = () => {

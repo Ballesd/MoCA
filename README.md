@@ -87,11 +87,41 @@ php artisan key:generate
 
 
 ## 🌐 Acceso a la aplicación
-- Visita http://localhost:8000.
+- Visita http://localhost:8000. 
+
+## 🚀 Despliegue en el servidor
+Para desplegar actualizaciones en el servidor, sigue estos pasos:
+
+1️⃣ Accede al directorio del proyecto
+Navega hasta la carpeta del proyecto en el servidor:
+
+```bash
+cd /var/www/MoCA
+```
+
+2️⃣ Obtén los últimos cambios del repositorio
+Ejecuta el siguiente comando para actualizar el código desde el repositorio:
+
+```bash	
+git pull
+```
+
+3️⃣ Compila los assets del frontend
+Genera la versión optimizada de los assets ejecutando:
+
+```bash
+npm run build
+```
+
+4️⃣ Reinicia el servidor web
+Reinicia Apache para aplicar los cambios:
+
+```bash
+sudo systemctl restart apache2
+```
 
 ## 🛠️ Herramientas utilizadas
 - ⚙️ Laravel: Framework PHP para la lógica de negocio.
 - 🌐 Vue.js: Framework JavaScript para la interfaz de usuario.
 - 🗄️ MySQL: Sistema de gestión de bases de datos.
-
 
