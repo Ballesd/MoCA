@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MocaController;
 use App\Http\Controllers\MedicController;
 use App\Http\Controllers\ExportExcelController;
+use App\Models\Moca;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,18 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        $user = auth()->user();
+    
+        // Comprueba si el usuario ya completó el test
+        $testCompleted = Moca::where('user_id', $user->id)->exists();
+
+        return Inertia::render('Dashboard', [
+            'auth' => [
+                'user' => array_merge($user->toArray() , [
+                    'test_completed' => $testCompleted
+                ])
+            ]
+        ]);
     })->name('dashboard');
 
     Route::get('/reglas', function () {

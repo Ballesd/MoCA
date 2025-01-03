@@ -93,28 +93,28 @@ php artisan key:generate
 Para desplegar actualizaciones en el servidor, sigue estos pasos:
 
 1️⃣ Accede al directorio del proyecto
-Navega hasta la carpeta del proyecto en el servidor:
+- Navega hasta la carpeta del proyecto en el servidor:
 
 ```bash
 cd /var/www/MoCA
 ```
 
 2️⃣ Obtén los últimos cambios del repositorio
-Ejecuta el siguiente comando para actualizar el código desde el repositorio:
+- Ejecuta el siguiente comando para actualizar el código desde el repositorio:
 
 ```bash	
 git pull
 ```
 
 3️⃣ Compila los assets del frontend
-Genera la versión optimizada de los assets ejecutando:
+- Genera la versión optimizada de los assets ejecutando:
 
 ```bash
 npm run build
 ```
 
 4️⃣ Reinicia el servidor web
-Reinicia Apache para aplicar los cambios:
+- Reinicia Apache para aplicar los cambios:
 
 ```bash
 sudo systemctl restart apache2
