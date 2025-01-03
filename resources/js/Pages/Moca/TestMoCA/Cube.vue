@@ -15,7 +15,7 @@
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
                 <p class="text-base sm:text-lg ">
-                    Copie esta figura lo mejor posible.
+                    Copie esta figura lo mejor posible, posteriormente suba la imagen.
                 </p>
             </div>
             <UploadFile :uploadedImage="uploadedImage" />
@@ -43,7 +43,7 @@ const result = ref(null);
 
 const speachIntroduction = () => {
     const text1 =
-        'Me gustaría que copiara el dibujo de un cubo tal cual como está en la pantalla de la manera más precisa posible, posteriormente suba la imagen.';
+        'Me gustaría que copiara esta figura de la manera más precisa posible, posteriormente suba la imagen';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;

@@ -20,8 +20,7 @@
             </div>
             <div v-if="!orderNumber">
                 <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                    <p class="text-base sm:text-lg">A continuación deberá completar 3 tareas, las cuales tendrán
-                        audio incorporado. Recuerde que solo tendrá una oportunidad para reproducirlos.</p>
+                    <p class="text-base sm:text-lg">A continuación deberá completar 3 tareas, las cuales tendrán audio incorporado. Recuerde que solo tendrá una oportunidad para reproducir cada audio.</p>
                 </div>
                 <div class="w-full mt-4">
                     <ButtonCustom class="w-full" mode="button" :disabled="buttonState" @click="startNumberTest">INICIAR
@@ -39,9 +38,10 @@
                             @click="speachFirstSeries" />
                     </div>
 
-                    <p v-if="first_series_field" class="flex justify-center text-base sm:text-lg">Ingrese la primera
-                        serie de
-                        numeros en el mismo orden.
+                    <p v-if="first_series_field" class="flex justify-center text-base sm:text-lg">
+                        Le voy a leer una serie de números y, 
+                        cuando haya terminado, 
+                        deberá escribirlos en el mismo orden en el que yo los he dicho. Oprima el botón para reproducir la primera serie de números.
                     </p>
                     <div v-if="first_series_field" class="flex justify-center">
                         <div class="grid grid-cols-5 gap-7">
@@ -60,8 +60,10 @@
                 <!-- Orden de numeros al inverso -->
                 <div v-if="inverseNumber && orderNumber" class="flex flex-col items-center gap-4 w-full">
                     <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                        <p class="text-base sm:text-lg">Oprima el botón para reproducir la segunda serie de números.
-                            Ingrese la serie en el orden inverso en el que la escuche.</p>
+                        <p class="text-base sm:text-lg">
+                            Ahora ingrese la serie en el orden inverso en el que la escuche.
+                            Oprima el botón para reproducir la segunda serie de números.
+                        </p>
                         <font-awesome-icon v-if="!heard_audio3" :icon="['fas', 'volume-up']" size="2x"
                             class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2"
                             @click="speachSecondSeries" />
@@ -93,7 +95,7 @@
         <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
             <p class="text-base sm:text-lg">
                 <span v-if="!isMobile">
-                    Presione cualquier tecla cada vez que escuche la letra "A".
+                    Presione la barra espaciadora cada vez que escuche la letra "A" , únicamente cuando escuche esta letra. Para reproducir el audio, haga clic en el botón a la derecha del recuadro de texto.
                 </span>
                 <span v-else>
                     Presione el botón cada vez que escuche la letra "A".
@@ -315,7 +317,7 @@ const speachSecondSeries = () => {  //Audio del segundo ejercicio Sección 6
 }
 
 const countAleterSpeachInstruction = () => {
-    const text1 = 'Le voy a leer una serie de letras y, cada vez que se diga la letra A, debe oprimir la barra espaciadora de su teclado o cualquier tecla. Para escucharla, oprima el botón de audio a la derecha del recuadro de texto.';
+    const text1 = 'Le voy a leer una serie de letras y, cada vez que se diga la letra A, debe oprimir la barra espaciadora de su teclado o cualquier tecla, únicamente cuando sea la letra A y no otras letras. Para escucharla, oprima el botón de audio a la derecha del recuadro de texto';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;

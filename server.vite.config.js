@@ -7,12 +7,13 @@ export default defineConfig({
         host: '0.0.0.0', // Permite escuchar todas las conexiones
         port: 5173,      // Cambia el puerto si es necesario
         hmr: {
-            host: '192.168.101.16', // Cambia la IP si es necesario
+            host: '192.168.110.182', // Cambia la IP si es necesario
+            port: 5173
         },
     },
     plugins: [
         laravel({
-            input: 'resources/js/app.js',
+            input: 'resources/js/app.js', 
             ssr: 'resources/js/ssr.js',
             refresh: true,
         }),

@@ -15,7 +15,7 @@
             </div>
 
             <div v-if="attempt==0"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
-                <p class="text-base sm:text-lg ">Memorice las palabras que escuchará al presionar el botón a la derecha de este recuadro y luego ingréselas en las entradas de texto, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
+                <p class="text-base sm:text-lg ">Esta es una prueba de memoria, presione el botón de la derecha, escuche atentamente las palabras y trate de recordarlas escribiendo las que recuerde en los recuadros inferiores, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
                 <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction2" />
             </div>
             <div v-if="attempt==1"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
@@ -64,7 +64,7 @@ const emit = defineEmits(['answer-score']);
 const speachIntroduction1 = () => {
     const synthesis = window.speechSynthesis;
     const text1 =
-        'Esta es una prueba de memoria. Le voy a leer una lista de palabras que debe recordar. Escuche con atención. Cuando acabe, dígame todas las palabras que pueda recordar. No importa el orden en el que las escriba';
+        'Esta es una prueba de memoria. Le voy a leer una lista de palabras que debe recordar. Escuche con atención. Cuando acabe, escriba en los espacios todas las palabras que pueda recordar. No importa el orden en el que las escriba';
     const utterance1 = new SpeechSynthesisUtterance(text1);
     utterance1.rate = 0.7;
     utterance1.lang = 'es-CO';

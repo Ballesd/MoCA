@@ -127,7 +127,7 @@ const deletePuntaje = () => {
 
 const speachIntroduction = () => {
     const text1 =
-        'Escriba el nombre de estos animales en los inputs correspondientes';
+        'Escriba el nombre de estos animales en los espacios ubicados debajo de cada imagen';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
