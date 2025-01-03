@@ -31,7 +31,9 @@ import LinkCustom from '@/Components/LinkCustom.vue';
             </div>
             <div class="flex flex-col w-1/3 justify-end items-center">
                 <div>
-                    <LinkCustom v-if="$page?.props?.auth?.user?.rol === 'user'" :href="route('rules')">REALIZAR TEST</LinkCustom>
+                    <LinkCustom v-if="$page?.props?.auth?.user?.rol === 'user' && !$page?.props?.auth?.user?.test_completed" :href="route('rules')">
+                        REALIZAR TEST
+                    </LinkCustom>
                     <LinkCustom v-if="$page?.props?.auth?.user?.rol === 'admin'" :href="route('Admin.Index')">BUSCAR USUARIOS</LinkCustom>
                     <LinkCustom v-if="$page?.props?.auth?.user?.rol === 'medic'" :href="route('Medic.Show')">VER RESULTADOS</LinkCustom>
                 </div>
