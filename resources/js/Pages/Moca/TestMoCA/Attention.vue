@@ -32,16 +32,20 @@
                 <!-- Orden de numeros -->
                 <div v-if="orderNumber && !inverseNumber" class="flex flex-col items-center gap-4 w-full">
                     <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                        <p class="text-base sm:text-lg">Oprima el botón para reproducir la primera serie de números.</p>
+                        <p class="text-base sm:text-lg">
+                            Le voy a leer una serie de números y, cuando haya terminado, 
+                            deberá escribirlos en el mismo orden en el que yo los he dicho.
+                            Oprima el botón para reproducir la serie de números.
+                        </p>
                         <font-awesome-icon v-if="!heard_audio1" :icon="['fas', 'volume-up']" size="2x"
-                            class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2"
+                            class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
                             @click="speachFirstSeries" />
                     </div>
 
                     <p v-if="first_series_field" class="flex justify-center text-base sm:text-lg">
-                        Le voy a leer una serie de números y, 
-                        cuando haya terminado, 
-                        deberá escribirlos en el mismo orden en el que yo los he dicho. Oprima el botón para reproducir la primera serie de números.
+                        Ingrese la primera
+                        serie de
+                        numeros en el mismo orden.
                     </p>
                     <div v-if="first_series_field" class="flex justify-center">
                         <div class="grid grid-cols-5 gap-7">
@@ -95,7 +99,7 @@
         <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
             <p class="text-base sm:text-lg">
                 <span v-if="!isMobile">
-                    Presione la barra espaciadora cada vez que escuche la letra "A" , únicamente cuando escuche esta letra. Para reproducir el audio, haga clic en el botón a la derecha del recuadro de texto.
+                    Presione la barra espaciadora cada vez que escuche la letra "A" , únicamente cuando escuche esta letra. 
                 </span>
                 <span v-else>
                     Presione el botón cada vez que escuche la letra "A".
@@ -176,10 +180,18 @@ onMounted(() => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     isMobile.value = /android|iPad|iPhone|iPod/i.test(userAgent);
 
-    if (!isMobile.value) {
+    if (!isMobile.value && strikestate ) {
         // Agregar evento de teclado solo en web
-        window.addEventListener('keydown', handleKeyDown);
-        window.addEventListener('keyup', resetKeyPress);
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                handleKeyDown(event);
+            }
+        });
+        window.addEventListener('keyup', (event) => {
+            if (event.code === 'Space') {
+                resetKeyPress(event);
+            }
+        });
     }
 });
 
@@ -253,8 +265,6 @@ const totalscoreState = ref(false);
 
 const countAleter = ref(false);
 const sevenMinusSeven = ref(false);
-
-const a = ref(0);
 
 const speachIntroduction = () => {  //Audio introducción
     const text1 = 'En los siguientes pasos, se le presentarán tres tareas para completar. Cada una de estas incluirá un audio que deberá escuchar atentamente. Es importante tener en cuenta que solo podrá reproducir cada audio una vez, por lo que le recomendamos prestar mucha atención al escucharlos.';

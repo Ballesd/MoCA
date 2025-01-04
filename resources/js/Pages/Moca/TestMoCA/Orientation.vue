@@ -12,10 +12,6 @@
         </div>
     </div>
     <div class="w-full flex flex-col gap-5 mt-3">
-        <!-- <div class="">
-            <InputLabel value="Fecha (YYYY-MM-DD)" />
-            <TextInput v-model="fecha" type="date" class="block w-full no-calendar-icon" />
-        </div> -->
         <div class="flex gap-3">
             <div class="w-1/3">
                 <InputLabel value="Año" />
@@ -40,7 +36,7 @@
             <div class="w-full">
                 <InputLabel value="Día de la semana" />
                 <select v-model="diaSemana" class="block w-full border rounded p-2">
-                    <option v-for="(day, index) in weekDays" :key="index" :value="index">{{ day }}</option> 
+                    <option v-for="(day, index) in weekDays" :key="day" :value="day">{{ day }}</option> 
                 </select>
             </div>
             <div class="w-full">
@@ -137,7 +133,7 @@ export default {
             const respuestaMes = new Date().getMonth(); // Obtén el mes actual como número (0-11).
             const respuestaDia = new Date().getDate(); // Obtén el día del mes actual como número (1-31).
             const respuestaDiaSemana = new Date().getDay(); // Obtén el día de la semana actual como número (0-6).
-            const respuestaLugar = ['hogar', 'casa', 'domicilio', 'vivienda']; // Cambia por la respuesta correcta para el lugar.
+            const respuestaLugar = ['hogar', 'casa', 'domicilio', 'vivienda', 'hogar', 'mi casa', 'mi domicilio', 'mi vivienda']; // Cambia por la respuesta correcta para el lugar.
             const respuestaCiudad = ['ciudad', 'pueblo', 'municipio', 'departamento']; // Cambia por la respuesta correcta para la ciudad.
 
             // Convierte las respuestas correctas a minúsculas y quita los acentos.
@@ -152,7 +148,7 @@ export default {
             const añoUsuarioSinAcentos = this.año;
             const mesUsuarioSinAcentos = this.mes;
             const diaUsuarioSinAcentos = this.dia;
-            const diaSemanaUsuarioSinAcentos = this.diaSemana;
+            const diaSemanaUsuarioSinAcentos = this.diaSemana.toLowerCase();
             //const lugarUsuarioSinAcentos = this.quitarAcentos(this.lugar.toLowerCase());
             const lugarUsuarioSinAcentos = this.lugar;
             const ciudadUsuarioSinAcentos = this.ciudad;    
@@ -165,14 +161,19 @@ export default {
             let puntosLugar = 0;
             let puntosCiudad = 0;
 
+
+            
+            
             // Compara las respuestas ingresadas con las respuestas correctas y asigna puntos.
             if (parseInt(añoUsuarioSinAcentos) === respuestaAñoSinAcentos) puntosAño++;
-            if (this.obtenerNumeroMes(mesUsuarioSinAcentos) === respuestaMesSinAcentos) puntosMes++;
+            if (parseInt(mesUsuarioSinAcentos) === respuestaMesSinAcentos) puntosMes++;
             if (parseInt(diaUsuarioSinAcentos) === respuestaDiaSinAcentos) puntosDia++;
             if (this.obtenerNumeroDiaSemana(diaSemanaUsuarioSinAcentos) === respuestaDiaSemanaSinAcentos) puntosDiaSemana++;
             if (respuestaLugarSinAcentos.includes(lugarUsuarioSinAcentos)) puntosLugar++;
             if (respuestaCiudadSinAcentos.includes(ciudadUsuarioSinAcentos)) puntosCiudad++;
 
+
+            console.log(puntosAño, puntosMes, puntosDia, puntosDiaSemana, puntosLugar, puntosCiudad);
             // Calcula el resultado total de puntos.
             const resultadoTotal =  puntosAño + puntosMes + puntosDia + puntosDiaSemana + puntosLugar + puntosCiudad;
 
