@@ -97,7 +97,7 @@
     <div v-if="strikestate" class="flex flex-col items-center gap-4 w-full">
         <!-- Instrucciones -->
         <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
-            <p class="text-base sm:text-lg">
+            <p class="text-base sm:text-lg px-3">
                 <span v-if="!isMobile">
                     Presione la barra espaciadora cada vez que escuche la letra "A" , únicamente cuando escuche esta letra. 
                 </span>

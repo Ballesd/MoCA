@@ -9,12 +9,13 @@
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
                 <p class="text-base sm:text-lg">Ingrese en cada uno de los cuadros de texto las 5 palabras dictadas en la
-                    pregunta 5.</p>
+                    pregunta 5. 
+                </p>
             </div>
             <!-- Intento sin pistas -->
             <div v-if="!this.track && !this.selectTest" class="flex flex-col gap-4">
-                <div class="w-full">
-                    <ButtonCustom class="w-full" @click="">Intento sin pistas</ButtonCustom>
+                <div class="w-full flex justify-center">
+                    <h2 class="text-primary text-3xl font-semibold ">Intento sin pistas</h2>
                 </div>
                 <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
@@ -22,15 +23,15 @@
                             class="block w-full" />
                     </div>
                     <div class="flex w-full justify-center items-end">
-                        <ButtonCustom class="w-full" mode="button" @click="recordAttempt">REGISTRAR</ButtonCustom>
+                        <ButtonCustom class="w-full text-sm sm:text-base" mode="button" @click="recordAttempt">REGISTRAR</ButtonCustom>
                     </div>
                 </div>
             </div>
             <!-- / Intento sin pistas -->
             <!-- Intento con pistas -->
             <div v-else-if="this.track && !this.selectTest" class="flex flex-col gap-4">
-                <div class="w-full">
-                    <ButtonCustom class="w-full" @click="">Intento con pistas</ButtonCustom>
+                <div class="w-full flex justify-center">
+                    <h2 class="text-primary text-3xl font-semibold ">Intento con pistas</h2>
                 </div>
                 <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
@@ -39,7 +40,7 @@
                             class="block w-full" />
                     </div>
                     <div class="flex w-full justify-center items-end">
-                        <ButtonCustom class="w-full" mode="button" @click="recordAttemptTrack">
+                        <ButtonCustom class="w-full text-sm sm:text-base" mode="button" @click="recordAttemptTrack">
                             REGISTRAR
                         </ButtonCustom>
                     </div>
@@ -49,8 +50,8 @@
             <!-- / Intento con pistas -->
             <!-- Intento seleccion multiple -->
             <div v-else-if="this.track && this.selectTest && !this.endTest" class="flex flex-col gap-4">
-                <div class="w-full">
-                    <ButtonCustom class="w-full" @click="">Intento con selección</ButtonCustom>
+                <div class="w-full flex justify-center">
+                    <h2 class="text-primary text-3xl font-semibold ">Intento con selección</h2>
                 </div>
                 <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
@@ -63,7 +64,7 @@
                     </div>
                     <div class="flex w-full justify-center items-end">
 
-                        <ButtonCustom class="w-full" mode="button" @click="recordAttemptSelect">REGISTRAR</ButtonCustom>
+                        <ButtonCustom class="w-full text-sm sm:text-base" mode="button" @click="recordAttemptSelect">REGISTRAR</ButtonCustom>
 
                     </div>
                 </div>
