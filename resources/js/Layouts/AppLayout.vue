@@ -110,6 +110,6 @@ const logout = () => {
         <main class="flex-1 relative z-10 container px-8 mx-auto h-full">
             <slot />
         </main>
-        <div v-if="bgNetwork" class="absolute z-0 m-5 bottom-0 right-0 w-full h-full bg-network bg-no-repeat opacity-30 bg-right-bottom pointer-events-none" style="background-size: 47%"></div>
+        <div v-if="bgNetwork" class="absolute z-0 m-5 bottom-0 right-0 w-full h-full bg-network bg-no-repeat opacity-10 bg-right-bottom pointer-events-none" style="background-size: 47%"></div>
     </div>
 </template>
