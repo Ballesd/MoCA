@@ -18,7 +18,7 @@
                     Copie esta figura lo mejor posible, posteriormente suba la imagen.
                 </p>
             </div>
-            <UploadFile :uploadedImage="uploadedImage" />
+            <UploadFile v-model="clicked" :uploadedImage="uploadedImage" />
         </div>
 
         <!-- Contenedor de Imagen -->
@@ -33,13 +33,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import axios from 'axios';
 import UploadFile from '@/Components/UploadFile.vue';
+
 
 const { sendNumber } = defineProps(['sendNumber']);
 
 const result = ref(null);
+const clicked = ref(false); // Estado para v-model en UploadFile
 
 const speachIntroduction = () => {
     const text1 =
@@ -61,9 +63,16 @@ const uploadedImage = async (fileInfo) => {
     });
     console.log(response.data);
     result.value = null;
-    sendNumber(result.value);
     window.speechSynthesis.cancel();
 };
+
+watch(clicked, (newValue) => {
+    if (newValue){ 
+        sendNumber(result.value);
+    }
+});
+
+
 </script>
 
 <style scoped>

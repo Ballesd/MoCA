@@ -110,6 +110,7 @@ export default {
             rememberedWords: [],
             score: 0,
             score_permanent: 0,
+            
             comulative_answer: [],
             answer: ['ROSTRO', 'SEDA', 'IGLESIA', 'CLAVEL', 'ROJO']
         };

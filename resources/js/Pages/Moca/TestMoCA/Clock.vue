@@ -8,19 +8,20 @@
             <div class="border-2 border-gray-400 rounded-lg p-4">
                 <p class="text-base sm:text-lg">Dibuje un reloj colocando los números en las posiciones correctas y ajustando las manecillas para marcar la hora de 11:10, posteriormente suba la imagen.</p>
             </div>
-            <UploadFile :uploadedImage="uploadedImage" />
+            <UploadFile v-model="clicked" :uploadedImage="uploadedImage" />
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import axios from 'axios';
 import UploadFile from '@/Components/UploadFile.vue';
 
 const { sendNumber } = defineProps(['sendNumber']);
 
 const result = ref(null);
+const clicked = ref(false); // Estado para v-model en UploadFile
 
 const speachIntroduction = () => {
     const text1 = 'Dibuje un reloj. Incluya todos los números y dibújelo señalando las 11 y 10 minutos. Recalco  11 y 10 minutos. Posteriormente suba la imagen.';
@@ -41,7 +42,14 @@ const uploadedImage = async (fileInfo) => {
     });
     console.log(response.data);
     result.value = null;
-    sendNumber(result.value);
     window.speechSynthesis.cancel();
+
+    
 };
+
+watch(clicked, (newValue) => {
+    if (newValue){ 
+        sendNumber(result.value);
+    }
+});
 </script>

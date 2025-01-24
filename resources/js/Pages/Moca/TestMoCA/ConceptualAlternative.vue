@@ -22,32 +22,34 @@
                     Posteriormente, suba la imagen.
                 </p>
             </div>
-            <UploadFile :uploadedImage="uploadedImage" />
+            <UploadFile v-model="clicked" :uploadedImage="uploadedImage" />
         </div>
     </div>
 </template>
 
-
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import axios from 'axios';
 import UploadFile from '@/Components/UploadFile.vue';
 
+// Propiedad para recibir la función sendNumber del padre
 const { sendNumber } = defineProps(['sendNumber']);
 
+// Variables reactivas
 const result = ref(null);
+const clicked = ref(false); // Estado para v-model en UploadFile
 
+// Reproduce el texto en voz
 const speachIntroduction = () => {
-    const text1 =
-        'Me gustaría que dibujara una línea uniendo los círculos pero alternando entre cifras y letras, siguiendo el orden numérico y el orden alfabético. Comience en el número 1 y dibuje una línea desde el 1 hacia la letra A , a continuación, de la A hacia el 2 y así sucesivamente. Termine en la letra E'
+    const text1 = 'Una los círculos con una línea alternando entre número y letra siguiendo el orden numérico y del abecedario. Comience en el numero 1 y dibuje una línea desde el 1 hacia la letra A , a continuación, de la A hacia el 2 y así sucesivamente. Posteriormente, suba la imagen.';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
-    utterance.lang = "es-CO"
+    utterance.lang = "es-CO";
     synthesis.speak(utterance);
-
 };
 
+// Subir la imagen y manejar la respuesta del servidor
 const uploadedImage = async (fileInfo) => {
     const formData = new FormData();
     formData.append('image_conceptual_alternative', fileInfo);
@@ -56,10 +58,18 @@ const uploadedImage = async (fileInfo) => {
             'Content-Type': 'multipart/form-data'
         }
     });
-    console.log(response.data);
+
+    // console.log('Respuesta del servidor:', response.data);
     result.value = null;
-    sendNumber(result.value);
     window.speechSynthesis.cancel();
 
+    
 };
+
+// Depurar cambios en clicked
+watch(clicked, (newValue) => {
+    if (newValue){ 
+        sendNumber(result.value);
+    }
+});
 </script>

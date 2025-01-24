@@ -3,7 +3,7 @@
         <div class="w-11/12 flex flex-col gap-4">
             <div class="flex justify-start items-center space-x-3">
                 <font-awesome-icon :icon="['fas', 'volume-up']" size="2x"
-                    class="text-secondary cursor-pointer hover:text-primary" @click="" />
+                    class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />
                 <h2 class="text-primary text-3xl">11. Orientación</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
