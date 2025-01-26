@@ -8,7 +8,7 @@
 
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                <p class="text-base sm:text-lg">Ingrese en cada uno de los cuadros de texto las 5 palabras dictadas en la
+                <p class="text-base sm:text-lg">Ingrese en cada uno de los cuadros de texto las 5 palabras mencionadas en la
                     pregunta 5. 
                 </p>
             </div>
@@ -117,7 +117,7 @@ export default {
     },
     methods: {
         speachIntroduction() {
-            const text1 = 'Antes le he leído una serie de palabras y le he pedido que las recordase. Ahora escriba todas las palabras de las que se acuerde';
+            const text1 = 'Antes le he leído una serie de palabras y le he pedido que las recordara. Ahora escriba todas las palabras de las que se acuerde';
             const synthesis = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(text1);
             utterance.rate = 0.6;
