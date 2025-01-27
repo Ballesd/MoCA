@@ -51,7 +51,7 @@
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">{{ users?.identification }}
                                 </td>
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">
-                                    <Button class="underline text-blue-500" @click="downloadExcel">Descargar
+                                    <Button class="underline text-blue-500" @click="exportExcel">Descargar
                                         Excel</Button>
                                 </td>
                             </tr>
@@ -318,6 +318,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm } from '@inertiajs/vue3';
 import TextInput from '@/Components/TextInput.vue';
 import ButtonCustom from '@/Components/ButtonCustom.vue';
+import * as XLSX from 'xlsx';
 
 const moca = ref({
     identification: '',
@@ -386,6 +387,45 @@ function downloadExcel() {
     exportURL.value = `/export?${new URLSearchParams(params).toString()}`;
     window.location.href = exportURL.value;
 }
+function exportExcel() {
+    const mocaData = {
+        'Nombre': users.value.name + ' ' + users.value.lastname,
+        'Email': users.value.email,
+        'Cédula': users.value.identification,
+        'Inicio de prueba': date_start.value,
+        'Fin de prueba': date_end.value,
+        'Identificación': moca.value.identification,
+        'Identificación respuesta': moca.value.identification_answer,
+        'Memoria': moca.value.memory,
+        'Atención': moca.value.attention,
+        'Atención respuesta': moca.value.attention_answer,
+        'Lenguaje': moca.value.language,
+        'Lenguaje respuesta': moca.value.language_answer,
+        'Fluidez verbal': moca.value.verbal_fluency,
+        'Fluidez verbal respuesta': moca.value.verbal_fluency_answer,
+        'Abstracción': moca.value.abstraction,
+        'Abstracción respuesta': moca.value.abstraction_answer,
+        'Recuerdo diferido': moca.value.deferred_recall,
+        'Recuerdo diferido respuesta': moca.value.deferred_recall_answer,
+        'MIS': moca.value.mis,
+        'Orientación': moca.value.orientation,
+        'Orientación respuesta': moca.value.orientation_answer,
+        'Total': moca.value.total,
+        'Alternancia conceptual': moca.value.ConceptualAlternative,
+        'Cubo': moca.value.cube,
+        'Reloj': moca.value.clock,
+        'Recuerdo diferido sin pistas': moca.value.deferred_recall_first,
+        'Recuerdo diferido con pistas': moca.value.deferred_recall_second,
+        'Recuerdo diferido con selección': moca.value.deferred_recall_third
+    };
+
+    const worksheet = XLSX.utils.json_to_sheet([mocaData]);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, `${users.value.name}`);
+
+    XLSX.writeFile(workbook, `${users.value.name + ' ' + users.value.lastname}.xlsx`);
+
+}
 
 const search = async () => {
     if (identification.value === '') {
@@ -421,7 +461,7 @@ const search = async () => {
 
                 // Dividir deferred_recall_answer en 3 partes
                 const deferredRecallWords = moca.value.deferred_recall_answer.split(',').map(word => word.trim());
-                console.log(deferredRecallWords);  
+                console.log(deferredRecallWords);
                 moca.value.deferred_recall_first = deferredRecallWords.slice(0, 5).join(', ');
                 moca.value.deferred_recall_second = deferredRecallWords.slice(5, 10).join(', ');
                 moca.value.deferred_recall_third = deferredRecallWords.slice(10, 15).join(', ');

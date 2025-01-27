@@ -25,6 +25,7 @@
         "@fortawesome/free-regular-svg-icons": "^5.15.4",
         "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@fortawesome/vue-fontawesome": "^3.0.8",
-        "is-mobile": "^5.0.0"
+        "is-mobile": "^5.0.0",
+        "xlsx": "^0.18.5"
     }
 }

@@ -157,6 +157,4 @@ Route::middleware([
         ->middleware('auth.medic')
         ->name('Medic.getHistoryClinic');
 
-    //-----------------------ExportExcel-------------------------------
-    Route::get('/export', [ExportExcelController::class, 'exportExcel'])->name('export');
 });
