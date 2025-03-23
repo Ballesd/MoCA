@@ -5,8 +5,9 @@ import LinkCustom from '@/Components/LinkCustom.vue';
 
 <template>
     <AppLayout title="Dashboard">
-        <div class="my-7 flex justify-start">
-            <div class="bg-quinary rounded-xl shadow-lg p-6 sm:p-8 md:p-10 w-1/2">
+        <div class="my-5 flex flex-col items-center justify-center text-justify">
+            <div class="bg-quinary rounded-xl shadow-lg p-6 sm:p-8 md:p-8
+            ">
                 <div class="flex flex-col">
                     <p class="text-sm sm:text-base md:text-lg">
                         El Grupo de Neurociencias de la Universidad Nacional de Colombia, cuenta con una trayectoria de 26 años, tiempo en que se han adelantando investigaciones en las áreas de la neurogenética molecular, neurología clínica,
