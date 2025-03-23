@@ -5,8 +5,8 @@ import LinkCustom from '@/Components/LinkCustom.vue';
 
 <template>
     <AppLayout title="Dashboard">
-        <div class="my-7 flex justify-end">
-            <div class="flex flex-col gap-5 w-4/5 justify-end items-center">
+        <div class="my-7 flex justify-center">
+            <div class="flex flex-col gap-5 w-4/5 justify-end items-center pb-6">
                 <h1 class="text-4xl text-primary">Para realizar el test, tenga en cuenta:</h1>
                 <div class="bg-secondary rounded-xl shadow-lg p-6">
                     <div class="flex flex-col">
@@ -44,7 +44,7 @@ import LinkCustom from '@/Components/LinkCustom.vue';
                     </div>
                 </div>
                 <div>
-                    <LinkCustom :href="route('Moca.Index')">COMENZAR</LinkCustom>
+                    <LinkCustom :href="route('audio-mic-test')">COMENZAR</LinkCustom>
                 </div>
             </div>
         </div>

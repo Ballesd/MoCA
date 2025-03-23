@@ -54,6 +54,10 @@ Route::middleware([
         ]);
     })->name('dashboard');
 
+    Route::get('/prueba-audio-micro', function () {
+        return Inertia::render('AudioMicTest');
+    })->name('audio-mic-test');
+    
     Route::get('/reglas', function () {
         return Inertia::render('Rules');
     })->name('rules');

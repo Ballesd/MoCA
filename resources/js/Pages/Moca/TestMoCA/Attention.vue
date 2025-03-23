@@ -20,7 +20,7 @@
             </div>
             <div v-if="!orderNumber">
                 <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                    <p class="text-base sm:text-lg">A continuación deberá completar 3 tareas, las cuales tendrán audio incorporado. Recuerde que solo tendrá una oportunidad para reproducir cada audio.</p>
+                    <p class="text-base sm:text-lg text-justify">A continuación deberá completar 3 tareas, las cuales tendrán audio incorporado. Recuerde que solo tendrá una oportunidad para reproducir cada audio.</p>
                 </div>
                 <div class="w-full mt-4">
                     <ButtonCustom class="w-full" mode="button" :disabled="buttonState" @click="startNumberTest">INICIAR
@@ -31,8 +31,8 @@
             <div v-if="repeatNumeber">
                 <!-- Orden de numeros -->
                 <div v-if="orderNumber && !inverseNumber" class="flex flex-col items-center gap-4 w-full">
-                    <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                        <p class="text-base sm:text-lg">
+                    <div class="border-2 border-gray-400 rounded-lg p-4 gap-4 flex items-center justify-between w-full">
+                        <p class="text-base sm:text-lg text-justify">
                             Le voy a leer una serie de números y, cuando haya terminado, 
                             deberá escribirlos en el mismo orden en el que yo los he dicho.
                             Oprima el botón para reproducir la serie de números.
@@ -136,14 +136,14 @@
             <!-- Desde 100 restado de 7 en 7 -->
             <div v-if="sevenMinSeven" class="flex flex-col items-center gap-4 w-full">
                 <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                    <p class="text-base sm:text-lg">
+                    <p class="text-base sm:text-lg text-justify">
                         En esta actividad va a restar de 7 en 7 comenzando desde 100. Inserte el
                         resultado en la casilla de texto y presione el botón "Siguiente resta" para seguir restando
                         desde el número que colocó anteriormente.</p>
                 </div>
 
 
-                <p v-if="!isInputFocused" class="flex justify-center text-black text-3xl text-center font-bold">¿Cuánto
+                <p v-if="!isInputFocused" class="flex justify-center text-black text-2xl text-center font-bold">¿Cuánto
                     es {{ valueStart }} - 7?</p>
                 <div class="flex justify-center">
                     <TextInput type="number" v-model="valueRest" class="w-24 text-base sm:text-lg"

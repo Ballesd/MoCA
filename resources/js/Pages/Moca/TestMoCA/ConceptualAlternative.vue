@@ -16,9 +16,9 @@
                 </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
-                <p class="text-base sm:text-lg">
+                <p class="text-base sm:text-lg text-justify">
                     Una los círculos con una línea alternando entre número y letra siguiendo el orden numérico y del
-                    abecedario. Comience en el numero 1 y dibuje una línea desde el 1 hacia la letra A , a continuación,
+                    abecedario. Comience en el número 1 y dibuje una línea desde el 1 hacia la letra A, a continuación,
                     de la A hacia el 2 y así sucesivamente.
                     Posteriormente, suba la imagen.
                 </p>
