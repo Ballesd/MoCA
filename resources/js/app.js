@@ -8,8 +8,9 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faVolumeUp, faTrash } from '@fortawesome/free-solid-svg-icons';
-library.add(faVolumeUp, faTrash);
+import { faVolumeUp, faTrash, faCheckCircle  } from '@fortawesome/free-solid-svg-icons';
+import { faCircle } from '@fortawesome/free-regular-svg-icons';
+library.add(faVolumeUp, faTrash, faCheckCircle, faCircle);
 
 const appName = import.meta.env.VITE_APP_NAME || 'Moca';
 
