@@ -41,10 +41,13 @@ const logout = () => {
                     <div class="flex items-center">
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                            <NavLink v-if="$page?.props?.auth?.user?.rol === 'user' || $page?.props?.auth?.user?.rol === 'admin' || $page?.props?.auth?.user?.rol === 'medic'" :href="route('dashboard')" :active="route().current('dashboard')">
+                            <!-- <NavLink v-if="$page?.props?.auth?.user?.rol === 'user' || $page?.props?.auth?.user?.rol === 'admin' || $page?.props?.auth?.user?.rol === 'medic'" :href="route('dashboard')" :active="route().current('dashboard')">
+                                Dashboard
+                            </NavLink> -->
+                            <NavLink v-if=" $page?.props?.auth?.user?.rol === 'admin' || $page?.props?.auth?.user?.rol === 'medic'" :href="route('dashboard')" :active="route().current('dashboard')">
                                 Dashboard
                             </NavLink>
-                            <NavLink v-if="$page?.props?.auth?.user?.rol === 'user'" :href="route('Moca.Index')" :active="route().current('Moca.Index')"> MoCA </NavLink>
+                            <!-- <NavLink v-if="$page?.props?.auth?.user?.rol === 'user'" :href="route('Moca.Index')" :active="route().current('Moca.Index')"> MoCA </NavLink> -->
                             <NavLink v-if="$page?.props?.auth?.user?.rol === 'medic'" :href="route('Medic.Show')" :active="route().current('Medic.Show')"> Resultados MoCA </NavLink>
                             <NavLink v-if="$page?.props?.auth?.user?.rol === 'medic'" :href="route('Medic.History')" :active="route().current('Medic.History')"> Buscar Historial Clínico </NavLink>
                             <NavLink v-if="$page?.props?.auth?.user?.rol === 'medic'" :href="route('Medic.clinicHistory')" :active="route().current('Medic.clinicHistory')"> Realizar Historia Clínica </NavLink>
@@ -54,7 +57,7 @@ const logout = () => {
                             <NavLink v-if="!$page?.props?.auth?.user" :href="route('login')" :active="route().current('login')" class="text-blue-500 hover:text-blue-700"> Iniciar sesión </NavLink>
                             <NavLink v-if="!$page?.props?.auth?.user" :href="route('register')" :active="route().current('register')" class="text-blue-500 hover:text-blue-700"> Registro </NavLink>
                             <!-- Show "Cerrar sesión" when authenticated -->
-                            <NavLinkLogout v-if="$page?.props?.auth?.user" :active="route().current('logout')" class="text-red-500 hover:text-red-700 font-bold"> Cerrar sesión </NavLinkLogout>
+                            <NavLinkLogout v-if="$page?.props?.auth?.user" :active="route().current('logout')" class="text-red-500 hover:text-red-700 font-bold text-lg"> Cerrar sesión </NavLinkLogout>
                         </div>
                     </div>
                 </div>
@@ -69,7 +72,7 @@ const logout = () => {
                 class="sm:hidden"
             >
                 <div class="pt-2 pb-3 space-y-1">
-                    <ResponsiveNavLink v-if="$page?.props?.auth?.user?.rol === 'user'" :href="route('dashboard')" :active="route().current('dashboard')"> Dashboard </ResponsiveNavLink>
+                    <!-- <ResponsiveNavLink v-if="$page?.props?.auth?.user?.rol === 'user'" :href="route('dashboard')" :active="route().current('dashboard')"> Dashboard </ResponsiveNavLink> -->
                     <ResponsiveNavLink v-if="$page?.props?.auth?.user?.rol === 'user'" :href="route('Moca.Index')" :active="route().current('Moca.Index')"> MoCA </ResponsiveNavLink>
                     <ResponsiveNavLink v-if="$page?.props?.auth?.user?.rol === 'admin'" :href="route('Admin.Index')" :active="route().current('Admin.Index')"> Administrador </ResponsiveNavLink>
                     <ResponsiveNavLink v-if="$page?.props?.auth?.user?.rol === 'medic'" :href="route('Medic.Index')" :active="route().current('Medic.Index')"> Médico </ResponsiveNavLink>

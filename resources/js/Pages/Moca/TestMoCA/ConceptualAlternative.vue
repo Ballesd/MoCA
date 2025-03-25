@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12 space-y-6 lg:space-y-0">
+    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12  lg:space-y-0">
         <!-- Contenedor de la Imagen -->
         <div class="p-4 h-96 w-full lg:w-auto">
             <img class="w-full h-full object-contain lg:object-cover rounded-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none"
@@ -7,7 +7,7 @@
         </div>
 
         <!-- Contenedor del Texto -->
-        <div class="w-full lg:w-1/2 flex flex-col gap-4 px-4">
+        <div class="w-full lg:w-1/2 flex flex-col gap-4 px-4 pb-10">
             <div class="flex justify-center items-center space-x-3">
                 <font-awesome-icon :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />

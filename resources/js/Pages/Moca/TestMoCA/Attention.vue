@@ -288,14 +288,19 @@ const speachFirstSeriesInstruction = () => {  //Instrucción Primer ejercicio Se
 
 };
 const speachFirstSeries = () => {  //Audio del Primer ejercicio Sección 6
-    const text1 = 'La serie es: 2,  1,  8,  5,  4.';
+    const text1 = 'La serie es: ';
+    const text2 = '2,  1,  8,  5,  4.';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
+    const utterance2 = new SpeechSynthesisUtterance(text2);
     utterance.rate = 0.7;
+    utterance2.rate = 0.6;
     utterance.lang = "es-CO"
+    utterance2.lang = "es-CO"
     synthesis.speak(utterance);
+    synthesis.speak(utterance2);
     heard_audio1.value = true;
-    utterance.onend = () => {
+    utterance2.onend = () => {
         first_series_field.value = true;
     };
 
@@ -313,14 +318,19 @@ const speachSecondSeriesInstruction = () => {  //Instrucción Segundo ejercicio 
 };
 const speachSecondSeries = () => {  //Audio del segundo ejercicio Sección 6
 
-    const text2 = 'Ingrese la siguiente serie en orden inverso. La serie es: 7,  4,  2.';
+    const text1 = 'Ingrese la siguiente serie en orden inverso. La serie es: ';
+    const text2 = '7,  4,  2.';
     const synthesis1 = window.speechSynthesis;
-    const utterance1 = new SpeechSynthesisUtterance(text2);
+    const utterance1 = new SpeechSynthesisUtterance(text1);
+    const utterance2 = new SpeechSynthesisUtterance(text2);
     utterance1.rate = 0.7; // Ajusta este valor para cambiar la velocidad
+    utterance2.rate = 0.6; // Ajusta este valor para cambiar la velocidad
     utterance1.lang = "es-CO"
+    utterance2.lang = "es-CO"
     synthesis1.speak(utterance1);
+    synthesis1.speak(utterance2);
     heard_audio3.value = true;
-    utterance1.onend = () => {
+    utterance2.onend = () => {
         second_series_field.value = true;
     };
 
@@ -331,17 +341,22 @@ const countAleterSpeachInstruction = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
-    utterance.lang = "es-CO"
+    utterance.lang =     "es-CO"
     synthesis.speak(utterance);
 
 };
 const countAleterSpeach = () => {
-    const text1 = 'La serie de letras es: F, B, A, C, M, N, A, A, J, K, L, B, A, F, A, K, D, E, A, A, A, J, A, M, O, F, A, A, B, .';
+    const text1 = 'La serie de letras es: ';
+    const text2 = 'F, B, A, C, M, N, A, A, J, K, L, B, A, F, A, K, D, E, A, A, A, J, A, M, O, F, A, A, B, .';
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
-    utterance.rate = 0.4;
+    const utterance2 = new SpeechSynthesisUtterance(text2);
+    utterance.rate = 0.6;
+    utterance2.rate = 0.4;
     utterance.lang = "es-CO"
+    utterance2.lang = "es-CO"
     synthesis.speak(utterance);
+    synthesis.speak(utterance2);
     heard_audio2.value = true;
 };
 

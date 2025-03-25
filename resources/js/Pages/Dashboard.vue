@@ -5,19 +5,19 @@ import LinkCustom from '@/Components/LinkCustom.vue';
 
 <template>
     <AppLayout title="Dashboard">
-        <div class="my-10 flex">
-            <div class="flex flex-col gap-4 w-2/3">
-                <h1 class="text-5xl text-primary">Bienvenido,</h1>
+        <div class="my-10 mt-5 flex flex-col sm:flex-row items-center sm:items-end gap-4">
+            <div class="flex flex-col gap-2 w-full sm:w-2/3 px-5">
+                <h1 class=" text-4xl sm:text-5xl text-primary">Bienvenido,</h1>
 
-                <h2 v-if="$page?.props?.auth?.user?.rol === 'user'" class=" italic text-5xl font-sans">
+                <h2 v-if="$page?.props?.auth?.user?.rol === 'user'" class=" italic text-4xl sm:text-5xl font-sans">
                     {{ $page.props.auth.user.name || 'Nombre del paciente' }} </h2>
-                <h2 v-if="$page?.props?.auth?.user?.rol === 'admin'" class="italic text-5xl font-sans">
+                <h2 v-if="$page?.props?.auth?.user?.rol === 'admin'" class="italic text-4xl sm:text-5xl font-sans">
                     {{ $page.props.auth.user.name || 'Nombre del admin' }}
                 </h2>
-                <h2 v-if="$page?.props?.auth?.user?.rol === 'medic'" class="italic text-5xl font-sans">
+                <h2 v-if="$page?.props?.auth?.user?.rol === 'medic'" class="italic text-4xl sm:text-5xl font-sans">
                     {{ $page.props.auth.user.name || 'Nombre del paciente' }}
                 </h2>
-                <div v-if="$page?.props?.auth?.user?.rol === 'user'" class="flex flex-col text-2xl  gap-4 mt-8">
+                <div v-if="$page?.props?.auth?.user?.rol === 'user'" class="flex flex-col text-xl sm:text-2xl  gap-4 mt-8 text-justify">
                     <p>Usted se encuentra en la plataforma del Test MoCa.</p>
                     <p>Las siguientes tareas nos permitirán conocer de manera global el estado de su cognición. Los
                         resultados serán de gran importancia para usted, como para nosotros.</p>
@@ -30,7 +30,7 @@ import LinkCustom from '@/Components/LinkCustom.vue';
                     <p>Usted se encuentra en la plataforma del Test MoCa.</p>
                 </div>
             </div>
-            <div class="flex flex-col w-1/3 justify-end items-center">
+            <div class="flex flex-col w-1/3 justify-end items-center text-base mt-3">
                 <div>
                     <LinkCustom
                         v-if="$page?.props?.auth?.user?.rol === 'user' && !$page?.props?.auth?.user?.test_completed"
