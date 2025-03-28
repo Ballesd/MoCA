@@ -2,7 +2,7 @@
     <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-24 space-y-6 lg:space-y-0 my-12">
         <!-- Contenedor de Texto -->
         <div class="w-full lg:w-8/12 flex flex-col gap-4 px-4 pb-5">
-            <div class="flex justify-center items-center space-x-6">
+            <div class="flex justify-center items-center space-x-3">
                 <font-awesome-icon
                     :icon="['fas', 'volume-up']"
                     size="2x"

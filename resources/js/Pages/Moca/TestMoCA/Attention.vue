@@ -2,8 +2,7 @@
     <div class="flex items-center justify-center space-x-12 mt-16 mb-10 w-full">
         <div class="w-7/12 flex flex-col gap-4">
             <!-- Intro -->
-            <div class="flex justify-start items-center space-x-3">
-                <h2 v-if="!final" class="text-primary text-3xl">6. Atención</h2>
+            <div class="flex justify-center items-center space-x-3 pb-3">
                 <font-awesome-icon v-if="!final && !orderNumber && !inverseNumber && !countAleter && !sevenMinSeven"
                     :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary"
                     @click="speachIntroduction" />
@@ -17,10 +16,16 @@
                     class="text-secondary cursor-pointer hover:text-primary" @click="countAleterSpeachInstruction" />
                 <font-awesome-icon v-if="!final && sevenMinSeven" :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" @click="audioSevenMinus" />
+
+                <h2 v-if="!final" class="text-primary text-2xl sm:text-3xl">6. Atención</h2>
+
+
             </div>
             <div v-if="!orderNumber">
                 <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                    <p class="text-base sm:text-lg text-justify">A continuación deberá completar 3 tareas, las cuales tendrán audio incorporado. Recuerde que solo tendrá una oportunidad para reproducir cada audio.</p>
+                    <p class="text-base sm:text-lg text-justify">A continuación deberá completar 3 tareas, las cuales
+                        tendrán audio incorporado. Recuerde que solo tendrá una oportunidad para reproducir cada audio.
+                    </p>
                 </div>
                 <div class="w-full mt-4">
                     <ButtonCustom class="w-full" mode="button" :disabled="buttonState" @click="startNumberTest">INICIAR
@@ -31,9 +36,10 @@
             <div v-if="repeatNumeber">
                 <!-- Orden de numeros -->
                 <div v-if="orderNumber && !inverseNumber" class="flex flex-col items-center gap-4 w-full">
-                    <div class="border-2 border-gray-400 rounded-lg p-4 gap-4 flex items-center justify-between w-full">
+                    <div
+                        class="border-2 border-gray-400 rounded-lg p-4 gap-6 flex flex-col sm:flex-row items-center justify-between w-full ">
                         <p class="text-base sm:text-lg text-justify">
-                            Le voy a leer una serie de números y, cuando haya terminado, 
+                            Le voy a leer una serie de números y, cuando haya terminado,
                             deberá escribirlos en el mismo orden en el que yo los he dicho.
                             Oprima el botón para reproducir la serie de números.
                         </p>
@@ -42,16 +48,16 @@
                             @click="speachFirstSeries" />
                     </div>
 
-                    <p v-if="first_series_field" class="flex justify-center text-base sm:text-lg">
+                    <p v-if="first_series_field" class="flex justify-center text-base sm:text-lg font-semibold text-justify">
                         Ingrese la primera
                         serie de
                         numeros en el mismo orden.
                     </p>
                     <div v-if="first_series_field" class="flex justify-center">
-                        <div class="grid grid-cols-5 gap-7">
+                        <div class="grid grid-cols-5 gap-3">
                             <div v-for="(number, index) in orderNumbers" :key="index">
                                 <TextInput v-model="answerOrder[index]" :ref="el => inputFields[index] = el"
-                                    maxlength="1" class="h-12 w-12 text-center text-xl" @input="handleInput(index)" />
+                                    maxlength="1" class=" h-10 w-10  sm:h-12 sm:w-12 text-center text-xl" @input="handleInput(index)" />
                             </div>
                         </div>
                     </div>
@@ -63,8 +69,8 @@
                 <!-- /Orden de numeros -->
                 <!-- Orden de numeros al inverso -->
                 <div v-if="inverseNumber && orderNumber" class="flex flex-col items-center gap-4 w-full">
-                    <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                        <p class="text-base sm:text-lg">
+                    <div class="border-2 border-gray-400 rounded-lg p-4 gap-6 flex flex-col sm:flex-row items-center justify-between w-full">
+                        <p class="text-base sm:text-lg text-justify">
                             Ahora ingrese la serie en el orden inverso en el que la escuche.
                             Oprima el botón para reproducir la segunda serie de números.
                         </p>
@@ -72,14 +78,14 @@
                             class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2"
                             @click="speachSecondSeries" />
                     </div>
-                    <p v-if="second_series_field" class="flex justify-center  text-base sm:text-lg">
+                    <p v-if="second_series_field" class="flex justify-center  text-base sm:text-lg font-semibold text-justify">
                         Ingrese la segunda serie de números en orden inverso.
                     </p>
-                    <div v-if="second_series_field" class="flex justify-center">
-                        <div class="grid grid-cols-3 gap-7">
+                    <div v-if="second_series_field" class="flex justify-center items-center">
+                        <div class="grid grid-cols-3 gap-3">
                             <div v-for="(number, index) in InverseNumbers" :key="index">
                                 <TextInput v-model="answerInverse[index]" :ref="el => inputFields[index] = el"
-                                    maxlength="1" class="h-12 w-12 text-center text-xl text-gray-600"
+                                    maxlength="1" class="h-10 w-10  sm:h-12 sm:w-12 text-center text-xl text-gray-600"
                                     @input="handleInputInverse(index)" />
                             </div>
 
@@ -93,45 +99,40 @@
                 </div>
                 <!-- /Orden de numeros al inverso -->
             </div>
-           <!-- Golpear por cada letra A -->
-    <div v-if="strikestate" class="flex flex-col items-center gap-4 w-full">
-        <!-- Instrucciones -->
-        <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-center w-full">
-            <p class="text-base sm:text-lg px-3">
-                <span v-if="!isMobile">
-                    Presione la barra espaciadora cada vez que escuche la letra "A" , únicamente cuando escuche esta letra. 
-                </span>
-                <span v-else>
-                    Presione el botón cada vez que escuche la letra "A".
-                </span>
-                Para reproducir el audio, haga clic en el botón a la derecha del recuadro de texto.
-            </p>
-            <font-awesome-icon
-                v-if="!heard_audio2"
-                :icon="['fas', 'volume-up']"
-                size="2x"
-                class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
-                @click="countAleterSpeach"
-            />
-        </div>
+            <!-- Golpear por cada letra A -->
+            <div v-if="strikestate" class="flex flex-col items-center gap-4 w-full">
+                <!-- Instrucciones -->
+                <div class="border-2 border-gray-400 rounded-lg p-4 gap-6 flex flex-col sm:flex-row items-center justify-center w-full">
+                    <p class="text-base sm:text-lg px-3 text-justify">
+                        <span v-if="!isMobile">
+                            Presione la barra espaciadora cada vez que escuche la letra "A" , únicamente cuando escuche
+                            esta letra.
+                        </span>
+                        <span v-else>
+                            Presione el botón cada vez que escuche la letra "A".
+                        </span>
+                        Para reproducir el audio, haga clic en el botón ubicado en este recuadro.
+                    </p>
+                    <font-awesome-icon v-if="!heard_audio2" :icon="['fas', 'volume-up']" size="2x"
+                        class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2"
+                        @click="countAleterSpeach" />
+                </div>
 
-        <!-- Contador -->
-        <p class="flex justify-center text-7xl">{{ keyPressCount }}</p>
+                <!-- Contador -->
+                <p class="flex justify-center text-7xl">{{ keyPressCount }}</p>
 
-        <!-- Botón para móviles -->
-        <button
-            v-if="isMobile"
-            class="bg-secondary text-white font-semibold rounded-lg px-6 py-3 mt-4 sm:w-1/2 md:w-1/3 hover:bg-secondary-dark active:bg-secondary-darker"
-            @click="handleButtonPress"
-        >
-            Presione aquí
-        </button>
+                <!-- Botón para móviles -->
+                <button v-if="isMobile"
+                    class="bg-secondary text-white font-semibold rounded-lg px-6 py-3 mt-4 sm:w-1/2 md:w-1/3 hover:bg-secondary-dark active:bg-secondary-darker"
+                    @click="handleButtonPress">
+                    Presione aquí
+                </button>
 
-        <!-- Botón "Siguiente" -->
-        <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="letterACount">
-            SIGUIENTE
-        </ButtonCustom>
-    </div>
+                <!-- Botón "Siguiente" -->
+                <ButtonCustom class="w-full sm:w-1/2 md:w-1/3 mt-4" mode="button" @click="letterACount">
+                    SIGUIENTE
+                </ButtonCustom>
+            </div>
             <!-- / Golpear por cada letra A -->
             <!-- Desde 100 restado de 7 en 7 -->
             <div v-if="sevenMinSeven" class="flex flex-col items-center gap-4 w-full">
@@ -143,9 +144,9 @@
                 </div>
 
 
-                <p v-if="!isInputFocused" class="flex justify-center text-black text-2xl text-center font-bold">¿Cuánto
+                <p v-if="!isInputFocused" class="flex justify-center text-black text-xl sm:text-2xl text-center font-bold">¿Cuánto
                     es {{ valueStart }} - 7?</p>
-                <div class="flex justify-center">
+                <div class="flex flex-col items-center gap-4 justify-center">
                     <TextInput type="number" v-model="valueRest" class="w-24 text-base sm:text-lg"
                         @focus="isInputFocused = true" @unfocus="isInputFocused = false" />
                     <button v-if="restCount < 4" class="bg-secondary text-white px-4 py-2 rounded-lg ml-4"
@@ -167,20 +168,18 @@
 <script setup>
 import ButtonCustom from '@/Components/ButtonCustom.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { ref, defineProps, nextTick, onMounted, onUnmounted} from 'vue';
+import { ref, defineProps, nextTick, onMounted, onUnmounted } from 'vue';
 import axios from 'axios';
 
 
-const isMobile = ref(false); // Estado para detectar si es móvil
 
-let keyPressed = false; // Variable para evitar duplicados
 
 // Detectar el tipo de dispositivo al montar el componente
 onMounted(() => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     isMobile.value = /android|iPad|iPhone|iPod/i.test(userAgent);
 
-    if (!isMobile.value && strikestate ) {
+    if (!isMobile.value && strikestate) {
         // Agregar evento de teclado solo en web
         window.addEventListener('keydown', (event) => {
             if (event.code === 'Space') {
@@ -203,26 +202,11 @@ onUnmounted(() => {
     }
 });
 
-// Incrementar contador al presionar cualquier tecla (web)
-const handleKeyDown = (event) => {
-    if (!keyPressed) {
-        keyPressCount.value++;
-        keyPressed = true; // Marcar que la tecla fue presionada
-    }
-};
 
-// Reiniciar la variable al soltar la tecla
-const resetKeyPress = () => {
-    keyPressed = false;
-};
-
-// Incrementar contador al presionar el botón (móvil)
-const handleButtonPress = () => {
-    keyPressCount.value++;
-};
 
 const { sendNumber } = defineProps(['sendNumber']);
-
+const isMobile = ref(false); // Estado para detectar si es móvil
+let keyPressed = false; // Variable para evitar duplicados
 const buttonState = ref(false);
 const heard_audio1 = ref(false);
 const heard_audio2 = ref(false);
@@ -245,7 +229,7 @@ const InverseNumbers = ref([2, 4, 7]);
 const answerInverse = ref([]);
 const scoreInverse = ref(0);
 
-
+const a = ref('A');
 const strikestate = ref(false);
 const word = ref('');
 const keyPressCount = ref(0);
@@ -341,10 +325,29 @@ const countAleterSpeachInstruction = () => {
     const synthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text1);
     utterance.rate = 0.7;
-    utterance.lang =     "es-CO"
+    utterance.lang = "es-CO"
     synthesis.speak(utterance);
 
 };
+
+// Incrementar contador al presionar cualquier tecla (web)
+const handleKeyDown = (event) => {
+    if (!keyPressed) {
+        keyPressCount.value++;
+        keyPressed = true; // Marcar que la tecla fue presionada
+    }
+};
+
+// Reiniciar la variable al soltar la tecla
+const resetKeyPress = () => {
+    keyPressed = false;
+};
+
+// Incrementar contador al presionar el botón (móvil)
+const handleButtonPress = () => {
+    keyPressCount.value++;
+};
+
 const countAleterSpeach = () => {
     const text1 = 'La serie de letras es: ';
     const text2 = 'F, B, A, C, M, N, A, A, J, K, L, B, A, F, A, K, D, E, A, A, A, J, A, M, O, F, A, A, B, .';
@@ -383,7 +386,6 @@ const recordAttemptOrderInve = () => {
     repeatNumeber.value = false;
     strikestate.value = true;
     countAleter.value = true;
-    addEventListener('keydown', countKeyPresses);
 };
 const audioSevenMinus = () => {
     const text1 = 'Ahora reste de 7 en 7 empezando desde 100, ponga el resultado en el input y oprima siguiente resta.';
@@ -398,7 +400,6 @@ const letterACount = () => {
     sevenMinSeven.value = true;
     strikestate.value = false;
     console.log('keyPressCount: ', keyPressCount.value);
-    removeEventListener('keydown', countKeyPresses);
     if (keyPressCount.value === 10 || keyPressCount.value === 11 || keyPressCount.value === 12) {
         pressCountScore.value = 1;
     }
@@ -406,8 +407,8 @@ const letterACount = () => {
 
 const restNumber = async () => {
     if (valueRestLog.value === '') {
-        valueRestLog.value = valueRest.value 
-    } else{
+        valueRestLog.value = valueRest.value
+    } else {
         valueRestLog.value = valueRestLog.value + ', ' + valueRest.value;
     }
 

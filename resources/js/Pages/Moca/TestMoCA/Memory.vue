@@ -2,7 +2,7 @@
     <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12 space-y-6 lg:space-y-0 mt-16 mb-10 px-4">
         <!-- Contenedor Principal -->
         <div class="w-full lg:w-7/12 flex flex-col gap-6">
-            <div class="flex justify-center items-center space-x-3">
+            <div class="flex justify-center items-center space-x-4">
                 <font-awesome-icon
                     :icon="['fas', 'volume-up']"
                     size="2x"
@@ -14,11 +14,11 @@
                 </h2>
             </div>
 
-            <div v-if="attempt==0"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
-                <p class="text-base sm:text-lg text-justify">Esta es una prueba de memoria, presione el botón de la derecha, escuche atentamente las palabras y trate de recordarlas escribiendo las que recuerde en los recuadros inferiores, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
+            <div v-if="attempt==0"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-6">
+                <p class="text-base sm:text-lg text-justify">Esta es una prueba de memoria. Presione el botón para escuchar atentamente las palabras y, luego, escríbalas en los recuadros inferiores según las que recuerde, sin importar el orden. Solo tendrá una oportunidad de escucha.</p>
                 <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction2" />
             </div>
-            <div v-if="attempt==1"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-4">
+            <div v-if="attempt==1"  class="border-2 border-gray-400 rounded-lg p-4 flex flex-col sm:flex-row items-center gap-6">
                 <p class="text-base sm:text-lg text-justify">Este es un segundo intento. Presione nuevamente el botón para repetir las palabras e ingréselas en las entradas de texto. Recuerde que el orden no importa.</p>
                 <font-awesome-icon v-if="!heard_audio" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-4 py-2" @click="speachIntroduction3" />
 
