@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12 space-y-6 lg:space-y-0 my-12">
+    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-24 space-y-6 lg:space-y-0 my-12">
         <!-- Contenedor de Texto -->
-        <div class="w-full lg:w-8/12 flex flex-col gap-4 px-4">
+        <div class="w-full lg:w-8/12 flex flex-col gap-4 px-4 pb-5">
             <div class="flex justify-center items-center space-x-3">
                 <font-awesome-icon
                     :icon="['fas', 'volume-up']"
@@ -9,7 +9,7 @@
                     class="text-secondary cursor-pointer hover:text-primary"
                     @click="speachIntroduction"
                 />
-                <h2 class="text-primary text-xl sm:text-2xl md:text-3xl text-center lg:text-left">
+                <h2 class="text-primary text-xl sm:text-2xl md:text-3xl  lg:text-left">
                     2. Capacidades visoconstructivas
                 </h2>
             </div>
@@ -25,7 +25,7 @@
         <div class="p-4 h-56 w-full lg:w-auto">
             <img
                 class="w-full h-full object-contain lg:object-cover rounded-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none"
-                src="../../../../../public/images/cube.png"
+                src="images/cube.png"
                 alt="Logo"
             />
         </div>

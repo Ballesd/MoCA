@@ -51,12 +51,12 @@ const submit = () => {
                 </div>
             </AuthenticationCard>
             <div class="flex items-center justify-center mt-5">
-                <div class="flex items-center justify-center space-x-2 text-gray-400">
+                <div class="flex items-center justify-center space-x-2 text-gray-600">
                     <p>¿No tienes una cuenta?</p>
-                    <Link v-if="canResetPassword" :href="route('register')" class="underline text-sm text-gray-400 hover:text-gray-600 rounded-md focus:outline-none"> REGISTRATE AQUÍ </Link>
+                    <Link v-if="canResetPassword" :href="route('register')" class="underline text-sm text-gray-600 hover:text-blue-500 rounded-md focus:outline-none"> REGISTRATE AQUÍ </Link>
                 </div>
             </div>
-            <ButtonCustom class="ms-4 mt-14" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" :onclick="submit"> INICIAR SESION </ButtonCustom>
+            <ButtonCustom class="ms-4 mt-10" :class="{ 'opacity-25': form.processing }" :disabled="form.processing" :onclick="submit"> INICIAR SESION </ButtonCustom>
         </div>
     </AppLayout>
 </template>

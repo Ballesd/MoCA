@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12 space-y-6 lg:space-y-0">
+    <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12  lg:space-y-0">
         <!-- Contenedor de la Imagen -->
         <div class="p-4 h-96 w-full lg:w-auto">
             <img class="w-full h-full object-contain lg:object-cover rounded-lg max-w-xs sm:max-w-sm md:max-w-md lg:max-w-none"
@@ -7,7 +7,7 @@
         </div>
 
         <!-- Contenedor del Texto -->
-        <div class="w-full lg:w-1/2 flex flex-col gap-4 px-4">
+        <div class="w-full lg:w-1/2 flex flex-col gap-4 px-4 pb-10">
             <div class="flex justify-center items-center space-x-3">
                 <font-awesome-icon :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />
@@ -16,9 +16,9 @@
                 </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
-                <p class="text-base sm:text-lg">
+                <p class="text-base sm:text-lg text-justify">
                     Una los círculos con una línea alternando entre número y letra siguiendo el orden numérico y del
-                    abecedario. Comience en el numero 1 y dibuje una línea desde el 1 hacia la letra A , a continuación,
+                    abecedario. Comience en el número 1 y dibuje una línea desde el 1 hacia la letra A, a continuación,
                     de la A hacia el 2 y así sucesivamente.
                     Posteriormente, suba la imagen.
                 </p>

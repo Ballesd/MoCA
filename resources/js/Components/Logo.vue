@@ -27,7 +27,7 @@
                     class="cls-7"
                     transform="translate(461.17 440.58) scale(1.1 1)"
                 >
-                    MoCA
+                    MoCa
                 </text>
                 <g>
                     <path

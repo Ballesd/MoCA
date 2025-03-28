@@ -4,7 +4,7 @@
             <div class="flex justify-start items-center space-x-3 self-start">
                 <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" />
-                <h2 class="text-primary text-3xl">8. Fluidez verbal</h2>
+                <h2 class="text-primary text-2xl sm:text-3xl">8. Fluidez verbal</h2>
             </div>
             <div v-if="showLetter"
                 class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">

@@ -8,8 +8,8 @@
 
             <!-- Primer Frase y audio -->
 
-            <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-base sm:text-lg">Presione el botón a la derecha para reproducir el audio y de click en "Grabar Frase 1" para grabar la misma frase. Solo podrá hacerlo una vez.</p>
+            <div class="border-2 border-gray-400 rounded-lg p-4 gap-6 flex flex-col sm:flex-row items-center justify-between w-full">
+                <p class="text-base sm:text-lg text-justify">Presione el botón para reproducir el audio y de click en "Grabar Frase 1" para grabar la misma frase. Solo podrá hacerlo una vez.</p>
                 <font-awesome-icon v-if = "!heard_audio1" @click="speachFirst" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
                 
             </div>
@@ -20,8 +20,8 @@
             
             <!-- Segunda Frase y audio -->
 
-            <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-base sm:text-lg">Presione nuevamente el botón a la derecha para reproducir el audio y presione "Grabar Frase 2" para grabar la misma frase.</p>
+            <div class="border-2 border-gray-400 rounded-lg p-4 gap-6 flex flex-col sm:flex-row items-center justify-between w-full">
+                <p class="text-base sm:text-lg">Presione nuevamente el botón para reproducir el audio y presione "Grabar Frase 2" para grabar la frase 2.</p>
                 <font-awesome-icon v-if="stateSecondAudio && !heard_audio2" @click="speachSecond" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
             </div>
 

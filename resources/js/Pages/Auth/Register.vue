@@ -109,12 +109,12 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.civil_status" />
                     </div>
                     <div>
-                        <InputLabel for="password" value="Password" />
+                        <InputLabel for="password" value="Contraseña" />
                         <TextInput id="password" v-model="form.password" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
                         <InputError class="mt-2" :message="form.errors.password" />
                     </div>
                     <div>
-                        <InputLabel for="password_confirmation" value="Confirm Password" />
+                        <InputLabel for="password_confirmation" value="Confirmar Contraseña" />
                         <TextInput id="password_confirmation" v-model="form.password_confirmation" type="password" class="mt-1 block w-full" required autocomplete="new-password" />
                         <InputError class="mt-2" :message="form.errors.password_confirmation" />
                     </div>
@@ -134,8 +134,8 @@ const submit = () => {
                     <InputError class="mt-2" :message="form.errors.terms" />
                 </div>
                 <div class="flex flex-col items-center justify-center mt-5 space-y-4">
-                    <p class="text-gray-400">¿Ya tienes una cuenta? 
-                        <Link :href="route('login')" class="underline text-sm text-gray-400 hover:text-gray-600">INICIA SESIÓN AQUÍ</Link>
+                    <p class="text-gray-600">¿Ya tienes una cuenta? 
+                        <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-blue-500">INICIA SESIÓN AQUÍ</Link>
                     </p>
                     <ButtonCustom :class="{ 'opacity-25': form.processing }" :disabled="form.processing" :onclick="submit">
                         REGISTRARME

@@ -21,7 +21,7 @@ export default {
             },
             backgroundImage: {
                 network: "url('../../public/images/network.png')",
-                main: "url('../../public/images/main.png')"
+                main: "url('../../public/images/main_2.png')"
             }
         }
     },
