@@ -1,12 +1,12 @@
 <template>
     <div class="flex items-center justify-center space-x-12 mt-16 mb-10 ">
-        <div class="w-7/12 flex flex-col gap-4">
-            <div class="flex justify-center items-center space-x-3 pb-3">
+        <div class="w-full sm:w-7/12 flex flex-col gap-5 px-5">
+            <div class="flex items-center space-x-3">
                 <font-awesome-icon :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />
-                <h2 class="text-primary text-3xl">3. Capacidades visoconstructivas</h2>
+                <h2 class="text-primary text-xl sm:text-2xl md:text-3xl">3. Capacidades visoconstructivas</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 ">
-                <p class="text-base sm:text-lg text-justify">Dibuje un reloj colocando los números en las posiciones correctas y ajustando las manecillas para marcar la hora de 11:10, posteriormente suba la imagen.</p>
+                <p class="text-base sm:text-lg text-justify hyphens-auto sm:hyphens-none">Dibuje un reloj colocando los números en las posiciones correctas y ajustando las manecillas para marcar la hora de 11:10, posteriormente suba la imagen.</p>
             </div>
 
             <UploadFile  v-model="clicked" :uploadedImage="uploadedImage" />

@@ -1,8 +1,8 @@
 <template>
     <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-12 space-y-6 lg:space-y-0 mb-10 px-4">
         <!-- Contenedor de Texto e Imágenes -->
-        <div class="flex flex-col items-center justify-center gap-4 w-full lg:w-8/12">
-            <div class="flex justify-center items-center space-x-3">
+        <div class="flex flex-col justify-center gap-4 w-full lg:w-8/12">
+            <div class="flex items-center space-x-3">
                 <font-awesome-icon
                     :icon="['fas', 'volume-up']"
                     size="2x"
@@ -14,7 +14,7 @@
                 </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 w-full">
-                <p class="text-base sm:text-lg text-justify ">
+                <p class="text-base sm:text-lg text-justify hyphens-auto sm:hyphens-none">
                     Ingrese dentro de cada uno de los cuadros de texto el nombre que corresponde a cada animal.
                 </p>
             </div>

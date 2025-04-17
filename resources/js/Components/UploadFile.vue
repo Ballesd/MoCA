@@ -21,7 +21,7 @@
         <div class="flex flex-col w-3/5 justify-between">
             <p class="text-center text-sm">IMAGEN SUBIDA CON ÉXITO</p>
             <div class="flex flex-col gap-4">
-                <p class=" text-center text-sm">
+                <p class="text-center text-sm">
                     Si desea cambiarla, Por favor haga click en subir otra imagen
                 </p>
                 <p @click="removeImage" class="text-center underline text-sm cursor-pointer">

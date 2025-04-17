@@ -4,52 +4,52 @@
             <div class="flex justify-start items-center space-x-3">
                 <font-awesome-icon :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />
-                <h2 class="text-primary text-3xl">11. Orientación</h2>
+                <h2 class="text-primary text-2xl sm:text-3xl">11. Orientación</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
-                <p class="text-base sm:text-lg">Ingrese la información que solicita en cada uno de los 6 cuadros de texto referido al momento actual.</p>
+                <p class="text-lg sm:text-xl text-justify hyphens-auto sm:hyphens-none">Ingrese la información que solicita en cada uno de los 6 cuadros de texto referido al momento actual.</p>
             </div>
         </div>
     </div>
     <div class="w-full flex flex-col gap-5 mt-3">
-        <div class="flex gap-3">
-            <div class="w-1/3">
-                <InputLabel value="Año" />
+        <div class="w-4/5 mx-auto flex gap-3">
+            <div class="w-1/3 space-y-1">
+                <InputLabel class="text-xl" value="Año" />
                 <select v-model="año" class="block w-full border rounded p-2">
                     <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
                 </select>
             </div>
-            <div class="w-1/3">
-                <InputLabel value="Mes" />
+            <div class="w-1/3 space-y-1">
+                <InputLabel class="text-xl"  value="Mes" />
                 <select v-model="mes" class="block w-full border rounded p-2">
                     <option v-for="(month, index) in months" :key="index" :value="index">{{ month }}</option>
                 </select>
             </div>
-            <div class="w-1/3">
-                <InputLabel value="Día" />
+            <div class="w-1/3 space-y-1">
+                <InputLabel class="text-xl" value="Día" />
                 <select v-model="dia" class="block w-full border rounded p-2">
                     <option v-for="day in daysInMonth" :key="day" :value="day">{{ day }}</option>
                 </select>
             </div>
         </div>
-        <div class="w-full flex gap-5">
-            <div class="w-full">
-                <InputLabel value="Día de la semana" />
+        <div class="w-4/5 mx-auto flex flex-col sm:flex-row gap-5 ">
+            <div class="w-full space-y-1">
+                <InputLabel class="text-xl"  value="Día de la semana" />
                 <select v-model="diaSemana" class="block w-full border rounded p-2">
                     <option v-for="(day, index) in weekDays" :key="day" :value="day">{{ day }}</option> 
                 </select>
             </div>
-            <div class="w-full">
-                <InputLabel value="Lugar (Ubicación actual)" />
+            <div class="w-full space-y-1">
+                <InputLabel class="text-xl" value="Lugar (Ubicación actual)" />
                 <TextInput v-model="lugar" type="text" class="block w-full" />
             </div>
-            <div class="w-full">
-                <InputLabel value="Ciudad" />
+            <div class="w-full space-y-1">
+                <InputLabel class="text-xl" value="Ciudad" />
                 <TextInput v-model="ciudad" type="text" class="block w-full" />
             </div>
         </div>
     </div>
-    <div class="flex justify-center mt-8">
+    <div class="flex justify-center mt-8 mb-8">
         <ButtonCustom mode="button" @click="calcularPuntos">finalizar test</ButtonCustom>
     </div>
     
@@ -61,6 +61,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import axios from 'axios';
 export default {
+
+    emits: ['answer-score'],
 
     components: {
         ButtonCustom,

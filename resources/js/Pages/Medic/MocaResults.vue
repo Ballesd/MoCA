@@ -9,11 +9,11 @@
 
         <!-- Mensaje de error -->
         <div v-if="errorPoint"
-            class="mx-4 md:mx-8 lg:mx-auto flex justify-between items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative max-w-4xl"
+            class="mx-4 md:mx-8 lg:mx-auto flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative max-w-4xl"
             role="alert">
             <strong class="font-bold">Error: </strong>
-            <span class="block sm:inline">{{ errorMessage }}</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" @click="closeError">
+            <span class="block sm:inline ml-1'''">{{ errorMessage }}</span>
+            <span class="absolute top-0 bottom-0 right-0 px-2 py-3 cursor-pointer" @click="closeError">
                 <svg class="fill-current h-6 w-6 text-red-500" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -169,7 +169,7 @@
                                 <div>
                                     <h3 class="font-semibold text-lg">Recuerdo diferido con selección (NO PUNTÚA)</h3>
                                     <p class="break-words overflow-auto text-sm md:text-base">
-                                        {{ moca.deferred_recall_third }}
+                                        center {{ moca.deferred_recall_third }}
                                     </p>
                                 </div>
 
@@ -183,10 +183,11 @@
                         </div>
                     </div>
                     <div class="mt-8 bg-quinary rounded-lg p-10">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 sm:gap-24">
                             <div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="conceptualalternative" value="Alternancia conceptual:" />
+                                    <InputLabel for="conceptualalternative" value="Alternancia conceptual:"
+                                        class="w-80" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="ConceptualAlternative" v-model="data.ConceptualAlternative" required>
@@ -195,7 +196,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="cube" value="Cube:" />
+                                    <InputLabel for="cube" value="Cube: " class="w-80" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="cube" v-model="data.cube" required>
@@ -204,7 +205,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="clock" value="Reloj:" />
+                                    <InputLabel class="w-80" for="clock" value="Reloj:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="clock" v-model="data.clock" required>
@@ -215,7 +216,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="identification" value="Identificación:" />
+                                    <InputLabel class="w-80" for="identification" value="Identificación:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="identification" v-model="data.identification" required>
@@ -226,7 +227,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="attention" value="Atención:" />
+                                    <InputLabel class="w-80" for="attention" value="Atención:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="attention" v-model="data.attention" required>
@@ -242,7 +243,7 @@
                             </div>
                             <div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="language" value="Lenguaje:" />
+                                    <InputLabel class="w-80" for="language" value="Lenguaje:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="language" v-model="data.language" required>
@@ -252,7 +253,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="verbal_fluency" value="Fluidez verbal:" />
+                                    <InputLabel class="w-80" for="verbal_fluency" value="Fluidez verbal:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="verbal_fluency" v-model="data.verbal_fluency" required>
@@ -261,7 +262,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="abstraction" value="Abstracción:" />
+                                    <InputLabel class="w-80" for="abstraction" value="Abstracción:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="abstraction" v-model="data.abstraction" required>
@@ -271,7 +272,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="deferred_recall" value="Recuerdo diferido:" />
+                                    <InputLabel class="w-80" for="deferred_recall" value="Recuerdo diferido:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="deferred_recall" v-model="data.deferred_recall" required>
@@ -284,7 +285,7 @@
                                     </select>
                                 </div>
                                 <div class="flex items-center mb-4">
-                                    <InputLabel for="orientation" value="Orientación:" />
+                                    <InputLabel class="w-80" for="orientation" value="Orientación:" />
                                     <select
                                         class="ml-5 form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         id="orientation" v-model="data.orientation" required>

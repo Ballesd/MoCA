@@ -1,13 +1,13 @@
 <template>
     <div class="flex items-center justify-center space-x-12 mb-4">
-        <div class="w-8/12 flex flex-col items-center justify-center gap-4">
+        <div class=" w-4/5 sm:w-8/12  flex flex-col items-center justify-center gap-4">
             <div class="flex justify-start items-center space-x-3 self-start">
                 <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" />
-                <h2 class="text-primary text-3xl">9. Abstracción</h2>
+                <h2 class="text-primary text-2xl sm:text-3xl">9. Abstracción</h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-base sm:text-lg">
+                <p class="text-base sm:text-lg text-justify hiphens-auto sm:hyphens-none">
                     En cada uno de los cuadros de texto ingrese el concepto que tienen en común
                     cada pareja de palabras. Por ejemplo, si la pareja de palabras es "Manzana - Naranja", el concepto en común es "Frutas".
                 </p>
@@ -16,11 +16,11 @@
             
             
             <div class="w-full sm:w-1/2 px-2">
-                <InputLabel for="2" value="Tren - Bicicleta" />
+                <InputLabel class="text-xl" for="2" value="Tren - Bicicleta" />
                 <TextInput id="2" v-model="respuestaPregunta1" @input="calificarPregunta1" class="mt-1 block w-full" />
             </div>
             <div class="w-full sm:w-1/2 px-2">
-                <InputLabel for="3" value="Reloj - Regla" />
+                <InputLabel class="text-xl" for="3" value="Reloj - Regla" />
                 <TextInput id="3" v-model="respuestaPregunta2" @input="calificarPregunta2" class="mt-1 block w-full" />
             </div>
 
