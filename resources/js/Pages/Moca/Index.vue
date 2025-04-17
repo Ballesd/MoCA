@@ -9,7 +9,7 @@
             
             <div class="flex flex-col gap-16 w-1/2">
                 <h2 class="text-primary text-5xl font-thin text-center">Usted ha finalizado el test de MoCA</h2>
-                <p class=" flex flex-col text-2xl gap-4 ">
+                <p class=" flex flex-col text-2xl gap-4 text-justify">
                     Ha finalizado. Los resultados serán analizados por el profesional tratante y posteriormente recibirá las recomendaciones derivadas de sus desempeños. ¡Gracias por su participación!.
                 </p>
                 <div class="flex justify-end">

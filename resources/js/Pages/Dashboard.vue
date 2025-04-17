@@ -17,16 +17,26 @@ import LinkCustom from '@/Components/LinkCustom.vue';
                 <h2 v-if="$page?.props?.auth?.user?.rol === 'medic'" class="italic text-4xl sm:text-5xl font-sans">
                     {{ $page.props.auth.user.name || 'Nombre del paciente' }}
                 </h2>
-                <div v-if="$page?.props?.auth?.user?.rol === 'user'" class="flex flex-col text-xl sm:text-2xl  gap-4 mt-8 text-justify">
+                <div v-if="$page?.props?.auth?.user?.rol === 'user' && !$page?.props?.auth?.user?.test_completed"
+                    class="flex flex-col text-xl sm:text-2xl  gap-4 mt-8 text-justify hyphens-auto sm:hyphens-none">
                     <p>Usted se encuentra en la plataforma del Test MoCa.</p>
                     <p>Las siguientes tareas nos permitirán conocer de manera global el estado de su cognición. Los
                         resultados serán de gran importancia para usted, como para nosotros.</p>
                     <p>Recuerde que no hay respuestas buenas ni malas.</p>
                 </div>
-                <div v-if="$page?.props?.auth?.user?.rol === 'admin'" class="flex flex-col text-2xl  gap-4 mt-8">
+
+                <div v-if="$page?.props?.auth?.user?.rol === 'user' && $page?.props?.auth?.user?.test_completed"
+                    class="flex flex-col text-xl sm:text-2xl  gap-4 mt-8 text-justify">
+                    <p>Usted ya ha realizado este test anteriormente.
+                        Los resultados serán analizados por el profesional tratante, quien le brindará posteriormente las recomendaciones correspondientes según su desempeño.</p>
+                    <p>¡Gracias por su participación!</p>
+                </div>
+                <div v-if="$page?.props?.auth?.user?.rol === 'admin'"
+                    class="flex flex-col text-2xl  gap-4 mt-8 test-justify">
                     <p>Usted se encuentra en la plataforma del Test MoCa.</p>
                 </div>
-                <div v-if="$page?.props?.auth?.user?.rol === 'medic'" class="flex flex-col text-2xl  gap-4 mt-8">
+                <div v-if="$page?.props?.auth?.user?.rol === 'medic'"
+                    class="flex flex-col text-2xl  gap-4 mt-8 test-justify">
                     <p>Usted se encuentra en la plataforma del Test MoCa.</p>
                 </div>
             </div>

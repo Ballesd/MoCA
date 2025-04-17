@@ -7,16 +7,16 @@
         </div>
 
         <!-- Contenedor del Texto -->
-        <div class="w-full lg:w-1/2 flex flex-col gap-4 px-4 pb-10">
-            <div class="flex justify-center items-center space-x-3">
+        <div class="w-full lg:w-1/2 flex flex-col gap-5 px-5 pb-10">
+            <div class="flex items-center space-x-3">
                 <font-awesome-icon :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" @click="speachIntroduction" />
-                <h2 class="text-primary text-xl sm:text-2xl md:text-3xl text-center lg:text-left">
+                <h2 class="text-primary text-xl sm:text-2xl md:text-3xl lg:text-left">
                     1. Fase de Alternancia Conceptual
                 </h2>
             </div>
             <div class="border-2 border-gray-400 rounded-lg p-4">
-                <p class="text-base sm:text-lg text-justify">
+                <p class="text-base sm:text-lg text-justify hyphens-auto sm:hyphens-none">
                     Una los círculos con una línea alternando entre número y letra siguiendo el orden numérico y del
                     abecedario. Comience en el número 1 y dibuje una línea desde el 1 hacia la letra A, a continuación,
                     de la A hacia el 2 y así sucesivamente.

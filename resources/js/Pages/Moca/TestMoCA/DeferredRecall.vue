@@ -2,12 +2,12 @@
     <div class="flex items-center justify-center space-x-12 mb-8">
         <div class="w-9/12 flex flex-col gap-4">
             <div class="flex justify-start items-center space-x-3">
-                <h2 class="text-primary text-3xl">10. Recuerdo diferido</h2>
                 <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x"
-                    class="text-secondary cursor-pointer hover:text-primary" />
+                class="text-secondary cursor-pointer hover:text-primary" />
+                <h2 class="text-primary text-2xl sm:text-3xl">10. Recuerdo diferido</h2>
 
             </div>
-            <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center">
+            <div class="border-2 border-gray-400 rounded-lg p-4 flex items-center text-justify hyphens-auto sm:hyphens-none">
                 <p class="text-base sm:text-lg">Ingrese en cada uno de los cuadros de texto las 5 palabras mencionadas en la
                     pregunta 5. 
                 </p>
@@ -15,7 +15,7 @@
             <!-- Intento sin pistas -->
             <div v-if="!this.track && !this.selectTest" class="flex flex-col gap-4">
                 <div class="w-full flex justify-center">
-                    <h2 class="text-primary text-3xl font-semibold ">Intento sin pistas</h2>
+                    <h2 class="text-primary text-2xl sm:text-3xl font-semibold ">Intento sin pistas</h2>
                 </div>
                 <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
@@ -31,9 +31,9 @@
             <!-- Intento con pistas -->
             <div v-else-if="this.track && !this.selectTest" class="flex flex-col gap-4">
                 <div class="w-full flex justify-center">
-                    <h2 class="text-primary text-3xl font-semibold ">Intento con pistas</h2>
+                    <h2 class="text-primary text-2xl sm:text-3xl font-semibold ">Intento con pistas</h2>
                 </div>
-                <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
+                <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
                         <InputLabel :value="this.trakwords[word]" />
                         <TextInput v-model="rememberedWords[index]" @input="removeSpaces(index)" type="text"
@@ -51,9 +51,9 @@
             <!-- Intento seleccion multiple -->
             <div v-else-if="this.track && this.selectTest && !this.endTest" class="flex flex-col gap-4">
                 <div class="w-full flex justify-center">
-                    <h2 class="text-primary text-3xl font-semibold ">Intento con selección</h2>
+                    <h2 class="text-primary text-2xl sm:text-3xl font-semibold ">Intento con selección</h2>
                 </div>
-                <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-2 gap-4">
+                <div class="bg-quinary rounded-md shadow-lg p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div v-for="(word, index) in words" :key="index">
                         <InputLabel :value="this.trakwords[word]" />
                         <select v-model="rememberedWords[index]" class="border rounded p-2 w-full">

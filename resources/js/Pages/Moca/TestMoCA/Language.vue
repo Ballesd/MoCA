@@ -1,33 +1,37 @@
 <template>
     <div class="flex items-center justify-center space-x-12 my-5">
-        <div class="w-9/12 flex flex-col items-center gap-4">
+        <div class="w-9/12 flex flex-col gap-4">
             <div class="flex justify-start items-center space-x-3">
                 <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x" class="text-secondary cursor-pointer hover:text-primary" />
-                <h2 class="text-primary text-3xl">7. Lenguaje</h2>
+                <h2 class="text-primary text-2xl sm:text-3xl">7. Lenguaje</h2>
             </div>
 
             <!-- Primer Frase y audio -->
 
             <div class="border-2 border-gray-400 rounded-lg p-4 gap-6 flex flex-col sm:flex-row items-center justify-between w-full">
-                <p class="text-base sm:text-lg text-justify">Presione el botón para reproducir el audio y de click en "Grabar Frase 1" para grabar la misma frase. Solo podrá hacerlo una vez.</p>
+                <p class="text-base sm:text-lg text-justify hyphens-auto sm:hyphens-none">Presione el botón para reproducir el audio y de click en "Grabar Frase 1" para grabar la misma frase. Solo podrá hacerlo una vez.</p>
                 <font-awesome-icon v-if = "!heard_audio1" @click="speachFirst" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
                 
             </div>
-
-            <ButtonCustom v-if="firstaudio" mode="button" @click="ToggleMic1">{{ isRecording1 ? 'DETENER' : 'GRABAR FRASE 1' }}</ButtonCustom>
-
-            <div v-text="transcript1" class="flex justify-center text-base sm:text-lg mb-4"></div>
+            <div class="items-center justify-center flex">
+                <ButtonCustom v-if="firstaudio" mode="button" @click="ToggleMic1">{{ isRecording1 ? 'DETENER' : 'GRABAR FRASE 1' }}</ButtonCustom>
+                
+            </div>
+        
+        
+            <div v-text="transcript1" class="flex justify-center text-lg sm:text-xl text-justify hyphens-auto font-medium mb-6"></div>
             
             <!-- Segunda Frase y audio -->
 
             <div class="border-2 border-gray-400 rounded-lg p-4 gap-6 flex flex-col sm:flex-row items-center justify-between w-full">
-                <p class="text-base sm:text-lg">Presione nuevamente el botón para reproducir el audio y presione "Grabar Frase 2" para grabar la frase 2.</p>
+                <p class="text-base sm:text-lg text-justify hyphens-auto sm:hyphens-none">Presione nuevamente el botón para reproducir el audio y presione "Grabar Frase 2" para grabar la frase 2.</p>
                 <font-awesome-icon v-if="stateSecondAudio && !heard_audio2" @click="speachSecond" :icon="['fas', 'volume-up']" size="2x" class="bg-secondary text-white cursor-pointer hover:text-gray-100 rounded-lg px-3 py-2" />
             </div>
-
-            <ButtonCustom  v-if="secondaudio" mode="button" @click="ToggleMic2">{{ isRecording2 ? 'DETENER' : 'GRABAR FRASE 2' }}</ButtonCustom>
+            <div class="items-center justify-center flex">    
+                <ButtonCustom  v-if="secondaudio" mode="button" @click="ToggleMic2">{{ isRecording2 ? 'DETENER' : 'GRABAR FRASE 2' }}</ButtonCustom>
+            </div>
             
-            <div v-text="transcript2" class="flex justify-center text-base sm:text-lg  mb-4"></div>
+            <div v-text="transcript2" class="flex justify-center text-lg sm:text-xl font-medium  mb-4"></div>
             <ButtonCustom v-if="transcript1 && transcript2" class="w-full" mode="button" @click="evaluar">SIGUIENTE</ButtonCustom>
         </div>
     </div>
@@ -50,7 +54,6 @@ const isRecording1 = ref(false);
 const isRecording2 = ref(false);
 const firstaudio = ref(true);
 const secondaudio = ref(false);
-const a = ref(0);
 const heard_audio1 = ref(false);
 const heard_audio2 = ref(false);
 
@@ -70,6 +73,13 @@ onMounted(() => {
     sr1.onstart = () => {
         console.log('SR1 Started');
         isRecording1.value = true;
+        
+        setTimeout(() => {
+            sr1.stop();
+            firstaudio.value = false;
+            stateSecondAudio.value = true;
+            secondaudio.value = true;
+        }, 8000);
     };
 
     sr1.onend = () => {
@@ -98,6 +108,10 @@ onMounted(() => {
     sr2.onstart = () => {
         console.log('SR2 Started');
         isRecording2.value = true;
+        setTimeout(() => {
+            sr2.stop();
+            secondaudio.value = false;
+        }, 8000);
     };
 
     sr2.onend = () => {

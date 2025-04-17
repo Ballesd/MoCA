@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center justify-center h-screen">
         <h1 class="text-4xl font-bold mb-4">Ha finalizado el test!</h1>
-        <p class="text-lg text-center mb-4">¡Felicitaciones! Ha completado el test en su totalidad, el Doctor calificará posteriormente las imágenes enviadas.</p>
+        <p class="text-lg text-center mb-4 hyphens-auto sm:hyphens-none">¡Felicitaciones! Ha completado el test en su totalidad, el Doctor calificará posteriormente las imágenes enviadas.</p>
         <div class="circle">
             <i class="fas fa-check text-green-500 text-8xl animate-pulse"></i>
             <div>
