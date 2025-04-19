@@ -12,9 +12,9 @@
                 <p class=" flex flex-col text-2xl gap-4 text-justify">
                     Ha finalizado. Los resultados serán analizados por el profesional tratante y posteriormente recibirá las recomendaciones derivadas de sus desempeños. ¡Gracias por su participación!.
                 </p>
-                <div class="flex justify-end">
+                <!-- <div class="flex justify-end">
                     <LinkCustom :href="route('dashboard')">VOLVER AL INICIO</LinkCustom>
-                </div>
+                </div> -->
             </div>
         </div>
     </AppLayout>

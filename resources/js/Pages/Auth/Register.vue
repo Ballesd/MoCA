@@ -37,7 +37,7 @@ const submit = () => {
 <template>
     <AppLayout title="Register">
         <div class="h-full flex justify-center items-center p-4">
-            <div class="w-full h-full p-10 bg-quinary shadow-md sm:rounded-3xl border border-gray-400 overflow-y-scroll">
+            <div class="w-full h-full p-10 bg-quinary shadow-md rounded-3xl border border-gray-400 overflow-y-scroll">
                 <!-- Formulario -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>

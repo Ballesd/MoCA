@@ -26,7 +26,7 @@
 
         <div class="py-8">
             <div class="flex gap-4 w-8/12 mx-auto">
-                <TextInput placeholder="Digite el número de cédula de la persona que desea buscar" id="search" type="text" v-model="identification" @keyup.enter="search" required autofocus class="block w-full" />
+                <TextInput placeholder="Digite el número de cédula del paciente" id="search" type="text" v-model="identification" @keyup.enter="search" required autofocus class="block w-full" />
                 <div class="w-1/3">
                     <ButtonCustom class="w-full" mode="button" @click="search">BUSCAR</ButtonCustom>
                 </div>
