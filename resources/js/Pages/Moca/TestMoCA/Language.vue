@@ -47,8 +47,8 @@ const { sendNumber } = defineProps(['sendNumber']);
 const transcript1 = ref('');
 
 const result = ref(0);
-const phrase1 = ref(' El gato se esconde bajo el sofá cuando los perros entran en la sala.');
-const phrase2 = ref('Espero que él le entregue el mensaje una vez que ella se lo pida.');
+const phrase1 = ref('El gato se esconde bajo el sofá cuando los perros entran en la sala');
+const phrase2 = ref('Espero que él le entregue el mensaje una vez que ella se lo pida');
 const transcript2 = ref('');
 const isRecording1 = ref(false);
 const isRecording2 = ref(false);
