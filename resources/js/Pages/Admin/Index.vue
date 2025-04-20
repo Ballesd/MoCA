@@ -24,7 +24,7 @@
         <div class="my-6 mx-4 sm:mx-auto sm:w-8/12">
             <div class="flex flex-wrap gap-2">
                 <TextInput 
-                    placeholder="Digite el número de cédula de la persona que desea buscar" 
+                    placeholder="Digite el número de cédula del paciente" 
                     id="search" 
                     type="text" 
                     v-model="identification" 

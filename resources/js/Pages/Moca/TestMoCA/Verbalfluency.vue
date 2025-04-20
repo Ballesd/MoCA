@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-center space-x-12 my-12">
-        <div class="w-7/12 flex flex-col items-center justify-center gap-4">
+        <div class="w-3/4 flex flex-col items-center justify-center gap-4">
             <div class="flex justify-start items-center space-x-3 self-start">
                 <font-awesome-icon @click="speachIntroduction" :icon="['fas', 'volume-up']" size="2x"
                     class="text-secondary cursor-pointer hover:text-primary" />
@@ -8,15 +8,23 @@
             </div>
             <div v-if="showLetter"
                 class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-base sm:text-lg">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
-                    personas o lugares que empiecen con la letra P.</p>
+                <p class="text-base sm:text-lg text-justify hyphens-auto sm:hyphens-none">Diga todas las palabras que se le ocurran que empiecen con la letra 
+                    
+                    <b class="text-xl">
+                        P
+                    </b>    
+                    , sin incluir
+                    nombres propios, de
+                    personas o lugares. 
+                </p>
             </div>
             <div v-if="!showLetter"
-                class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full">
-                <p class="text-base sm:text-lg">Diga todas las palabras que se le ocurran, sin incluir nombres propios, de
+                class="border-2 border-gray-400 rounded-lg p-4 flex items-center justify-between w-full text-justify">
+                <p class="text-base sm:text-lg hyphens-auto sm:hyphens-none">Diga todas las palabras que se le ocurran, sin incluir nombres propios,
+                    de
                     personas o lugares que empiecen con la letra dicha anteriormente.</p>
             </div>
-            <p v-if ="isRemembering" class="flex justify-center text-3xl">La letra es la P</p>
+            <p v-if="isRemembering" class="flex justify-center text-3xl font-semibold">La letra es la P</p>
 
 
             <ButtonCustom v-if="resultState && timeLeft > 0" mode="button" @click="startRecording"
@@ -93,7 +101,7 @@ const speachIntroduction = () => {
 };
 
 const rememberLetter = () => {
-    
+
     isRemembering.value = true;
 
     setTimeout(() => {
@@ -113,6 +121,9 @@ onMounted(() => {
 
     sr.onend = () => {
         console.log('Recognition Stopped');
+        if (isRecording.value && timeLeft.value > 0) {
+            sr.start();
+        }
     };
 
     sr.onresult = (evt) => {
@@ -142,7 +153,7 @@ const evaluar = () => {
     result.value = wordsWithPFilt.length;
     resultState.value = false;
 
-    
+
     if (result.value >= 11) {
         score.value = 1;
     }

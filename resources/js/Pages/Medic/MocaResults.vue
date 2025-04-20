@@ -25,7 +25,7 @@
         <!-- Buscador -->
         <div class="py-8">
             <div class="flex flex-wrap gap-4 w-full max-w-4xl mx-auto">
-                <TextInput placeholder="Digite el número de cédula de la persona que desea buscar" id="search"
+                <TextInput placeholder="Digite el número de cédula del paciente" id="search"
                     type="text" v-model="identification" @keyup.enter="search" required autofocus
                     class="block w-full lg:w-2/3" />
                 <ButtonCustom class="w-full lg:w-1/3" mode="button" @click="search">BUSCAR</ButtonCustom>
@@ -169,7 +169,7 @@
                                 <div>
                                     <h3 class="font-semibold text-lg">Recuerdo diferido con selección (NO PUNTÚA)</h3>
                                     <p class="break-words overflow-auto text-sm md:text-base">
-                                        center {{ moca.deferred_recall_third }}
+                                        {{ moca.deferred_recall_third }}
                                     </p>
                                 </div>
 
