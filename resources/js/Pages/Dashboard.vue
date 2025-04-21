@@ -27,8 +27,7 @@ import LinkCustom from '@/Components/LinkCustom.vue';
 
                 <div v-if="$page?.props?.auth?.user?.rol === 'user' && $page?.props?.auth?.user?.test_completed"
                     class="flex flex-col text-xl sm:text-2xl  gap-4 mt-8 text-justify hyphens-auto sm:hyphens-none">
-                    <p>Usted ya ha realizado este test anteriormente.
-                        Los resultados serán analizados por el profesional tratante, quien le brindará posteriormente las recomendaciones correspondientes según su desempeño.</p>
+                    <p>Usted ya ha realizado este test anteriormente. Los resultados serán analizados por el profesional tratante, quien le brindará posteriormente las recomendaciones correspondientes según su desempeño.</p>
                     <p>¡Gracias por su participación!</p>
                 </div>
                 <div v-if="$page?.props?.auth?.user?.rol === 'admin'"

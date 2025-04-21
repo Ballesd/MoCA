@@ -57,7 +57,7 @@ const logout = () => {
                             <NavLink v-if="!$page?.props?.auth?.user" :href="route('login')" :active="route().current('login')" class="text-blue-500 hover:text-blue-700"> Iniciar sesión </NavLink>
                             <NavLink v-if="!$page?.props?.auth?.user" :href="route('register')" :active="route().current('register')" class="text-blue-500 hover:text-blue-700"> Registro </NavLink>
                             <!-- Show "Cerrar sesión" when authenticated -->
-                            <NavLinkLogout v-if="$page?.props?.auth?.user" :active="route().current('logout')" class="text-red-500 hover:text-red-700 font-bold text-lg"> Cerrar sesión </NavLinkLogout>
+                            <NavLinkLogout v-if="$page?.props?.auth?.user" :active="route().current('logout')" class="text-red-500 hover:text-red-700 font-bold text-base sm:text-lg">Cerrar sesión</NavLinkLogout>
                         </div>
                     </div>
                 </div>
