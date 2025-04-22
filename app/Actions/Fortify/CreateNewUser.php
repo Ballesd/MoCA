@@ -34,6 +34,7 @@ class CreateNewUser implements CreatesNewUsers
             'civil_status' => ['required', 'string', 'max:255', 'in:soltero,casado,separado,viudo,union_libre'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        ],['email.unique' => 'Este correo ya está en uso.', 'identification.unique' => 'Ya existe un usuario con esta identificación.'
         ])->validate();
 
         return User::create([

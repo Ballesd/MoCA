@@ -52,10 +52,10 @@ const logout = () => {
                             <NavLink v-if="$page?.props?.auth?.user?.rol === 'medic'" :href="route('Medic.History')" :active="route().current('Medic.History')"> Buscar Historial Clínico </NavLink>
                             <NavLink v-if="$page?.props?.auth?.user?.rol === 'medic'" :href="route('Medic.clinicHistory')" :active="route().current('Medic.clinicHistory')"> Realizar Historia Clínica </NavLink>
                         </div>
-                        <div class="flex items-center px-5 sm:ps-8 md:ps-2 space-x-3 sm:space-x-5 ">
+                        <div class="flex items-center px-4 sm:ps-8 md:ps-2 space-x-3 sm:space-x-5 ">
                             <!-- Show "Iniciar sesión" and "Registro" when not authenticated -->
-                            <NavLink v-if="!$page?.props?.auth?.user" :href="route('login')" :active="route().current('login')" class="text-blue-500 hover:text-blue-700"> Iniciar sesión </NavLink>
-                            <NavLink v-if="!$page?.props?.auth?.user" :href="route('register')" :active="route().current('register')" class="text-blue-500 hover:text-blue-700"> Registro </NavLink>
+                            <NavLink v-if="!$page?.props?.auth?.user" :href="route('login')" :active="route().current('login')" class="sm:text-lg text-blue-500 hover:text-blue-700"> Iniciar sesión </NavLink>
+                            <NavLink v-if="!$page?.props?.auth?.user" :href="route('register')" :active="route().current('register')" class="sm:text-lg text-blue-500 hover:text-blue-700"> Registro </NavLink>
                             <!-- Show "Cerrar sesión" when authenticated -->
                             <NavLinkLogout v-if="$page?.props?.auth?.user" :active="route().current('logout')" class="text-red-500 hover:text-red-700 font-bold text-base sm:text-lg">Cerrar sesión</NavLinkLogout>
                         </div>
