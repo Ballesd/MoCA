@@ -7,9 +7,9 @@
         </div>
         <div v-else class="flex justify-center items-center mt-16">
             
-            <div class="flex flex-col gap-16 w-1/2">
-                <h2 class="text-primary text-5xl font-thin text-center">Usted ha finalizado el test de MoCA</h2>
-                <p class=" flex flex-col text-2xl gap-4 text-justify">
+            <div class="flex flex-col gap-12 w-4/5 sm:w-2/3">
+                <h2 class="text-primary text-3xl sm:text-5xl font-thin text-center">Usted ha finalizado el test MoCA</h2>
+                <p class=" flex flex-col text-2xl gap-4 text-justify hyphens-auto sm:hyphens-none">
                     Ha finalizado. Los resultados serán analizados por el profesional tratante y posteriormente recibirá las recomendaciones derivadas de sus desempeños. ¡Gracias por su participación!.
                 </p>
                 <!-- <div class="flex justify-end">
