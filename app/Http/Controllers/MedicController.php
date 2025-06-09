@@ -41,6 +41,10 @@ class MedicController extends Controller
 
     }
 
+    public function prediction(){
+        return Inertia::render('Medic/Prediction');
+    }
+
     public function getMoca(Request $request)
     {
         

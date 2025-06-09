@@ -133,6 +133,10 @@ Route::middleware([
         ->middleware('auth.medic')
         ->name('Medic.History');
 
+    Route::get('/medic/prediction',[MedicController::class, 'prediction'])
+        ->middleware('auth.medic')
+        ->name('Medic.Prediction');
+
     Route::get('/medic/show', [MedicController::class, 'show'])
         ->middleware('auth.medic')
         ->name('Medic.Show');

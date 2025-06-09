@@ -41,6 +41,7 @@
                                 <th class="px-4 py-4 bg-secondary text-white text-center">Email</th>
                                 <th class="px-4 py-4 bg-secondary text-white text-center">Cédula</th>
                                 <th class="px-4 py-4 bg-secondary text-white text-center">Acciones</th>
+                                <th class="px-4 py-4 bg-secondary text-white text-center">Predicción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,6 +54,10 @@
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">
                                     <Button class="underline text-blue-500" @click="exportExcel">Descargar
                                         Excel</Button>
+                                </td>
+                                <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">
+                                    
+                                    <Link class="underline text-blue-500" :href="route('Medic.Prediction')" :active="route().current('Medic.Prediction')"> Ver predicción </Link>
                                 </td>
                             </tr>
                         </tbody>
@@ -316,9 +321,10 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import axios from 'axios';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import TextInput from '@/Components/TextInput.vue';
 import ButtonCustom from '@/Components/ButtonCustom.vue';
+import LinkCustom from '@/Components/LinkCustom.vue';
 import * as XLSX from 'xlsx';
 
 const moca = ref({
@@ -388,6 +394,7 @@ function downloadExcel() {
     exportURL.value = `/export?${new URLSearchParams(params).toString()}`;
     window.location.href = exportURL.value;
 }
+
 function exportExcel() {
     const mocaData = {
         'Nombre': users.value.name + ' ' + users.value.lastname,
@@ -427,6 +434,10 @@ function exportExcel() {
     XLSX.writeFile(workbook, `${users.value.name + ' ' + users.value.lastname}.xlsx`);
 
 }
+
+// const abrirVentanaPrediccion = async () => {
+//     await axios.get('medic/prediction')
+// }
 
 const search = async () => {
     if (identification.value === '') {
