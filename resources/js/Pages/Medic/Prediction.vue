@@ -2,123 +2,123 @@
 
     <AppLayout title="Predicción de MoCA">
 
-        <div class="h-full flex justify-center items-center p-10">
+        <div class="h-full flex-row justify-center items-center p-10 pb-20 ">
             <div class="w-full h-full p-10 bg-quinary shadow-md rounded-3xl border border-gray-400 overflow-y-scroll">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <InputLabel for="age" value="Edad: " />
-                        <TextInput id="age" v-model="form.age" type="number" min="50" max="90"
+                        <InputLabel for="edad" value="Edad: " />
+                        <TextInput id="edad" v-model="form.edad" type="number" min="50" max="90"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.age" class="mt-2" />
+                        <InputError :message="form.errors.edad" class="mt-2" />
 
                     </div>
                     <div>
-                        <InputLabel for="gender" value="Género: " />
-                        <select id="gender" v-model="form.gender"
+                        <InputLabel for="genero" value="Género: " />
+                        <select id="genero" v-model.number="form.genero"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">Masculino</option>
                             <option value="1">Femenino</option>
                         </select>
-                        <InputError :message="form.errors.gender" class="mt-2" />
+                        <InputError :message="form.errors.genero" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="ethnicity" value="Etnicidad: " />
-                        <select id="ethnicity" v-model="form.ethnicity"
+                        <InputLabel for="etnicidad" value="Etnicidad: " />
+                        <select id="etnicidad" v-model.number="form.etnicidad"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">Caucásico</option>
                             <option value="1">Afroamericano</option>
                             <option value="2">Asiático</option>
                             <option value="3">Otro</option>
                         </select>
-                        <InputError :message="form.errors.ethnicity" class="mt-2" />
+                        <InputError :message="form.errors.etnicidad" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="educationLevel" value="Nivel educativo: " />
-                        <select id="educationLevel" v-model="form.educationLevel"
+                        <InputLabel for="nivel_educativo" value="Nivel educativo: " />
+                        <select id="nivel_educativo" v-model.number="form.nivel_educativo"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">Ninguno</option>
                             <option value="1">Secundaria</option>
                             <option value="2">Licenciatura</option>
                             <option value="3">Superior</option>
                         </select>
-                        <InputError :message="form.errors.educationLevel" class="mt-2" />
+                        <InputError :message="form.errors.nivel_educativo" class="mt-2" />
                     </div>
                     <!-- Lifestyle Factors -->
                     <div>
-                        <InputLabel for="bmi" value="IMC: " />
-                        <TextInput id="bmi" v-model="form.bmi" type="number" min="15" max="40" step="0.1"
+                        <InputLabel for="imc" value="IMC: " />
+                        <TextInput id="imc" v-model="form.imc" type="number" min="15" max="40" step="0.1"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.bmi" class="mt-2" />
+                        <InputError :message="form.errors.imc" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="smoking" value="Fuma: " />
-                        <select id="smoking" v-model="form.smoking"
+                        <InputLabel for="fumar" value="Fuma: " />
+                        <select id="fumar" v-model.number="form.fumar"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.smoking" class="mt-2" />
+                        <InputError :message="form.errors.fumar" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="alcoholConsumption" value="Consumo de alcohol (unidades/semana): " />
-                        <TextInput id="alcoholConsumption" v-model="form.alcoholConsumption" type="number" min="0"
+                        <InputLabel for="consumo_alcohol" value="Consumo de alcohol (unidades/semana): " />
+                        <TextInput id="consumo_alcohol" v-model="form.consumo_alcohol" type="number" min="0"
                             max="20" class="mt-1 block w-full" />
-                        <InputError :message="form.errors.alcoholConsumption" class="mt-2" />
+                        <InputError :message="form.errors.consumo_alcohol" class="mt-2" />
                         <p class="text-sm font-light">Consumo de alcohol semanal en unidades entre 0 - 20.</p>
                     </div>
                     <div>
-                        <InputLabel for="physicalActivity" value="Actividad física (horas/semana): " />
-                        <TextInput id="physicalActivity" v-model="form.physicalActivity" type="number" min="0" max="10"
+                        <InputLabel for="actividad_fisica" value="Actividad física (horas/semana): " />
+                        <TextInput id="actividad_fisica" v-model="form.actividad_fisica" type="number" min="0" max="10"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.physicalActivity" class="mt-2" />
+                        <InputError :message="form.errors.actividad_fisica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 0 - 10.</p>
 
                     </div>
                     <div>
-                        <InputLabel for="dietQuality" value="Calidad de dieta: " />
-                        <TextInput id="dietQuality" v-model="form.dietQuality" type="number" min="0" max="10"
+                        <InputLabel for="calidad_dieta" value="Calidad de dieta: " />
+                        <TextInput id="calidad_dieta" v-model="form.calidad_dieta" type="number" min="0" max="10"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.dietQuality" class="mt-2" />
+                        <InputError :message="form.errors.calidad_dieta" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 4 y 10</p>
 
                     </div>
                     <div>
-                        <InputLabel for="sleepQuality" value="Calidad de sueño: " />
-                        <TextInput id="sleepQuality" v-model="form.sleepQuality" type="number" min="4" max="10"
+                        <InputLabel for="calidad_sueno" value="Calidad de sueño: " />
+                        <TextInput id="calidad_sueno" v-model="form.calidad_sueno" type="number" min="4" max="10"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.sleepQuality" class="mt-2" />
+                        <InputError :message="form.errors.calidad_sueno" class="mt-2" />
                     </div>
                     <!-- Medical History -->
                     <div>
-                        <InputLabel for="familyHistoryParkinsons" value="Antecedentes familiares de Parkinson: " />
-                        <select id="familyHistoryParkinsons" v-model="form.familyHistoryParkinsons"
+                        <InputLabel for="antecedentes_familiares_parkinson" value="Antecedentes familiares de Parkinson: " />
+                        <select id="antecedentes_familiares_parkinson" v-model.number="form.antecedentes_familiares_parkinson"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.familyHistoryParkinsons" class="mt-2" />
+                        <InputError :message="form.errors.antecedentes_familiares_parkinson" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="traumaticBrainInjury" value="Traumatismo craneoencefálico: " />
-                        <select id="traumaticBrainInjury" v-model="form.traumaticBrainInjury"
+                        <InputLabel for="traumatismo_craneoencefalico" value="Traumatismo craneoencefálico: " />
+                        <select id="traumatismo_craneoencefalico" v-model.number="form.traumatismo_craneoencefalico"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.traumaticBrainInjury" class="mt-2" />
+                        <InputError :message="form.errors.traumatismo_craneoencefalico" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="hypertension" value="Hipertensión: " />
-                        <select id="hypertension" v-model="form.hypertension"
+                        <InputLabel for="hipertension" value="Hipertensión: " />
+                        <select id="hipertension" v-model.number="form.hipertension"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.hypertension" class="mt-2" />
+                        <InputError :message="form.errors.hipertension" class="mt-2" />
                     </div>
                     <div>
                         <InputLabel for="diabetes" value="Diabetes: " />
-                        <select id="diabetes" v-model="form.diabetes"
+                        <select id="diabetes" v-model.number="form.diabetes"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
@@ -126,65 +126,65 @@
                         <InputError :message="form.errors.diabetes" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="depression" value="Depresión: " />
-                        <select id="depression" v-model="form.depression"
+                        <InputLabel for="depresion" value="Depresión: " />
+                        <select id="depresion" v-model.number="form.depresion"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.depression" class="mt-2" />
+                        <InputError :message="form.errors.depresion" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="stroke" value="Accidente cerebrovascular: " />
-                        <select id="stroke" v-model="form.stroke"
+                        <InputLabel for="accidente_cerebrovascular" value="Accidente cerebrovascular: " />
+                        <select id="accidente_cerebrovascular" v-model.number="form.accidente_cerebrovascular"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.stroke" class="mt-2" />
+                        <InputError :message="form.errors.accidente_cerebrovascular" class="mt-2" />
                     </div>
                     <!-- Clinical Measurements -->
                     <div>
-                        <InputLabel for="systolicBP" value="Presión sistólica (mmHg): " />
-                        <TextInput id="systolicBP" v-model="form.systolicBP" type="number" min="90" max="180"
+                        <InputLabel for="presion_sistolica" value="Presión sistólica (mmHg): " />
+                        <TextInput id="presion_sistolica" v-model="form.presion_sistolica" type="number" min="90" max="180"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.systolicBP" class="mt-2" />
+                        <InputError :message="form.errors.presion_sistolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 90 - 180 mmHg</p>
 
                     </div>
                     <div>
-                        <InputLabel for="diastolicBP" value="Presión diastólica (mmHg): " />
-                        <TextInput id="diastolicBP" v-model="form.diastolicBP" type="number" min="60" max="120"
+                        <InputLabel for="presion_diastolica" value="Presión diastólica (mmHg): " />
+                        <TextInput id="presion_diastolica" v-model="form.presion_diastolica" type="number" min="60" max="120"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.diastolicBP" class="mt-2" />
+                        <InputError :message="form.errors.presion_diastolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 60 - 120 mmHg</p>
                     </div>
                     <div>
-                        <InputLabel for="cholesterolTotal" value="Colesterol total (mg/dL): " />
-                        <TextInput id="cholesterolTotal" v-model="form.cholesterolTotal" type="number" min="150"
+                        <InputLabel for="colesterol_total" value="Colesterol total (mg/dL): " />
+                        <TextInput id="colesterol_total" v-model="form.colesterol_total" type="number" min="150"
                             max="300" class="mt-1 block w-full" />
-                        <InputError :message="form.errors.cholesterolTotal" class="mt-2" />
+                        <InputError :message="form.errors.colesterol_total" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 150 - 300 mg/dL</p>
                     </div>
                     <div>
-                        <InputLabel for="cholesterolLDL" value="Colesterol LDL (mg/dL): " />
-                        <TextInput id="cholesterolLDL" v-model="form.cholesterolLDL" type="number" min="50" max="200"
+                        <InputLabel for="colesterol_ldl" value="Colesterol LDL (mg/dL): " />
+                        <TextInput id="colesterol_ldl" v-model="form.colesterol_ldl" type="number" min="50" max="200"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.cholesterolLDL" class="mt-2" />
+                        <InputError :message="form.errors.colesterol_ldl" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 50 - 200 mg/dL</p>
                     </div>
                     <div>
-                        <InputLabel for="cholesterolHDL" value="Colesterol HDL (mg/dL): " />
-                        <TextInput id="cholesterolHDL" v-model="form.cholesterolHDL" type="number" min="20" max="100"
+                        <InputLabel for="colesterol_hdl" value="Colesterol HDL (mg/dL): " />
+                        <TextInput id="colesterol_hdl" v-model="form.colesterol_hdl" type="number" min="20" max="100"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.cholesterolHDL" class="mt-2" />
+                        <InputError :message="form.errors.colesterol_hdl" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 20 - 100 mg/dL</p>
                     </div>
                     <div>
-                        <InputLabel for="cholesterolTriglycerides" value="Triglicéridos (mg/dL): " />
-                        <TextInput id="cholesterolTriglycerides" v-model="form.cholesterolTriglycerides" type="number"
+                        <InputLabel for="trigliceridos" value="Triglicéridos (mg/dL): " />
+                        <TextInput id="trigliceridos" v-model="form.trigliceridos" type="number"
                             min="50" max="400" class="mt-1 block w-full" />
-                        <InputError :message="form.errors.cholesterolTriglycerides" class="mt-2" />
+                        <InputError :message="form.errors.trigliceridos" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 50 - 400 mg/dL</p>
                     </div>
                     <!-- Cognitive and Functional Assessments -->
@@ -196,100 +196,95 @@
                     </div>
                     <!-- Symptoms -->
                     <div>
-                        <InputLabel for="tremor" value="Temblor: " />
-                        <select id="tremor" v-model="form.tremor"
+                        <InputLabel for="temblor" value="Temblor: " />
+                        <select id="temblor" v-model.number="form.temblor"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.tremor" class="mt-2" />
+                        <InputError :message="form.errors.temblor" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="rigidity" value="Rigidez: " />
-                        <select id="rigidity" v-model="form.rigidity"
+                        <InputLabel for="rigidez" value="Rigidez: " />
+                        <select id="rigidez" v-model.number="form.rigidez"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.rigidity" class="mt-2" />
+                        <InputError :message="form.errors.rigidez" class="mt-2" />
                         <p class="text-sm font-light">¿Presencia de rígidez muscular?</p>
 
                     </div>
                     <div>
-                        <InputLabel for="bradykinesia" value="Bradicinesia: " />
-                        <select id="bradykinesia" v-model="form.bradykinesia"
+                        <InputLabel for="bradicinesia" value="Bradicinesia: " />
+                        <select id="bradicinesia" v-model.number="form.bradicinesia"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.bradykinesia" class="mt-2" />
+                        <InputError :message="form.errors.bradicinesia" class="mt-2" />
                         <p class="text-sm font-light">¿Presencia de lentitud al moverse?</p>
                     </div>
                     <div>
-                        <InputLabel for="posturalInstability" value="Inestabilidad postural: " />
-                        <select id="posturalInstability" v-model="form.posturalInstability"
+                        <InputLabel for="inestabilidad_postural" value="Inestabilidad postural: " />
+                        <select id="inestabilidad_postural" v-model.number="form.inestabilidad_postural"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.posturalInstability" class="mt-2" />
+                        <InputError :message="form.errors.inestabilidad_postural" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="speechProblems" value="Problemas del habla: " />
-                        <select id="speechProblems" v-model="form.speechProblems"
+                        <InputLabel for="problemas_habla" value="Problemas del habla: " />
+                        <select id="problemas_habla" v-model.number="form.problemas_habla"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.speechProblems" class="mt-2" />
+                        <InputError :message="form.errors.problemas_habla" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="sleepDisorders" value="Trastornos del sueño: " />
-                        <select id="sleepDisorders" v-model="form.sleepDisorders"
+                        <InputLabel for="trastornos_sueno" value="Trastornos del sueño: " />
+                        <select id="trastornos_sueno" v-model.number="form.trastornos_sueno"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.sleepDisorders" class="mt-2" />
+                        <InputError :message="form.errors.trastornos_sueno" class="mt-2" />
                     </div>
                     <div>
-                        <InputLabel for="constipation" value="Estreñimiento: " />
-                        <select id="constipation" v-model="form.constipation"
+                        <InputLabel for="estrenimiento" value="Estreñimiento: " />
+                        <select id="estrenimiento" v-model.number="form.estrenimiento"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.constipation" class="mt-2" />
+                        <InputError :message="form.errors.estrenimiento" class="mt-2" />
                     </div>
                     <!-- Diagnosis Information -->
                     <div>
-                        <InputLabel for="diagnosis" value="Diagnóstico de Parkinson: " />
-                        <select id="diagnosis" v-model="form.diagnosis"
+                        <InputLabel for="diagnostico" value="Diagnóstico de Parkinson: " />
+                        <select id="diagnostico" v-model.number="form.diagnostico"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
-                        <InputError :message="form.errors.diagnosis" class="mt-2" />
+                        <InputError :message="form.errors.diagnostico" class="mt-2" />
                     </div>
                     <!-- Confidential Information -->
                     <div>
-                        <InputLabel for="doctorInCharge" value="Médico a cargo: " />
-                        <TextInput id="doctorInCharge" v-model="form.doctorInCharge" type="text"
+                        <InputLabel for="medico_encargado" value="Médico a cargo: " />
+                        <TextInput id="medico_encargado" v-model="form.medico_encargado" type="text"
                             class="mt-1 block w-full" />
-                        <InputError :message="form.errors.doctorInCharge" class="mt-2" />
+                        <InputError :message="form.errors.medico_encargado" class="mt-2" />
                     </div>
-
-
-
-
-
-
                 </div>
 
-
-
-
             </div>
+            <ButtonCustom class="w-full mt-4" mode="button" @click="storePrediction">
+                Realizar Predicción
+            </ButtonCustom>
+
         </div>
     </AppLayout>
 
@@ -300,76 +295,147 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import ButtonCustom from '@/Components/ButtonCustom.vue';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
+
+const props = defineProps({
+    id: {
+        type: [Number, String],
+        required: true
+    }
+});
+
+
 const form = useForm({
-    age: '',
-    gender: '',
-    ethnicity: '',
-    educationLevel: '',
-    bmi: '',
-    smoking: '',
-    alcoholConsumption: '',
-    physicalActivity: '',
-    dietQuality: '',
-    sleepQuality: '',
-    familyHistoryParkinsons: '',
-    traumaticBrainInjury: '',
-    hypertension: '',
-    diabetes: '',
-    depression: '',
-    stroke: '',
-    systolicBP: '',
-    diastolicBP: '',
-    cholesterolTotal: '',
-    cholesterolLDL: '',
-    cholesterolHDL: '',
-    cholesterolTriglycerides: '',
-    moca: '',
-    tremor: '',
-    rigidity: '',
-    bradykinesia: '',
-    posturalInstability: '',
-    speechProblems: '',
-    sleepDisorders: '',
-    constipation: '',
-    diagnosis: '',
-    doctorInCharge: '',
+    user_id: props.id, // integer - User ID
+    edad: null,                            // integer (50-90) - Age
+    genero: null,                          // tinyInteger (0=Male, 1=Female) - Gender
+    etnicidad: null,                       // tinyInteger (0-3) - Ethnicity
+    nivel_educativo: null,                 // tinyInteger (0-3) - Education Level
+    imc: null,                             // decimal(4,1) (15.0-40.0) - BMI
+    fumar: null,                           // tinyInteger (0=No, 1=Yes) - Smoking
+    consumo_alcohol: null,                 // integer (0-20) - Alcohol Consumption
+    actividad_fisica: null,                // integer (0-10) - Physical Activity
+    calidad_dieta: null,                   // integer (4-10) - Diet Quality
+    calidad_sueno: null,                   // integer (4-10) - Sleep Quality
+    antecedentes_familiares_parkinson: null,  // tinyInteger (0=No, 1=Yes) - Family History Parkinsons
+    traumatismo_craneoencefalico: null,    // tinyInteger (0=No, 1=Yes) - Traumatic Brain Injury
+    hipertension: null,                    // tinyInteger (0=No, 1=Yes) - Hypertension
+    diabetes: null,                        // tinyInteger (0=No, 1=Yes) - Diabetes
+    depresion: null,                       // tinyInteger (0=No, 1=Yes) - Depression
+    accidente_cerebrovascular: null,       // tinyInteger (0=No, 1=Yes) - Stroke
+    presion_sistolica: null,               // integer (90-180) - Systolic BP
+    presion_diastolica: null,              // integer (60-120) - Diastolic BP
+    colesterol_total: null,                // integer (150-300) - Total Cholesterol
+    colesterol_ldl: null,                  // integer (50-200) - LDL Cholesterol
+    colesterol_hdl: null,                  // integer (20-100) - HDL Cholesterol
+    trigliceridos: null,                   // integer (50-400) - Triglycerides
+    moca: null,                            // integer (0-30) - MoCA Score
+    temblor: null,                         // tinyInteger (0=No, 1=Yes) - Tremor
+    rigidez: null,                         // tinyInteger (0=No, 1=Yes) - Rigidity
+    bradicinesia: null,                    // tinyInteger (0=No, 1=Yes) - Bradykinesia
+    inestabilidad_postural: null,          // tinyInteger (0=No, 1=Yes) - Postural Instability
+    problemas_habla: null,                 // tinyInteger (0=No, 1=Yes) - Speech Problems
+    trastornos_sueno: null,                // tinyInteger (0=No, 1=Yes) - Sleep Disorders
+    estrenimiento: null,                   // tinyInteger (0=No, 1=Yes) - Constipation
+    diagnostico: null,                     // tinyInteger (0=No, 1=Yes) - Diagnosis
+    medico_encargado: null,                // string (nullable) - Doctor in Charge
 
 })
-const age = ref(false);
-const gender = ref(false);
-const ethnicity = ref(false);
-const educationLevel = ref(false);
-const bmi = ref(false);
-const smoking = ref(false);
-const alcoholConsumption = ref(false);
-const physicalActivity = ref(false);
-const dietQuality = ref(false);
-const sleepQuality = ref(false);
-const familyHistoryParkinsons = ref(false);
-const traumaticBrainInjury = ref(false);
-const hypertension = ref(false);
-const diabetes = ref(false);
-const depression = ref(false);
-const stroke = ref(false);
-const systolicBP = ref(false);
-const diastolicBP = ref(false);
-const cholesterolTotal = ref(false);
-const cholesterolLDL = ref(false);
-const cholesterolHDL = ref(false);
-const cholesterolTriglycerides = ref(false);
-const moca = ref(false);
-const tremor = ref(false);
-const rigidity = ref(false);
-const bradykinesia = ref(false);
-const posturalInstability = ref(false);
-const speechProblems = ref(false);
-const sleepDisorders = ref(false);
-const constipation = ref(false);
-const diagnosis = ref(false);
-const doctorInCharge = ref(false);
+
+
+
+const mostrar_datos = () => {
+    console.log('Datos del formulario:', form.data());
+};
+
+// Function to store prediction data
+const storePrediction = () => {
+    console.log('Storing prediction data...');
+
+    // Convert string values to numbers for numeric fields
+    const convertedData = {
+        ...form.data(),
+        // Convert ALL numeric fields to ensure proper data types
+        user_id: Number(form.user_id),
+        
+        // Demographics
+        edad: form.edad ? Number(form.edad) : null,
+        genero: form.genero !== null ? Number(form.genero) : null,
+        etnicidad: form.etnicidad !== null ? Number(form.etnicidad) : null,
+        nivel_educativo: form.nivel_educativo !== null ? Number(form.nivel_educativo) : null,
+        
+        // Lifestyle Factors
+        imc: form.imc ? Number(form.imc) : null,
+        fumar: form.fumar !== null ? Number(form.fumar) : null,
+        consumo_alcohol: form.consumo_alcohol ? Number(form.consumo_alcohol) : null,
+        actividad_fisica: form.actividad_fisica ? Number(form.actividad_fisica) : null,
+        calidad_dieta: form.calidad_dieta ? Number(form.calidad_dieta) : null,
+        calidad_sueno: form.calidad_sueno ? Number(form.calidad_sueno) : null,
+        
+        // Medical History
+        antecedentes_familiares_parkinson: form.antecedentes_familiares_parkinson !== null ? Number(form.antecedentes_familiares_parkinson) : null,
+        traumatismo_craneoencefalico: form.traumatismo_craneoencefalico !== null ? Number(form.traumatismo_craneoencefalico) : null,
+        hipertension: form.hipertension !== null ? Number(form.hipertension) : null,
+        diabetes: form.diabetes !== null ? Number(form.diabetes) : null,
+        depresion: form.depresion !== null ? Number(form.depresion) : null,
+        accidente_cerebrovascular: form.accidente_cerebrovascular !== null ? Number(form.accidente_cerebrovascular) : null,
+        
+        // Clinical Measurements
+        presion_sistolica: form.presion_sistolica ? Number(form.presion_sistolica) : null,
+        presion_diastolica: form.presion_diastolica ? Number(form.presion_diastolica) : null,
+        colesterol_total: form.colesterol_total ? Number(form.colesterol_total) : null,
+        colesterol_ldl: form.colesterol_ldl ? Number(form.colesterol_ldl) : null,
+        colesterol_hdl: form.colesterol_hdl ? Number(form.colesterol_hdl) : null,
+        trigliceridos: form.trigliceridos ? Number(form.trigliceridos) : null,
+        
+        // Cognitive Assessment
+        moca: form.moca ? Number(form.moca) : null,
+        
+        // Symptoms
+        temblor: form.temblor !== null ? Number(form.temblor) : null,
+        rigidez: form.rigidez !== null ? Number(form.rigidez) : null,
+        bradicinesia: form.bradicinesia !== null ? Number(form.bradicinesia) : null,
+        inestabilidad_postural: form.inestabilidad_postural !== null ? Number(form.inestabilidad_postural) : null,
+        problemas_habla: form.problemas_habla !== null ? Number(form.problemas_habla) : null,
+        trastornos_sueno: form.trastornos_sueno !== null ? Number(form.trastornos_sueno) : null,
+        estrenimiento: form.estrenimiento !== null ? Number(form.estrenimiento) : null,
+        
+        // Diagnosis
+        diagnostico: form.diagnostico !== null ? Number(form.diagnostico) : null,
+        
+        // String field (no conversion needed)
+        medico_encargado: form.medico_encargado
+    };
+
+    console.log('Converted data:', convertedData);
+
+    // Send converted data directly without updating the form
+    // This keeps the form fields as strings for the UI, but sends numbers to the backend
+    
+    // Create a temporary form with the converted data
+    const tempForm = useForm(convertedData);
+    
+    tempForm.post(route('Medic.storePrediction'), {
+        onSuccess: (response) => {
+            console.log('✅ Success! Response:', response);
+            // Optionally reset the original form or redirect
+        },
+        onError: (errors) => {
+            console.error('❌ Error response:', errors);
+            // Copy errors back to the original form for display
+            form.errors = errors;
+        },
+        onFinish: () => {
+            console.log('Request finished');
+        }
+    });
+};
+
+
+
 
 
 </script>

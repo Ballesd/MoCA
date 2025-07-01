@@ -133,7 +133,7 @@ Route::middleware([
         ->middleware('auth.medic')
         ->name('Medic.History');
 
-    Route::get('/medic/prediction',[MedicController::class, 'prediction'])
+    Route::get('/medic/prediction/{id?}',[MedicController::class, 'prediction'])
         ->middleware('auth.medic')
         ->name('Medic.Prediction');
 
@@ -164,5 +164,9 @@ Route::middleware([
     Route::post('/medic/getHistoryClinic', [MedicController::class, 'getHistoryClinic'])
         ->middleware('auth.medic')
         ->name('Medic.getHistoryClinic');
+
+    Route::post('/medic/storePrediction', [MedicController::class, 'storePrediction'])
+        ->middleware('auth.medic')
+        ->name('Medic.storePrediction');
 
 });

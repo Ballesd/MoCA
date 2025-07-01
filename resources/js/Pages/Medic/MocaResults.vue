@@ -57,7 +57,7 @@
                                 </td>
                                 <td class="px-4 py-1.5 text-gray-600 text-center bg-quinary">
                                     
-                                    <Link class="underline text-blue-500" :href="route('Medic.Prediction')" :active="route().current('Medic.Prediction')"> Ver predicción </Link>
+                                    <Link class="underline text-blue-500" :href="route('Medic.Prediction',{id: users?.id})" :active="route().current('Medic.Prediction')"> Ver predicción </Link>
                                 </td>
                             </tr>
                         </tbody>
