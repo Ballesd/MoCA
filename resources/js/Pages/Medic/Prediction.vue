@@ -61,8 +61,8 @@
                     </div>
                     <div>
                         <InputLabel for="consumo_alcohol" value="Consumo de alcohol (unidades/semana): " />
-                        <TextInput id="consumo_alcohol" v-model="form.consumo_alcohol" type="number" min="0"
-                            max="20" class="mt-1 block w-full" />
+                        <TextInput id="consumo_alcohol" v-model="form.consumo_alcohol" type="number" min="0" max="20"
+                            class="mt-1 block w-full" />
                         <InputError :message="form.errors.consumo_alcohol" class="mt-2" />
                         <p class="text-sm font-light">Consumo de alcohol semanal en unidades entre 0 - 20.</p>
                     </div>
@@ -90,8 +90,10 @@
                     </div>
                     <!-- Medical History -->
                     <div>
-                        <InputLabel for="antecedentes_familiares_parkinson" value="Antecedentes familiares de Parkinson: " />
-                        <select id="antecedentes_familiares_parkinson" v-model.number="form.antecedentes_familiares_parkinson"
+                        <InputLabel for="antecedentes_familiares_parkinson"
+                            value="Antecedentes familiares de Parkinson: " />
+                        <select id="antecedentes_familiares_parkinson"
+                            v-model.number="form.antecedentes_familiares_parkinson"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="0">No</option>
                             <option value="1">Sí</option>
@@ -146,16 +148,16 @@
                     <!-- Clinical Measurements -->
                     <div>
                         <InputLabel for="presion_sistolica" value="Presión sistólica (mmHg): " />
-                        <TextInput id="presion_sistolica" v-model="form.presion_sistolica" type="number" min="90" max="180"
-                            class="mt-1 block w-full" />
+                        <TextInput id="presion_sistolica" v-model="form.presion_sistolica" type="number" min="90"
+                            max="180" class="mt-1 block w-full" />
                         <InputError :message="form.errors.presion_sistolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 90 - 180 mmHg</p>
 
                     </div>
                     <div>
                         <InputLabel for="presion_diastolica" value="Presión diastólica (mmHg): " />
-                        <TextInput id="presion_diastolica" v-model="form.presion_diastolica" type="number" min="60" max="120"
-                            class="mt-1 block w-full" />
+                        <TextInput id="presion_diastolica" v-model="form.presion_diastolica" type="number" min="60"
+                            max="120" class="mt-1 block w-full" />
                         <InputError :message="form.errors.presion_diastolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 60 - 120 mmHg</p>
                     </div>
@@ -182,8 +184,8 @@
                     </div>
                     <div>
                         <InputLabel for="trigliceridos" value="Triglicéridos (mg/dL): " />
-                        <TextInput id="trigliceridos" v-model="form.trigliceridos" type="number"
-                            min="50" max="400" class="mt-1 block w-full" />
+                        <TextInput id="trigliceridos" v-model="form.trigliceridos" type="number" min="50" max="400"
+                            class="mt-1 block w-full" />
                         <InputError :message="form.errors.trigliceridos" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 50 - 400 mg/dL</p>
                     </div>
@@ -261,17 +263,6 @@
                         </select>
                         <InputError :message="form.errors.estrenimiento" class="mt-2" />
                     </div>
-                    <!-- Diagnosis Information -->
-                    <div>
-                        <InputLabel for="diagnostico" value="Diagnóstico de Parkinson: " />
-                        <select id="diagnostico" v-model.number="form.diagnostico"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="0">No</option>
-                            <option value="1">Sí</option>
-                        </select>
-                        <InputError :message="form.errors.diagnostico" class="mt-2" />
-                    </div>
-                    <!-- Confidential Information -->
                     <div>
                         <InputLabel for="medico_encargado" value="Médico a cargo: " />
                         <TextInput id="medico_encargado" v-model="form.medico_encargado" type="text"
@@ -281,7 +272,7 @@
                 </div>
 
             </div>
-            <ButtonCustom class="w-full mt-4" mode="button" @click="storePrediction">
+            <ButtonCustom class="w-full mt-4" mode="button" @click="makePrediction">
                 Realizar Predicción
             </ButtonCustom>
 
@@ -298,7 +289,11 @@ import TextInput from '@/Components/TextInput.vue';
 import ButtonCustom from '@/Components/ButtonCustom.vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import  axios  from 'axios';
 
+const isLoading = ref(false);
+const predictionResult = ref(null);
+const predictionError = ref(null);
 
 const props = defineProps({
     id: {
@@ -345,6 +340,98 @@ const form = useForm({
 
 })
 
+const makePrediction = async () => {
+    const requestData = {
+        // user_id: form.user_id,
+        "Age": form.edad,
+        "Gender": form.genero,
+        "EducationLevel": form.nivel_educativo,
+        
+        // Lifestyle Factors
+        "BMI": form.imc,
+        "Smoking": form.fumar,
+        "AlcoholConsumption": form.consumo_alcohol,
+        "PhysicalActivity": form.actividad_fisica,
+        "DietQuality": form.calidad_dieta,
+        "SleepQuality": form.calidad_sueno,
+        
+        // Medical History
+        "FamilyHistoryParkinsons": form.antecedentes_familiares_parkinson,
+        "TraumaticBrainInjury": form.traumatismo_craneoencefalico,
+        "Hypertension": form.hipertension,
+        "Diabetes": form.diabetes,
+        "Depression": form.depresion,
+        "Stroke": form.accidente_cerebrovascular,
+        
+        // Clinical Measurements
+        "SystolicBP": form.presion_sistolica,
+        "DiastolicBP": form.presion_diastolica,
+        "CholesterolTotal": form.colesterol_total,
+        "CholesterolLDL": form.colesterol_ldl,
+        "CholesterolHDL": form.colesterol_hdl,
+        "CholesterolTriglycerides": form.trigliceridos,
+        
+        // Cognitive Assessment
+        "MoCA": form.moca,
+        
+        // Symptoms
+        "Tremor": form.temblor,
+        "Rigidity": form.rigidez,
+        "Bradykinesia": form.bradicinesia,
+        "PosturalInstability": form.inestabilidad_postural,
+        "SpeechProblems": form.problemas_habla,
+        "SleepDisorders": form.trastornos_sueno,
+        "Constipation": form.estrenimiento
+    };
+
+    try {
+        isLoading.value = true;
+        predictionError.value = null;
+
+        // Prepare data (reuse the conversion logic from storePrediction)
+
+        const apiUrl = 'http://localhost:3000/predict';
+
+        const { data } = await axios.post(apiUrl, requestData, {
+            timeout: 30000, // 30 second timeout
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        predictionResult.value = data.prediction;
+        storePrediction(); 
+        
+        console.log('✅ Predicción realizada:', data);
+        // Optionally show success message to user
+        // You could use a toast notification here
+        return data;
+    } catch (error) {
+        console.error('❌ Error en predicción:', error);
+
+        // Handle different types of errors
+        if (error.response) {
+            // Server responded with error status
+            predictionError.value = `Error del servidor: ${error.response.data?.message || 'Error desconocido'}`;
+        } else if (error.request) {
+            // Request was made but no response received
+            predictionError.value = 'No se pudo conectar con el servidor de predicción';
+        } else {
+            // Something else happened
+            predictionError.value = 'Error inesperado al realizar la predicción';
+        }
+
+        throw error; // Re-throw if you want calling code to handle it
+    } finally {
+        isLoading.value = false;
+    }
+
+
+
+
+
+    console.log('Predicción realizada:', data);
+}
 
 
 const mostrar_datos = () => {
@@ -352,7 +439,7 @@ const mostrar_datos = () => {
 };
 
 // Function to store prediction data
-const storePrediction = () => {
+const storePrediction = ( ) => {
     console.log('Storing prediction data...');
 
     // Convert string values to numbers for numeric fields
@@ -360,13 +447,13 @@ const storePrediction = () => {
         ...form.data(),
         // Convert ALL numeric fields to ensure proper data types
         user_id: Number(form.user_id),
-        
+
         // Demographics
         edad: form.edad ? Number(form.edad) : null,
         genero: form.genero !== null ? Number(form.genero) : null,
         etnicidad: form.etnicidad !== null ? Number(form.etnicidad) : null,
         nivel_educativo: form.nivel_educativo !== null ? Number(form.nivel_educativo) : null,
-        
+
         // Lifestyle Factors
         imc: form.imc ? Number(form.imc) : null,
         fumar: form.fumar !== null ? Number(form.fumar) : null,
@@ -374,7 +461,7 @@ const storePrediction = () => {
         actividad_fisica: form.actividad_fisica ? Number(form.actividad_fisica) : null,
         calidad_dieta: form.calidad_dieta ? Number(form.calidad_dieta) : null,
         calidad_sueno: form.calidad_sueno ? Number(form.calidad_sueno) : null,
-        
+
         // Medical History
         antecedentes_familiares_parkinson: form.antecedentes_familiares_parkinson !== null ? Number(form.antecedentes_familiares_parkinson) : null,
         traumatismo_craneoencefalico: form.traumatismo_craneoencefalico !== null ? Number(form.traumatismo_craneoencefalico) : null,
@@ -382,7 +469,7 @@ const storePrediction = () => {
         diabetes: form.diabetes !== null ? Number(form.diabetes) : null,
         depresion: form.depresion !== null ? Number(form.depresion) : null,
         accidente_cerebrovascular: form.accidente_cerebrovascular !== null ? Number(form.accidente_cerebrovascular) : null,
-        
+
         // Clinical Measurements
         presion_sistolica: form.presion_sistolica ? Number(form.presion_sistolica) : null,
         presion_diastolica: form.presion_diastolica ? Number(form.presion_diastolica) : null,
@@ -390,10 +477,10 @@ const storePrediction = () => {
         colesterol_ldl: form.colesterol_ldl ? Number(form.colesterol_ldl) : null,
         colesterol_hdl: form.colesterol_hdl ? Number(form.colesterol_hdl) : null,
         trigliceridos: form.trigliceridos ? Number(form.trigliceridos) : null,
-        
+
         // Cognitive Assessment
         moca: form.moca ? Number(form.moca) : null,
-        
+
         // Symptoms
         temblor: form.temblor !== null ? Number(form.temblor) : null,
         rigidez: form.rigidez !== null ? Number(form.rigidez) : null,
@@ -402,10 +489,10 @@ const storePrediction = () => {
         problemas_habla: form.problemas_habla !== null ? Number(form.problemas_habla) : null,
         trastornos_sueno: form.trastornos_sueno !== null ? Number(form.trastornos_sueno) : null,
         estrenimiento: form.estrenimiento !== null ? Number(form.estrenimiento) : null,
-        
+
         // Diagnosis
-        diagnostico: form.diagnostico !== null ? Number(form.diagnostico) : null,
-        
+        diagnostico: predictionResult.value,
+
         // String field (no conversion needed)
         medico_encargado: form.medico_encargado
     };
@@ -414,10 +501,10 @@ const storePrediction = () => {
 
     // Send converted data directly without updating the form
     // This keeps the form fields as strings for the UI, but sends numbers to the backend
-    
+
     // Create a temporary form with the converted data
     const tempForm = useForm(convertedData);
-    
+
     tempForm.post(route('Medic.storePrediction'), {
         onSuccess: (response) => {
             console.log('✅ Success! Response:', response);
