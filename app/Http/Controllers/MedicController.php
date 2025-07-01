@@ -19,6 +19,7 @@ use App\Models\Toxic;
 use App\Models\Record;
 use App\Models\Surgical;
 use App\Models\Medicine;
+use App\Models\Prediction;
 
 
 class MedicController extends Controller
@@ -41,19 +42,26 @@ class MedicController extends Controller
 
     }
 
+    public function prediction($id = null)
+    {
+        return Inertia::render('Medic/Prediction', [
+            'id' => $id
+        ]);
+    }
+
     public function getMoca(Request $request)
     {
-        
+
         $user = User::where('identification', $request->identification)->first();
         if (!$user) {
             return 'No se encontro el usuario';
-        }else{
+        } else {
             $moca = Moca::where('user_id', $user->id)->first();
             if (!$moca) {
                 return 'El usuario no ha realizado el examen';
             }
         }
-    
+
         return compact('user', 'moca');
     }
 
@@ -73,7 +81,7 @@ class MedicController extends Controller
         $moca->orientation = $request->orientation;
 
         $moca->total = $moca->cube + $moca->clock + $moca->identification + $moca->language + $moca->abstraction + $moca->attention + $moca->verbal_fluency + $moca->deferred_recall + $moca->orientation + $moca->ConceptualAlternative;
-        
+
         $moca->save();
         return $moca;
     }
@@ -175,7 +183,7 @@ class MedicController extends Controller
         $relatives->others = $request->relatives['others'];
         $relatives->specify_others = $request->relatives['specify_others'];
         $relatives->consanguinity_others = $request->relatives['consanguinity_others'];
-        
+
         $relatives->save();
 
         $work_activities = new Work_activity();
@@ -258,12 +266,13 @@ class MedicController extends Controller
         $clinic_history->record_id = $record->id;
         $clinic_history->other_information = $request->clinic_histories['other_information'];
         $clinic_history->user_id = $request->user_id;
-        $clinic_history->save();;
+        $clinic_history->save();
+        ;
 
         $medicines = new Medicine();
         $medicines->Aluminum = $request->medicines['aluminum'];
         $medicines->others = $request->medicines['others'];
-        
+
         $medicines->clinic_history_id = $clinic_history->id;
         $medicines->save();
 
@@ -274,20 +283,65 @@ class MedicController extends Controller
     {
 
         $user = $request->user_id;
-        
+
         $clinic_history = Clinic_history::where('user_id', $user)->first();
         $medicines = Medicine::where('clinic_history_id', $clinic_history->id)->first();
         $scholarships = Scholarship::where('id', $clinic_history->scholarship_id)->first();
         $work_activities = Work_activity::where('id', $scholarships->work_activity_id)->first();
         $record = Record::where('id', $clinic_history->record_id)->first();
         $pathological_records = Pathological_record::where('id', $record->pathological_record_id)->first();
-        $cardiovascular_events = Cardiovascular_events::where('id', $record->cardiovascular_event_id )->first();
-        $paraclinicals = Paraclinical::where('id', $record->paraclinical_id )->first();
+        $cardiovascular_events = Cardiovascular_events::where('id', $record->cardiovascular_event_id)->first();
+        $paraclinicals = Paraclinical::where('id', $record->paraclinical_id)->first();
         $traumatics = Traumatic::where('id', $record->traumatic_id)->first();
         $toxics = Toxic::where('id', $record->toxic_id)->first();
         $relatives = Relatives::where('id', $record->relative_id)->first();
         $surgicals = Surgical::where('record_id', $record->id)->first();
         return compact('clinic_history', 'scholarships', 'medicines', 'work_activities', 'record', 'pathological_records', 'cardiovascular_events', 'paraclinicals', 'traumatics', 'toxics', 'relatives', 'surgicals');
 
+    }
+
+    public function storePrediction(Request $request)
+    {
+
+
+        $prediction = new Prediction();
+        $user = $request->user_id;
+        $prediction->user_id = $user;
+        $prediction->edad = $request->edad;
+        $prediction->genero = $request->genero;
+        $prediction->etnicidad = $request->etnicidad;
+        $prediction->nivel_educativo = $request->nivel_educativo;
+        $prediction->imc = $request->imc;
+        $prediction->fumar = $request->fumar;
+        $prediction->consumo_alcohol = $request->consumo_alcohol;
+        $prediction->actividad_fisica = $request->actividad_fisica;
+        $prediction->calidad_dieta = $request->calidad_dieta;
+        $prediction->calidad_sueno = $request->calidad_sueno;
+        $prediction->antecedentes_familiares_parkinson = $request->antecedentes_familiares_parkinson;
+        $prediction->traumatismo_craneoencefalico = $request->traumatismo_craneoencefalico;
+        $prediction->hipertension = $request->hipertension;
+        $prediction->diabetes = $request->diabetes;
+        $prediction->depresion = $request->depresion;
+        $prediction->accidente_cerebrovascular = $request->accidente_cerebrovascular;
+        $prediction->presion_sistolica = $request->presion_sistolica;
+        $prediction->presion_diastolica = $request->presion_diastolica;
+        $prediction->colesterol_total = $request->colesterol_total;
+        $prediction->colesterol_ldl = $request->colesterol_ldl;
+        $prediction->colesterol_hdl = $request->colesterol_hdl;
+        $prediction->trigliceridos = $request->trigliceridos;
+        $prediction->moca = $request->moca;
+        $prediction->temblor = $request->temblor;
+        $prediction->rigidez = $request->rigidez;
+        $prediction->bradicinesia = $request->bradicinesia;
+        $prediction->inestabilidad_postural = $request->inestabilidad_postural;
+        $prediction->problemas_habla = $request->problemas_habla;
+        $prediction->trastornos_sueno = $request->trastornos_sueno;
+        $prediction->estrenimiento = $request->estrenimiento;
+        // Diagnosis Information
+        $prediction->diagnostico = $request->diagnostico; // 0: No, 1: Yes (Parkinson's Disease)
+        // Confidential Information
+        $prediction->medico_encargado = $request->medico_encargado;
+        $prediction->save();
+        return 'Se guardo con éxito';
     }
 }
