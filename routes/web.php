@@ -41,13 +41,13 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
-    
+
         // Comprueba si el usuario ya completó el test
         $testCompleted = Moca::where('user_id', $user->id)->exists();
 
         return Inertia::render('Dashboard', [
             'auth' => [
-                'user' => array_merge($user->toArray() , [
+                'user' => array_merge($user->toArray(), [
                     'test_completed' => $testCompleted
                 ])
             ]
@@ -57,7 +57,7 @@ Route::middleware([
     Route::get('/prueba-audio-micro', function () {
         return Inertia::render('AudioMicTest');
     })->name('audio-mic-test');
-    
+
     Route::get('/reglas', function () {
         return Inertia::render('Rules');
     })->name('rules');
@@ -133,7 +133,7 @@ Route::middleware([
         ->middleware('auth.medic')
         ->name('Medic.History');
 
-    Route::get('/medic/prediction/{id?}',[MedicController::class, 'prediction'])
+    Route::get('/medic/prediction/{id?}', [MedicController::class, 'prediction'])
         ->middleware('auth.medic')
         ->name('Medic.Prediction');
 
@@ -168,5 +168,10 @@ Route::middleware([
     Route::post('/medic/storePrediction', [MedicController::class, 'storePrediction'])
         ->middleware('auth.medic')
         ->name('Medic.storePrediction');
+
+    Route::post('/proxy/predict', function (\Illuminate\Http\Request $request) {
+        $response = Http::post('http://localhost:3000/predict', $request->all());
+        return response()->json($response->json(), $response->status());
+    });
 
 });
