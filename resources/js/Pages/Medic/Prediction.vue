@@ -390,7 +390,7 @@ const makePrediction = async () => {
 
         // Prepare data (reuse the conversion logic from storePrediction)
 
-        const apiUrl = 'http://localhost:3000/predict';
+        const apiUrl = 'http://172.23.177.23:3000/predict';
 
         const { data } = await axios.post(apiUrl, requestData, {
             timeout: 30000, // 30 second timeout
