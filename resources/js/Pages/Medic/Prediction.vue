@@ -7,10 +7,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <InputLabel for="edad" value="Edad: " />
-                        <TextInput id="edad" v-model="form.edad" type="number" min="50" max="90"
-                            class="mt-1 block w-full" />
+                        <TextInput id="edad" v-model="form.edad" type="number" class="mt-1 block w-full" />
                         <InputError :message="form.errors.edad" class="mt-2" />
-
                     </div>
                     <div>
                         <InputLabel for="genero" value="Género: " />
@@ -47,8 +45,11 @@
                     <div>
                         <InputLabel for="imc" value="IMC: " />
                         <TextInput id="imc" v-model="form.imc" type="number" min="15" max="40" step="0.1"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': imcWarning }" />
                         <InputError :message="form.errors.imc" class="mt-2" />
+                        <p class="text-sm font-light">Rango entre 15.0 y 40.0</p>
+
+                        <p v-if="imcWarning" class="text-sm text-orange-600 mt-1">{{ imcWarning }}</p>
                     </div>
                     <div>
                         <InputLabel for="fumar" value="Fuma: " />
@@ -62,31 +63,36 @@
                     <div>
                         <InputLabel for="consumo_alcohol" value="Consumo de alcohol (unidades/semana): " />
                         <TextInput id="consumo_alcohol" v-model="form.consumo_alcohol" type="number" min="0" max="20"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': alcoholWarning }" />
                         <InputError :message="form.errors.consumo_alcohol" class="mt-2" />
                         <p class="text-sm font-light">Consumo de alcohol semanal en unidades entre 0 - 20.</p>
+                        <p v-if="alcoholWarning" class="text-sm text-orange-600 mt-1">{{ alcoholWarning }}</p>
                     </div>
                     <div>
                         <InputLabel for="actividad_fisica" value="Actividad física (horas/semana): " />
                         <TextInput id="actividad_fisica" v-model="form.actividad_fisica" type="number" min="0" max="10"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': actividadFisicaWarning }" />
                         <InputError :message="form.errors.actividad_fisica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 0 - 10.</p>
-
+                        <p v-if="actividadFisicaWarning" class="text-sm text-orange-600 mt-1">{{ actividadFisicaWarning
+                            }}</p>
                     </div>
                     <div>
                         <InputLabel for="calidad_dieta" value="Calidad de dieta: " />
-                        <TextInput id="calidad_dieta" v-model="form.calidad_dieta" type="number" min="0" max="10"
-                            class="mt-1 block w-full" />
+                        <TextInput id="calidad_dieta" v-model="form.calidad_dieta" type="number" min="4" max="10"
+                            class="mt-1 block w-full" :class="{ 'border-red-500': dietaWarning }" />
                         <InputError :message="form.errors.calidad_dieta" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 4 y 10</p>
-
+                        <p v-if="dietaWarning" class="text-sm text-orange-600 mt-1">{{ dietaWarning }}</p>
                     </div>
                     <div>
                         <InputLabel for="calidad_sueno" value="Calidad de sueño: " />
                         <TextInput id="calidad_sueno" v-model="form.calidad_sueno" type="number" min="4" max="10"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': suenoWarning }" />
                         <InputError :message="form.errors.calidad_sueno" class="mt-2" />
+                        <p class="text-sm font-light">Rango entre 4 y 10</p>
+
+                        <p v-if="suenoWarning" class="text-sm text-orange-600 mt-1">{{ suenoWarning }}</p>
                     </div>
                     <!-- Medical History -->
                     <div>
@@ -149,52 +155,64 @@
                     <div>
                         <InputLabel for="presion_sistolica" value="Presión sistólica (mmHg): " />
                         <TextInput id="presion_sistolica" v-model="form.presion_sistolica" type="number" min="90"
-                            max="180" class="mt-1 block w-full" />
+                            max="180" class="mt-1 block w-full" :class="{ 'border-red-500': presionSistolicaWarning }" />
                         <InputError :message="form.errors.presion_sistolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 90 - 180 mmHg</p>
-
+                        <p v-if="presionSistolicaWarning" class="text-sm text-orange-600 mt-1">{{ presionSistolicaWarning }}</p>
                     </div>
                     <div>
                         <InputLabel for="presion_diastolica" value="Presión diastólica (mmHg): " />
                         <TextInput id="presion_diastolica" v-model="form.presion_diastolica" type="number" min="60"
-                            max="120" class="mt-1 block w-full" />
+                            max="120" class="mt-1 block w-full" :class="{ 'border-red-500': presionDiastolicaWarning }" />
                         <InputError :message="form.errors.presion_diastolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 60 - 120 mmHg</p>
+                        <p v-if="presionDiastolicaWarning" class="text-sm text-orange-600 mt-1">{{ presionDiastolicaWarning }}</p>
                     </div>
                     <div>
                         <InputLabel for="colesterol_total" value="Colesterol total (mg/dL): " />
                         <TextInput id="colesterol_total" v-model="form.colesterol_total" type="number" min="150"
-                            max="300" class="mt-1 block w-full" />
+                            max="300" class="mt-1 block w-full" :class="{ 'border-red-500': colesterolTotalWarning }" />
                         <InputError :message="form.errors.colesterol_total" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 150 - 300 mg/dL</p>
+                        <p v-if="colesterolTotalWarning" class="text-sm text-orange-600 mt-1">{{ colesterolTotalWarning
+                            }}</p>
                     </div>
                     <div>
                         <InputLabel for="colesterol_ldl" value="Colesterol LDL (mg/dL): " />
                         <TextInput id="colesterol_ldl" v-model="form.colesterol_ldl" type="number" min="50" max="200"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': colesterolLdlWarning }" />
                         <InputError :message="form.errors.colesterol_ldl" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 50 - 200 mg/dL</p>
+                        <p v-if="colesterolLdlWarning" class="text-sm text-orange-600 mt-1">{{ colesterolLdlWarning }}
+                        </p>
                     </div>
                     <div>
                         <InputLabel for="colesterol_hdl" value="Colesterol HDL (mg/dL): " />
                         <TextInput id="colesterol_hdl" v-model="form.colesterol_hdl" type="number" min="20" max="100"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': colesterolHdlWarning }" />
                         <InputError :message="form.errors.colesterol_hdl" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 20 - 100 mg/dL</p>
+                        <p v-if="colesterolHdlWarning" class="text-sm text-orange-600 mt-1">{{ colesterolHdlWarning }}
+                        </p>
                     </div>
                     <div>
                         <InputLabel for="trigliceridos" value="Triglicéridos (mg/dL): " />
                         <TextInput id="trigliceridos" v-model="form.trigliceridos" type="number" min="50" max="400"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': trigliceridosWarning }" />
                         <InputError :message="form.errors.trigliceridos" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 50 - 400 mg/dL</p>
+                        <p v-if="trigliceridosWarning" class="text-sm text-orange-600 mt-1">{{ trigliceridosWarning }}
+                        </p>
                     </div>
                     <!-- Cognitive and Functional Assessments -->
                     <div>
                         <InputLabel for="moca" value="MoCA: " />
                         <TextInput id="moca" v-model="form.moca" type="number" min="0" max="30"
-                            class="mt-1 block w-full" />
+                            class="mt-1 block w-full" :class="{ 'border-red-500': mocaWarning }" />
                         <InputError :message="form.errors.moca" class="mt-2" />
+                        <p class="text-sm font-light">Rango entre 0 y 30</p>
+
+                        <p v-if="mocaWarning" class="text-sm text-orange-600 mt-1">{{ mocaWarning }}</p>
                     </div>
                     <!-- Symptoms -->
                     <div>
@@ -272,9 +290,31 @@
                 </div>
 
             </div>
-            <ButtonCustom class="w-full mt-4" mode="button" @click="makePrediction">
-                Realizar Predicción
+            <ButtonCustom class="w-full mt-4" mode="button" @click="makePrediction"
+                :disabled="!isFormValid || isLoading"
+                :class="{ 'opacity-50 cursor-not-allowed': !isFormValid || isLoading }">
+                <span v-if="isLoading">Procesando...</span>
+                <span v-else>Realizar Predicción</span>
             </ButtonCustom>
+
+            <!-- Prediction Result Display -->
+            <div v-if="predictionResult !== null" class="mt-4 p-4 bg-green-100 border border-green-400 rounded-lg">
+                <h3 class="text-lg font-semibold text-green-800">Resultado de la Predicción</h3>
+                <p class="text-green-700">
+                    <span v-if="predictionResult === 1" class="text-red-600 font-bold">
+                        ⚠️ Riesgo elevado de enfermedad de Parkinson detectado
+                    </span>
+                    <span v-else class="text-green-600 font-bold">
+                        ✅ Bajo riesgo de enfermedad de Parkinson
+                    </span>
+                </p>
+            </div>
+
+            <!-- Prediction Error Display -->
+            <div v-if="predictionError" class="mt-4 p-4 bg-red-100 border border-red-400 rounded-lg">
+                <h3 class="text-lg font-semibold text-red-800">Error en la Predicción</h3>
+                <p class="text-red-700">{{ predictionError }}</p>
+            </div>
 
         </div>
     </AppLayout>
@@ -288,8 +328,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import ButtonCustom from '@/Components/ButtonCustom.vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import  axios  from 'axios';
+import { ref, computed } from 'vue';
+import axios from 'axios';
 
 const isLoading = ref(false);
 const predictionResult = ref(null);
@@ -340,13 +380,288 @@ const form = useForm({
 
 })
 
+// Real-time validation computed properties
+const isFormValid = computed(() => {
+    const errors = validateForm();
+    return Object.keys(errors).length === 0;
+});
+
+const edadWarning = computed(() => {
+    if (form.edad !== null) {
+        if (form.edad < 50 || form.edad > 90) {
+            return 'Edad fuera del rango válido (50-90 años)';
+        }
+    }
+    return null;
+});
+
+
+
+const imcWarning = computed(() => {
+    if (form.imc) {
+        if (form.imc < 15 || form.imc > 40) {
+            return 'IMC fuera del rango válido (15.0-40.0)';
+        }
+
+    }
+    return null;
+});
+
+const presionSistolicaWarning = computed(() => {
+    if (form.presion_sistolica !== null) {
+        if (form.presion_sistolica < 90 || form.presion_sistolica > 180) {
+            return 'Presión sistólica fuera del rango válido (90-180 mmHg)';
+        }
+        if (form.presion_sistolica > 140) {
+            return 'Presión sistólica elevada (>140 mmHg)';
+        }
+    }
+    return null;
+});
+
+const presionDiastolicaWarning = computed(() => {
+    if (form.presion_diastolica !== null) {
+        if (form.presion_diastolica < 60 || form.presion_diastolica > 120) {
+            return 'Presión diastólica fuera del rango válido (60-120 mmHg)';
+        }
+        if (form.presion_diastolica > 90) {
+            return 'Presión diastólica elevada (>90 mmHg)';
+        }
+    }
+    return null;
+});
+
+const mocaWarning = computed(() => {
+    if (form.moca !== null) {
+        if (form.moca < 0 || form.moca > 30) {
+            return 'Puntaje MoCA fuera del rango válido (0-30)';
+        }
+    }
+    return null;
+});
+
+const alcoholWarning = computed(() => {
+    if (form.consumo_alcohol !== null) {
+        if (form.consumo_alcohol < 0 || form.consumo_alcohol > 20) {
+            return 'Consumo de alcohol fuera del rango válido (0-20 unidades/semana)';
+        }
+        if (form.consumo_alcohol > 14) {
+            return 'Consumo de alcohol elevado (>14 unidades/semana)';
+        }
+    }
+    return null;
+});
+
+const actividadFisicaWarning = computed(() => {
+    if (form.actividad_fisica !== null) {
+        if (form.actividad_fisica < 0 || form.actividad_fisica > 10) {
+            return 'Actividad física fuera del rango válido (0-10 horas/semana)';
+        }
+
+    }
+    return null;
+});
+
+const dietaWarning = computed(() => {
+    if (form.calidad_dieta !== null) {
+        if (form.calidad_dieta < 4 || form.calidad_dieta > 10) {
+            return 'Calidad de dieta fuera del rango válido (4-10)';
+        }
+    }
+    return null;
+});
+
+const suenoWarning = computed(() => {
+    if (form.calidad_sueno !== null) {
+        if (form.calidad_sueno < 4 || form.calidad_sueno > 10) {
+            return 'Calidad de sueño fuera del rango válido (4-10)';
+        }
+    }
+    return null;
+});
+
+const colesterolTotalWarning = computed(() => {
+    if (form.colesterol_total !== null) {
+        if (form.colesterol_total < 150 || form.colesterol_total > 300) {
+            return 'Colesterol total fuera del rango válido (150-300 mg/dL)';
+        }
+        if (form.colesterol_total > 240) {
+            return 'Colesterol total elevado (>240 mg/dL)';
+        }
+    }
+    return null;
+});
+
+const colesterolLdlWarning = computed(() => {
+    if (form.colesterol_ldl !== null) {
+        if (form.colesterol_ldl < 50 || form.colesterol_ldl > 200) {
+            return 'Colesterol LDL fuera del rango válido (50-200 mg/dL)';
+        }
+        if (form.colesterol_ldl > 160) {
+            return 'Colesterol LDL elevado (>160 mg/dL)';
+        }
+    }
+    return null;
+});
+
+const colesterolHdlWarning = computed(() => {
+    if (form.colesterol_hdl !== null) {
+        if (form.colesterol_hdl < 20 || form.colesterol_hdl > 100) {
+            return 'Colesterol HDL fuera del rango válido (20-100 mg/dL)';
+        }
+        if (form.colesterol_hdl < 40) {
+            return 'Colesterol HDL bajo (<40 mg/dL)';
+        }
+    }
+    return null;
+});
+
+const trigliceridosWarning = computed(() => {
+    if (form.trigliceridos !== null) {
+        if (form.trigliceridos < 50 || form.trigliceridos > 400) {
+            return 'Triglicéridos fuera del rango válido (50-400 mg/dL)';
+        }
+        if (form.trigliceridos > 200) {
+            return 'Triglicéridos elevados (>200 mg/dL)';
+        }
+    }
+    return null;
+});
+
+// Validation function
+const validateForm = () => {
+    const errors = {};
+
+    // Demographics validation
+    if (!form.edad || form.edad < 50 || form.edad > 90) {
+        errors.edad = 'La edad debe estar entre 50 y 90 años';
+    }
+    if (form.genero === null) {
+        errors.genero = 'El género es requerido';
+    }
+    if (form.etnicidad === null) {
+        errors.etnicidad = 'La etnicidad es requerida';
+    }
+    if (form.nivel_educativo === null) {
+        errors.nivel_educativo = 'El nivel educativo es requerido';
+    }
+
+    // Lifestyle Factors validation
+    if (!form.imc || form.imc < 15 || form.imc > 40) {
+        errors.imc = 'El IMC debe estar entre 15.0 y 40.0';
+    }
+    if (form.fumar === null) {
+        errors.fumar = 'Debe indicar si fuma o no';
+    }
+    if (form.consumo_alcohol === null || form.consumo_alcohol < 0 || form.consumo_alcohol > 20) {
+        errors.consumo_alcohol = 'El consumo de alcohol debe estar entre 0 y 20 unidades/semana';
+    }
+    if (form.actividad_fisica === null || form.actividad_fisica < 0 || form.actividad_fisica > 10) {
+        errors.actividad_fisica = 'La actividad física debe estar entre 0 y 10 horas/semana';
+    }
+    if (form.calidad_dieta === null || form.calidad_dieta < 4 || form.calidad_dieta > 10) {
+        errors.calidad_dieta = 'La calidad de dieta debe estar entre 4 y 10';
+    }
+    if (form.calidad_sueno === null || form.calidad_sueno < 4 || form.calidad_sueno > 10) {
+        errors.calidad_sueno = 'La calidad de sueño debe estar entre 4 y 10';
+    }
+
+    // Medical History validation
+    if (form.antecedentes_familiares_parkinson === null) {
+        errors.antecedentes_familiares_parkinson = 'Debe indicar los antecedentes familiares de Parkinson';
+    }
+    if (form.traumatismo_craneoencefalico === null) {
+        errors.traumatismo_craneoencefalico = 'Debe indicar si tuvo traumatismo craneoencefálico';
+    }
+    if (form.hipertension === null) {
+        errors.hipertension = 'Debe indicar si tiene hipertensión';
+    }
+    if (form.diabetes === null) {
+        errors.diabetes = 'Debe indicar si tiene diabetes';
+    }
+    if (form.depresion === null) {
+        errors.depresion = 'Debe indicar si tiene depresión';
+    }
+    if (form.accidente_cerebrovascular === null) {
+        errors.accidente_cerebrovascular = 'Debe indicar si tuvo accidente cerebrovascular';
+    }
+
+    // Clinical Measurements validation
+    if (!form.presion_sistolica || form.presion_sistolica < 90 || form.presion_sistolica > 180) {
+        errors.presion_sistolica = 'La presión sistólica debe estar entre 90 y 180 mmHg';
+    }
+    if (!form.presion_diastolica || form.presion_diastolica < 60 || form.presion_diastolica > 120) {
+        errors.presion_diastolica = 'La presión diastólica debe estar entre 60 y 120 mmHg';
+    }
+    if (!form.colesterol_total || form.colesterol_total < 150 || form.colesterol_total > 300) {
+        errors.colesterol_total = 'El colesterol total debe estar entre 150 y 300 mg/dL';
+    }
+    if (!form.colesterol_ldl || form.colesterol_ldl < 50 || form.colesterol_ldl > 200) {
+        errors.colesterol_ldl = 'El colesterol LDL debe estar entre 50 y 200 mg/dL';
+    }
+    if (!form.colesterol_hdl || form.colesterol_hdl < 20 || form.colesterol_hdl > 100) {
+        errors.colesterol_hdl = 'El colesterol HDL debe estar entre 20 y 100 mg/dL';
+    }
+    if (!form.trigliceridos || form.trigliceridos < 50 || form.trigliceridos > 400) {
+        errors.trigliceridos = 'Los triglicéridos deben estar entre 50 y 400 mg/dL';
+    }
+
+    // Cognitive Assessment validation
+    if (form.moca === null || form.moca < 0 || form.moca > 30) {
+        errors.moca = 'El puntaje MoCA debe estar entre 0 y 30';
+    }
+
+    // Symptoms validation
+    if (form.temblor === null) {
+        errors.temblor = 'Debe indicar si presenta temblor';
+    }
+    if (form.rigidez === null) {
+        errors.rigidez = 'Debe indicar si presenta rigidez';
+    }
+    if (form.bradicinesia === null) {
+        errors.bradicinesia = 'Debe indicar si presenta bradicinesia';
+    }
+    if (form.inestabilidad_postural === null) {
+        errors.inestabilidad_postural = 'Debe indicar si presenta inestabilidad postural';
+    }
+    if (form.problemas_habla === null) {
+        errors.problemas_habla = 'Debe indicar si presenta problemas del habla';
+    }
+    if (form.trastornos_sueno === null) {
+        errors.trastornos_sueno = 'Debe indicar si presenta trastornos del sueño';
+    }
+    if (form.estrenimiento === null) {
+        errors.estrenimiento = 'Debe indicar si presenta estreñimiento';
+    }
+
+    // Doctor field validation
+    if (!form.medico_encargado || form.medico_encargado.trim() === '') {
+        errors.medico_encargado = 'El médico encargado es requerido';
+    }
+
+    return errors;
+};
+
 const makePrediction = async () => {
+    // Clear previous errors
+    form.clearErrors();
+
+    // Validate form
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+        // Set errors in form
+        Object.keys(validationErrors).forEach(key => {
+            form.setError(key, validationErrors[key]);
+        });
+        return;
+    }
+
     const requestData = {
         // user_id: form.user_id,
         "Age": form.edad,
         "Gender": form.genero,
         "EducationLevel": form.nivel_educativo,
-        
+
         // Lifestyle Factors
         "BMI": form.imc,
         "Smoking": form.fumar,
@@ -354,7 +669,7 @@ const makePrediction = async () => {
         "PhysicalActivity": form.actividad_fisica,
         "DietQuality": form.calidad_dieta,
         "SleepQuality": form.calidad_sueno,
-        
+
         // Medical History
         "FamilyHistoryParkinsons": form.antecedentes_familiares_parkinson,
         "TraumaticBrainInjury": form.traumatismo_craneoencefalico,
@@ -362,7 +677,7 @@ const makePrediction = async () => {
         "Diabetes": form.diabetes,
         "Depression": form.depresion,
         "Stroke": form.accidente_cerebrovascular,
-        
+
         // Clinical Measurements
         "SystolicBP": form.presion_sistolica,
         "DiastolicBP": form.presion_diastolica,
@@ -370,10 +685,10 @@ const makePrediction = async () => {
         "CholesterolLDL": form.colesterol_ldl,
         "CholesterolHDL": form.colesterol_hdl,
         "CholesterolTriglycerides": form.trigliceridos,
-        
+
         // Cognitive Assessment
         "MoCA": form.moca,
-        
+
         // Symptoms
         "Tremor": form.temblor,
         "Rigidity": form.rigidez,
@@ -400,8 +715,8 @@ const makePrediction = async () => {
         });
 
         predictionResult.value = data.prediction;
-        storePrediction(); 
-        
+        storePrediction();
+
         console.log('✅ Predicción realizada:', data);
         // Optionally show success message to user
         // You could use a toast notification here
@@ -439,7 +754,7 @@ const mostrar_datos = () => {
 };
 
 // Function to store prediction data
-const storePrediction = ( ) => {
+const storePrediction = () => {
     console.log('Storing prediction data...');
 
     // Convert string values to numbers for numeric fields
