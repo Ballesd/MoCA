@@ -302,46 +302,146 @@ class MedicController extends Controller
 
     public function storePrediction(Request $request)
     {
+        // Validate request data
+        $validatedData = $request->validate([
+            // User Information
+            'user_id' => 'required|integer|exists:users,id',
+            
+            // Demographics
+            'edad' => 'required|integer|min:50|max:90',
+            'genero' => 'required|integer|in:0,1',
+            'etnicidad' => 'required|integer|in:0,1,2,3',
+            'nivel_educativo' => 'required|integer|in:0,1,2,3',
+            
+            // Lifestyle Factors
+            'imc' => 'required|numeric|min:15.0|max:40.0',
+            'fumar' => 'required|integer|in:0,1',
+            'consumo_alcohol' => 'required|integer|min:0|max:20',
+            'actividad_fisica' => 'required|integer|min:0|max:10',
+            'calidad_dieta' => 'required|integer|min:4|max:10',
+            'calidad_sueno' => 'required|integer|min:4|max:10',
+            
+            // Medical History
+            'antecedentes_familiares_parkinson' => 'required|integer|in:0,1',
+            'traumatismo_craneoencefalico' => 'required|integer|in:0,1',
+            'hipertension' => 'required|integer|in:0,1',
+            'diabetes' => 'required|integer|in:0,1',
+            'depresion' => 'required|integer|in:0,1',
+            'accidente_cerebrovascular' => 'required|integer|in:0,1',
+            
+            // Clinical Measurements
+            'presion_sistolica' => 'required|integer|min:90|max:180',
+            'presion_diastolica' => 'required|integer|min:60|max:120',
+            'colesterol_total' => 'required|integer|min:150|max:300',
+            'colesterol_ldl' => 'required|integer|min:50|max:200',
+            'colesterol_hdl' => 'required|integer|min:20|max:100',
+            'trigliceridos' => 'required|integer|min:50|max:400',
+            
+            // Cognitive Assessment
+            'moca' => 'required|integer|min:0|max:30',
+            
+            // Symptoms
+            'temblor' => 'required|integer|in:0,1',
+            'rigidez' => 'required|integer|in:0,1',
+            'bradicinesia' => 'required|integer|in:0,1',
+            'inestabilidad_postural' => 'required|integer|in:0,1',
+            'problemas_habla' => 'required|integer|in:0,1',
+            'trastornos_sueno' => 'required|integer|in:0,1',
+            'estrenimiento' => 'required|integer|in:0,1',
+            
+            // Diagnosis and Doctor
+            'diagnostico' => 'nullable|integer|in:0,1',
+            'medico_encargado' => 'required|string|max:255',
+        ], [
+            // Custom error messages in Spanish
+            'user_id.required' => 'El ID del usuario es requerido.',
+            'user_id.exists' => 'El usuario especificado no existe.',
+            
+            'edad.required' => 'La edad es requerida.',
+            'edad.min' => 'La edad debe ser mínimo 50 años.',
+            'edad.max' => 'La edad debe ser máximo 90 años.',
+            
+            'genero.required' => 'El género es requerido.',
+            'genero.in' => 'El género debe ser Masculino (0) o Femenino (1).',
+            
+            'etnicidad.required' => 'La etnicidad es requerida.',
+            'etnicidad.in' => 'La etnicidad debe ser Caucásico (0), Afroamericano (1), Asiático (2) u Otro (3).',
+            
+            'nivel_educativo.required' => 'El nivel educativo es requerido.',
+            'nivel_educativo.in' => 'El nivel educativo debe ser Ninguno (0), Secundaria (1), Licenciatura (2) o Superior (3).',
+            
+            'imc.required' => 'El IMC es requerido.',
+            'imc.min' => 'El IMC debe ser mínimo 15.0.',
+            'imc.max' => 'El IMC debe ser máximo 40.0.',
+            
+            'consumo_alcohol.min' => 'El consumo de alcohol debe ser mínimo 0 unidades/semana.',
+            'consumo_alcohol.max' => 'El consumo de alcohol debe ser máximo 20 unidades/semana.',
+            
+            'actividad_fisica.min' => 'La actividad física debe ser mínimo 0 horas/semana.',
+            'actividad_fisica.max' => 'La actividad física debe ser máximo 10 horas/semana.',
+            
+            'calidad_dieta.min' => 'La calidad de dieta debe ser mínimo 4.',
+            'calidad_dieta.max' => 'La calidad de dieta debe ser máximo 10.',
+            
+            'calidad_sueno.min' => 'La calidad de sueño debe ser mínimo 4.',
+            'calidad_sueno.max' => 'La calidad de sueño debe ser máximo 10.',
+            
+            'presion_sistolica.min' => 'La presión sistólica debe ser mínimo 90 mmHg.',
+            'presion_sistolica.max' => 'La presión sistólica debe ser máximo 180 mmHg.',
+            
+            'presion_diastolica.min' => 'La presión diastólica debe ser mínimo 60 mmHg.',
+            'presion_diastolica.max' => 'La presión diastólica debe ser máximo 120 mmHg.',
+            
+            'colesterol_total.min' => 'El colesterol total debe ser mínimo 150 mg/dL.',
+            'colesterol_total.max' => 'El colesterol total debe ser máximo 300 mg/dL.',
+            
+            'colesterol_ldl.min' => 'El colesterol LDL debe ser mínimo 50 mg/dL.',
+            'colesterol_ldl.max' => 'El colesterol LDL debe ser máximo 200 mg/dL.',
+            
+            'colesterol_hdl.min' => 'El colesterol HDL debe ser mínimo 20 mg/dL.',
+            'colesterol_hdl.max' => 'El colesterol HDL debe ser máximo 100 mg/dL.',
+            
+            'trigliceridos.min' => 'Los triglicéridos deben ser mínimo 50 mg/dL.',
+            'trigliceridos.max' => 'Los triglicéridos deben ser máximo 400 mg/dL.',
+            
+            'moca.required' => 'El puntaje MoCA es requerido.',
+            'moca.min' => 'El puntaje MoCA debe ser mínimo 0.',
+            'moca.max' => 'El puntaje MoCA debe ser máximo 30.',
+            
+            'medico_encargado.required' => 'El médico encargado es requerido.',
+            'medico_encargado.max' => 'El nombre del médico encargado no debe exceder 255 caracteres.',
+            
+            // Generic messages for binary fields
+            '*.in' => 'El valor seleccionado es inválido.',
+            '*.required' => 'Este campo es requerido.',
+        ]);
 
+        // Additional custom validation rules
+        $request->validate([
+            'presion_sistolica' => [
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->presion_diastolica && $value <= $request->presion_diastolica) {
+                        $fail('La presión sistólica debe ser mayor que la presión diastólica.');
+                    }
+                },
+            ],
+        ]);
 
-        $prediction = new Prediction();
-        $user = $request->user_id;
-        $prediction->user_id = $user;
-        $prediction->edad = $request->edad;
-        $prediction->genero = $request->genero;
-        $prediction->etnicidad = $request->etnicidad;
-        $prediction->nivel_educativo = $request->nivel_educativo;
-        $prediction->imc = $request->imc;
-        $prediction->fumar = $request->fumar;
-        $prediction->consumo_alcohol = $request->consumo_alcohol;
-        $prediction->actividad_fisica = $request->actividad_fisica;
-        $prediction->calidad_dieta = $request->calidad_dieta;
-        $prediction->calidad_sueno = $request->calidad_sueno;
-        $prediction->antecedentes_familiares_parkinson = $request->antecedentes_familiares_parkinson;
-        $prediction->traumatismo_craneoencefalico = $request->traumatismo_craneoencefalico;
-        $prediction->hipertension = $request->hipertension;
-        $prediction->diabetes = $request->diabetes;
-        $prediction->depresion = $request->depresion;
-        $prediction->accidente_cerebrovascular = $request->accidente_cerebrovascular;
-        $prediction->presion_sistolica = $request->presion_sistolica;
-        $prediction->presion_diastolica = $request->presion_diastolica;
-        $prediction->colesterol_total = $request->colesterol_total;
-        $prediction->colesterol_ldl = $request->colesterol_ldl;
-        $prediction->colesterol_hdl = $request->colesterol_hdl;
-        $prediction->trigliceridos = $request->trigliceridos;
-        $prediction->moca = $request->moca;
-        $prediction->temblor = $request->temblor;
-        $prediction->rigidez = $request->rigidez;
-        $prediction->bradicinesia = $request->bradicinesia;
-        $prediction->inestabilidad_postural = $request->inestabilidad_postural;
-        $prediction->problemas_habla = $request->problemas_habla;
-        $prediction->trastornos_sueno = $request->trastornos_sueno;
-        $prediction->estrenimiento = $request->estrenimiento;
-        // Diagnosis Information
-        $prediction->diagnostico = $request->diagnostico; // 0: No, 1: Yes (Parkinson's Disease)
-        // Confidential Information
-        $prediction->medico_encargado = $request->medico_encargado;
-        $prediction->save();
-        return 'Se guardo con éxito';
+        try {
+            $prediction = new Prediction();
+            $prediction->fill($validatedData);
+            $prediction->save();
+
+            return response()->json([
+                'message' => 'Predicción guardada con éxito',
+                'data' => $prediction
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al guardar la predicción',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

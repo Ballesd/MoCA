@@ -43,7 +43,7 @@ class Prediction extends Model
         'trastornos_sueno',
         'estrenimiento',
         // Diagnosis Information
-        'diagnosis', 
+        'diagnostico', 
         
         // Confidential Information
         'medico_encargado',
