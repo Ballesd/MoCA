@@ -44,8 +44,15 @@ class MedicController extends Controller
 
     public function prediction($id = null)
     {
+        // Get existing prediction if it exists
+        $existingPrediction = null;
+        if ($id) {
+            $existingPrediction = Prediction::where('user_id', $id)->latest()->first();
+        }
+
         return Inertia::render('Medic/Prediction', [
-            'id' => $id
+            'id' => $id,
+            'existingPrediction' => $existingPrediction
         ]);
     }
 

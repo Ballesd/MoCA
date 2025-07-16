@@ -1,29 +1,49 @@
 <template>
-
     <AppLayout title="Predicción de MoCA">
+        <div class="h-full flex-row justify-center items-center p-10 pb-20">
 
-        <div class="h-full flex-row justify-center items-center p-10 pb-20 ">
+            <!-- Previous Prediction Display (if exists) -->
+            <div v-if="hasExistingData && props.existingPrediction?.diagnostico !== null"
+                class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h3 class="text-lg font-semibold text-blue-800">Predicción</h3>
+                <div class="mt-2">
+                    <p class="text-blue-700">
+                        <strong>Resultado:</strong>
+                        <span v-if="props.existingPrediction.diagnostico === 1" class="text-red-600 font-bold ml-2">
+                            ⚠️ Enfermedad de Alzheimer posible (Algunos síntomas detectados, pero no concluyentes)
+                        </span>
+                        <span v-else class="text-green-600 font-bold ml-2">
+                            ✅ Paciente no compatible con Alzheimer (Síntomas mejor explicados por otra condición)
+                        </span>
+                        
+                    </p>
+                    <p class="text-sm text-blue-600 mt-1">
+                        <strong>Fecha:</strong> {{ existingPredictionDate }}
+                    </p>
+                    <p class="text-sm text-blue-600">
+                        <strong>Médico:</strong> {{ props.existingPrediction.medico_encargado }}
+                    </p>
+                </div>
+            </div>
+
             <!-- Existing Data Indicator -->
-            <div v-if="hasExistingData" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div v-if="hasExistingData" class="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-medium text-blue-900">Datos existentes cargados</h3>
-                        <p class="text-sm text-blue-700">
-                            Se han cargado los datos de una predicción anterior creada el {{ existingPredictionDate }}.
-                            Puedes modificar cualquier campo y guardar los cambios.
-                        </p>
-                        <p v-if="props.existingPrediction?.diagnostico !== null" class="text-sm text-blue-700 mt-1">
-                            <strong>Diagnóstico anterior:</strong> 
-                            {{ props.existingPrediction.diagnostico === 1 ? 'Positivo' : 'Negativo' }}
+                        <h3 class="text-lg font-medium text-yellow-800">Datos existentes cargados</h3>
+                        <p class="text-sm text-yellow-700">
+                            Se han cargado los datos de una predicción anterior para facilitar el proceso.
+                            Puedes modificar cualquier campo para hacer una nueva predicción.
                         </p>
                     </div>
-                    <button @click="clearForm" 
+                    <button @click="clearForm"
                         class="px-4 py-2 text-sm bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors">
-                        Nuevo formulario
+                        Limpiar formulario
                     </button>
                 </div>
             </div>
 
+            <!-- Form content (existing form code) -->
             <div class="w-full h-full p-10 bg-quinary shadow-md rounded-3xl border border-gray-400 overflow-y-scroll">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -96,7 +116,7 @@
                         <InputError :message="form.errors.actividad_fisica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 0 - 10.</p>
                         <p v-if="actividadFisicaWarning" class="text-sm text-orange-600 mt-1">{{ actividadFisicaWarning
-                            }}</p>
+                        }}</p>
                     </div>
                     <div>
                         <InputLabel for="calidad_dieta" value="Calidad de dieta: " />
@@ -176,18 +196,22 @@
                     <div>
                         <InputLabel for="presion_sistolica" value="Presión sistólica (mmHg): " />
                         <TextInput id="presion_sistolica" v-model="form.presion_sistolica" type="number" min="90"
-                            max="180" class="mt-1 block w-full" :class="{ 'border-red-500': presionSistolicaWarning }" />
+                            max="180" class="mt-1 block w-full"
+                            :class="{ 'border-red-500': presionSistolicaWarning }" />
                         <InputError :message="form.errors.presion_sistolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 90 - 180 mmHg</p>
-                        <p v-if="presionSistolicaWarning" class="text-sm text-orange-600 mt-1">{{ presionSistolicaWarning }}</p>
+                        <p v-if="presionSistolicaWarning" class="text-sm text-orange-600 mt-1">{{
+                            presionSistolicaWarning }}</p>
                     </div>
                     <div>
                         <InputLabel for="presion_diastolica" value="Presión diastólica (mmHg): " />
                         <TextInput id="presion_diastolica" v-model="form.presion_diastolica" type="number" min="60"
-                            max="120" class="mt-1 block w-full" :class="{ 'border-red-500': presionDiastolicaWarning }" />
+                            max="120" class="mt-1 block w-full"
+                            :class="{ 'border-red-500': presionDiastolicaWarning }" />
                         <InputError :message="form.errors.presion_diastolica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 60 - 120 mmHg</p>
-                        <p v-if="presionDiastolicaWarning" class="text-sm text-orange-600 mt-1">{{ presionDiastolicaWarning }}</p>
+                        <p v-if="presionDiastolicaWarning" class="text-sm text-orange-600 mt-1">{{
+                            presionDiastolicaWarning }}</p>
                     </div>
                     <div>
                         <InputLabel for="colesterol_total" value="Colesterol total (mg/dL): " />
@@ -196,7 +220,7 @@
                         <InputError :message="form.errors.colesterol_total" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 150 - 300 mg/dL</p>
                         <p v-if="colesterolTotalWarning" class="text-sm text-orange-600 mt-1">{{ colesterolTotalWarning
-                            }}</p>
+                        }}</p>
                     </div>
                     <div>
                         <InputLabel for="colesterol_ldl" value="Colesterol LDL (mg/dL): " />
@@ -310,36 +334,43 @@
                     </div>
                 </div>
 
-            </div>
-            <ButtonCustom class="w-full mt-4" mode="button" @click="makePrediction"
-                :disabled="!isFormValid || isLoading"
-                :class="{ 'opacity-50 cursor-not-allowed': !isFormValid || isLoading }">
-                <span v-if="isLoading">Procesando...</span>
-                <span v-else>Realizar Predicción</span>
-            </ButtonCustom>
+                <!-- Form actions -->
+                <div class="mt-6 flex gap-4">
+                    <ButtonCustom @click="makePrediction" :disabled="!isFormValid || isLoading"
+                        class="bg-blue-600 hover:bg-blue-700">
+                        {{ isLoading ? 'Realizando predicción...' : 'Realizar Predicción' }}
+                    </ButtonCustom>
 
-            <!-- Prediction Result Display -->
+                    <ButtonCustom v-if="predictionResult !== null" @click="storePrediction"
+                        class="bg-green-600 hover:bg-green-700">
+                        Guardar Predicción
+                    </ButtonCustom>
+                </div>
+            </div>
+
+            <!-- New Prediction Result Display -->
             <div v-if="predictionResult !== null" class="mt-4 p-4 bg-green-100 border border-green-400 rounded-lg">
-                <h3 class="text-lg font-semibold text-green-800">Resultado de la Predicción</h3>
+                <h3 class="text-lg font-semibold text-green-800">Nueva Predicción</h3>
                 <p class="text-green-700">
                     <span v-if="predictionResult === 1" class="text-red-600 font-bold">
-                        ⚠️ Riesgo elevado de enfermedad de Parkinson detectado
+                        ⚠️ Enfermedad de Alzheimer posible (Algunos sintomas detectados, pero no concluyentes)
                     </span>
                     <span v-else class="text-green-600 font-bold">
-                        ✅ Bajo riesgo de enfermedad de Parkinson
+                        ✅ Paciente no compatible con Alzheimer (Sintomas mejor explicados por otra condición)
                     </span>
                 </p>
+
+                <!-- Show comparison if there was a previous prediction -->
+
             </div>
 
-            <!-- Prediction Error Display -->
+            <!-- Error Display -->
             <div v-if="predictionError" class="mt-4 p-4 bg-red-100 border border-red-400 rounded-lg">
                 <h3 class="text-lg font-semibold text-red-800">Error en la Predicción</h3>
                 <p class="text-red-700">{{ predictionError }}</p>
             </div>
-
         </div>
     </AppLayout>
-
 </template>
 
 <script setup>
@@ -791,67 +822,37 @@ const mostrar_datos = () => {
     console.log('Datos del formulario:', form.data());
 };
 
-// Function to clear form and start fresh
-const clearForm = () => {
-    form.reset();
-    form.clearErrors();
-    predictionResult.value = null;
-    predictionError.value = null;
-    
-    // Reset to default values without existing data
-    Object.keys(form.data()).forEach(key => {
-        if (key === 'user_id') {
-            form[key] = props.id;
-        } else {
-            form[key] = null;
-        }
-    });
-};
-
-// Function to store prediction data
+// Simplified storePrediction function (only creates new predictions)
 const storePrediction = () => {
-    console.log('Storing prediction data...');
+    console.log('Storing new prediction data...');
 
     // Convert string values to numbers for numeric fields
     const convertedData = {
         ...form.data(),
-        // Convert ALL numeric fields to ensure proper data types
         user_id: Number(form.user_id),
-
-        // Demographics
         edad: form.edad ? Number(form.edad) : null,
         genero: form.genero !== null ? Number(form.genero) : null,
         etnicidad: form.etnicidad !== null ? Number(form.etnicidad) : null,
         nivel_educativo: form.nivel_educativo !== null ? Number(form.nivel_educativo) : null,
-
-        // Lifestyle Factors
         imc: form.imc ? Number(form.imc) : null,
         fumar: form.fumar !== null ? Number(form.fumar) : null,
         consumo_alcohol: form.consumo_alcohol ? Number(form.consumo_alcohol) : null,
         actividad_fisica: form.actividad_fisica ? Number(form.actividad_fisica) : null,
         calidad_dieta: form.calidad_dieta ? Number(form.calidad_dieta) : null,
         calidad_sueno: form.calidad_sueno ? Number(form.calidad_sueno) : null,
-
-        // Medical History
         antecedentes_familiares_parkinson: form.antecedentes_familiares_parkinson !== null ? Number(form.antecedentes_familiares_parkinson) : null,
         traumatismo_craneoencefalico: form.traumatismo_craneoencefalico !== null ? Number(form.traumatismo_craneoencefalico) : null,
         hipertension: form.hipertension !== null ? Number(form.hipertension) : null,
         diabetes: form.diabetes !== null ? Number(form.diabetes) : null,
         depresion: form.depresion !== null ? Number(form.depresion) : null,
         accidente_cerebrovascular: form.accidente_cerebrovascular !== null ? Number(form.accidente_cerebrovascular) : null,
-
-        // Clinical Measurements
         presion_sistolica: form.presion_sistolica ? Number(form.presion_sistolica) : null,
         presion_diastolica: form.presion_diastolica ? Number(form.presion_diastolica) : null,
         colesterol_total: form.colesterol_total ? Number(form.colesterol_total) : null,
         colesterol_ldl: form.colesterol_ldl ? Number(form.colesterol_ldl) : null,
         colesterol_hdl: form.colesterol_hdl ? Number(form.colesterol_hdl) : null,
         trigliceridos: form.trigliceridos ? Number(form.trigliceridos) : null,
-
-        // Cognitive Assessment
         moca: form.moca ? Number(form.moca) : null,
-
-        // Symptoms
         temblor: form.temblor !== null ? Number(form.temblor) : null,
         rigidez: form.rigidez !== null ? Number(form.rigidez) : null,
         bradicinesia: form.bradicinesia !== null ? Number(form.bradicinesia) : null,
@@ -859,65 +860,44 @@ const storePrediction = () => {
         problemas_habla: form.problemas_habla !== null ? Number(form.problemas_habla) : null,
         trastornos_sueno: form.trastornos_sueno !== null ? Number(form.trastornos_sueno) : null,
         estrenimiento: form.estrenimiento !== null ? Number(form.estrenimiento) : null,
-
-        // Diagnosis
         diagnostico: predictionResult.value,
-
-        // String field (no conversion needed)
         medico_encargado: form.medico_encargado
     };
 
     console.log('Converted data:', convertedData);
 
-    // Add prediction ID if updating
-    if (hasExistingData.value && props.existingPrediction?.id) {
-        convertedData.prediction_id = props.existingPrediction.id;
-    }
-
-    // Send converted data directly without updating the form
-    // This keeps the form fields as strings for the UI, but sends numbers to the backend
-
-    // Create a temporary form with the converted data
+    // Always create a new prediction (no updates)
     const tempForm = useForm(convertedData);
 
-    // Use the appropriate method and route based on whether we're updating or creating
-    if (hasExistingData.value && props.existingPrediction?.id) {
-        // Updating existing prediction
-        tempForm.put(route('Medic.updatePrediction'), {
-            onSuccess: (response) => {
-                console.log('✅ Predicción actualizada con éxito! Response:', response);
-                // Optionally show success message to user
-            },
-            onError: (errors) => {
-                console.error('❌ Error al actualizar predicción:', errors);
-                // Copy errors back to the original form for display
-                form.errors = errors;
-            },
-            onFinish: () => {
-                console.log('Request finished');
-            }
-        });
-    } else {
-        // Creating new prediction
-        tempForm.post(route('Medic.storePrediction'), {
-            onSuccess: (response) => {
-                console.log('✅ Predicción guardada con éxito! Response:', response);
-                // Optionally reset the original form or redirect
-            },
-            onError: (errors) => {
-                console.error('❌ Error al guardar predicción:', errors);
-                // Copy errors back to the original form for display
-                form.errors = errors;
-            },
-            onFinish: () => {
-                console.log('Request finished');
-            }
-        });
-    }
+    tempForm.post(route('Medic.storePrediction'), {
+        onSuccess: (response) => {
+            console.log('✅ Predicción guardada con éxito! Response:', response);
+            // Optionally redirect or show success message
+        },
+        onError: (errors) => {
+            console.error('❌ Error al guardar predicción:', errors);
+            form.errors = errors;
+        },
+        onFinish: () => {
+            console.log('Request finished');
+        }
+    });
 };
 
+// Function to clear form and start fresh
+const clearForm = () => {
+    form.reset();
+    form.clearErrors();
+    predictionResult.value = null;
+    predictionError.value = null;
 
+    // Reset all fields to null/empty
+    Object.keys(form.data()).forEach(key => {
+        if (key !== 'user_id') {
+            form[key] = null;
+        }
+    });
+};
 
-
-
+// ...existing code...
 </script>

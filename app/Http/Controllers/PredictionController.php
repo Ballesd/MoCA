@@ -66,4 +66,15 @@ class PredictionController extends Controller
     {
         //
     }
+    public function showPrediction(string $id){
+        // This method can be used to show a specific prediction
+        // For example, you can fetch a prediction by ID and return it
+        $prediction = Prediction::find($id);
+
+        if (!$prediction) {
+            return response()->json(['message' => 'Prediction not found'], 404);
+        }
+
+        return response()->json($prediction);
+    }
 }
