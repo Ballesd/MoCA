@@ -412,9 +412,6 @@ const presionSistolicaWarning = computed(() => {
         if (form.presion_sistolica < 90 || form.presion_sistolica > 180) {
             return 'Presión sistólica fuera del rango válido (90-180 mmHg)';
         }
-        if (form.presion_sistolica > 140) {
-            return 'Presión sistólica elevada (>140 mmHg)';
-        }
     }
     return null;
 });
@@ -423,9 +420,6 @@ const presionDiastolicaWarning = computed(() => {
     if (form.presion_diastolica !== null) {
         if (form.presion_diastolica < 60 || form.presion_diastolica > 120) {
             return 'Presión diastólica fuera del rango válido (60-120 mmHg)';
-        }
-        if (form.presion_diastolica > 90) {
-            return 'Presión diastólica elevada (>90 mmHg)';
         }
     }
     return null;
