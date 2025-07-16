@@ -3,6 +3,27 @@
     <AppLayout title="Predicción de MoCA">
 
         <div class="h-full flex-row justify-center items-center p-10 pb-20 ">
+            <!-- Existing Data Indicator -->
+            <div v-if="hasExistingData" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-medium text-blue-900">Datos existentes cargados</h3>
+                        <p class="text-sm text-blue-700">
+                            Se han cargado los datos de una predicción anterior creada el {{ existingPredictionDate }}.
+                            Puedes modificar cualquier campo y guardar los cambios.
+                        </p>
+                        <p v-if="props.existingPrediction?.diagnostico !== null" class="text-sm text-blue-700 mt-1">
+                            <strong>Diagnóstico anterior:</strong> 
+                            {{ props.existingPrediction.diagnostico === 1 ? 'Positivo' : 'Negativo' }}
+                        </p>
+                    </div>
+                    <button @click="clearForm" 
+                        class="px-4 py-2 text-sm bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors">
+                        Nuevo formulario
+                    </button>
+                </div>
+            </div>
+
             <div class="w-full h-full p-10 bg-quinary shadow-md rounded-3xl border border-gray-400 overflow-y-scroll">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -339,44 +360,48 @@ const props = defineProps({
     id: {
         type: [Number, String],
         required: true
+    },
+    existingPrediction: {
+        type: Object,
+        default: null
     }
 });
 
 
 const form = useForm({
     user_id: props.id, // integer - User ID
-    edad: null,                            // integer (50-90) - Age
-    genero: null,                          // tinyInteger (0=Male, 1=Female) - Gender
-    etnicidad: null,                       // tinyInteger (0-3) - Ethnicity
-    nivel_educativo: null,                 // tinyInteger (0-3) - Education Level
-    imc: null,                             // decimal(4,1) (15.0-40.0) - BMI
-    fumar: null,                           // tinyInteger (0=No, 1=Yes) - Smoking
-    consumo_alcohol: null,                 // integer (0-20) - Alcohol Consumption
-    actividad_fisica: null,                // integer (0-10) - Physical Activity
-    calidad_dieta: null,                   // integer (4-10) - Diet Quality
-    calidad_sueno: null,                   // integer (4-10) - Sleep Quality
-    antecedentes_familiares_parkinson: null,  // tinyInteger (0=No, 1=Yes) - Family History Parkinsons
-    traumatismo_craneoencefalico: null,    // tinyInteger (0=No, 1=Yes) - Traumatic Brain Injury
-    hipertension: null,                    // tinyInteger (0=No, 1=Yes) - Hypertension
-    diabetes: null,                        // tinyInteger (0=No, 1=Yes) - Diabetes
-    depresion: null,                       // tinyInteger (0=No, 1=Yes) - Depression
-    accidente_cerebrovascular: null,       // tinyInteger (0=No, 1=Yes) - Stroke
-    presion_sistolica: null,               // integer (90-180) - Systolic BP
-    presion_diastolica: null,              // integer (60-120) - Diastolic BP
-    colesterol_total: null,                // integer (150-300) - Total Cholesterol
-    colesterol_ldl: null,                  // integer (50-200) - LDL Cholesterol
-    colesterol_hdl: null,                  // integer (20-100) - HDL Cholesterol
-    trigliceridos: null,                   // integer (50-400) - Triglycerides
-    moca: null,                            // integer (0-30) - MoCA Score
-    temblor: null,                         // tinyInteger (0=No, 1=Yes) - Tremor
-    rigidez: null,                         // tinyInteger (0=No, 1=Yes) - Rigidity
-    bradicinesia: null,                    // tinyInteger (0=No, 1=Yes) - Bradykinesia
-    inestabilidad_postural: null,          // tinyInteger (0=No, 1=Yes) - Postural Instability
-    problemas_habla: null,                 // tinyInteger (0=No, 1=Yes) - Speech Problems
-    trastornos_sueno: null,                // tinyInteger (0=No, 1=Yes) - Sleep Disorders
-    estrenimiento: null,                   // tinyInteger (0=No, 1=Yes) - Constipation
-    diagnostico: null,                     // tinyInteger (0=No, 1=Yes) - Diagnosis
-    medico_encargado: null,                // string (nullable) - Doctor in Charge
+    edad: props.existingPrediction?.edad || null,                            // integer (50-90) - Age
+    genero: props.existingPrediction?.genero ?? null,                          // tinyInteger (0=Male, 1=Female) - Gender
+    etnicidad: props.existingPrediction?.etnicidad ?? null,                       // tinyInteger (0-3) - Ethnicity
+    nivel_educativo: props.existingPrediction?.nivel_educativo ?? null,                 // tinyInteger (0-3) - Education Level
+    imc: props.existingPrediction?.imc || null,                             // decimal(4,1) (15.0-40.0) - BMI
+    fumar: props.existingPrediction?.fumar ?? null,                           // tinyInteger (0=No, 1=Yes) - Smoking
+    consumo_alcohol: props.existingPrediction?.consumo_alcohol || null,                 // integer (0-20) - Alcohol Consumption
+    actividad_fisica: props.existingPrediction?.actividad_fisica || null,                // integer (0-10) - Physical Activity
+    calidad_dieta: props.existingPrediction?.calidad_dieta || null,                   // integer (4-10) - Diet Quality
+    calidad_sueno: props.existingPrediction?.calidad_sueno || null,                   // integer (4-10) - Sleep Quality
+    antecedentes_familiares_parkinson: props.existingPrediction?.antecedentes_familiares_parkinson ?? null,  // tinyInteger (0=No, 1=Yes) - Family History Parkinsons
+    traumatismo_craneoencefalico: props.existingPrediction?.traumatismo_craneoencefalico ?? null,    // tinyInteger (0=No, 1=Yes) - Traumatic Brain Injury
+    hipertension: props.existingPrediction?.hipertension ?? null,                    // tinyInteger (0=No, 1=Yes) - Hypertension
+    diabetes: props.existingPrediction?.diabetes ?? null,                        // tinyInteger (0=No, 1=Yes) - Diabetes
+    depresion: props.existingPrediction?.depresion ?? null,                       // tinyInteger (0=No, 1=Yes) - Depression
+    accidente_cerebrovascular: props.existingPrediction?.accidente_cerebrovascular ?? null,       // tinyInteger (0=No, 1=Yes) - Stroke
+    presion_sistolica: props.existingPrediction?.presion_sistolica || null,               // integer (90-180) - Systolic BP
+    presion_diastolica: props.existingPrediction?.presion_diastolica || null,              // integer (60-120) - Diastolic BP
+    colesterol_total: props.existingPrediction?.colesterol_total || null,                // integer (150-300) - Total Cholesterol
+    colesterol_ldl: props.existingPrediction?.colesterol_ldl || null,                  // integer (50-200) - LDL Cholesterol
+    colesterol_hdl: props.existingPrediction?.colesterol_hdl || null,                  // integer (20-100) - HDL Cholesterol
+    trigliceridos: props.existingPrediction?.trigliceridos || null,                   // integer (50-400) - Triglycerides
+    moca: props.existingPrediction?.moca || null,                            // integer (0-30) - MoCA Score
+    temblor: props.existingPrediction?.temblor ?? null,                         // tinyInteger (0=No, 1=Yes) - Tremor
+    rigidez: props.existingPrediction?.rigidez ?? null,                         // tinyInteger (0=No, 1=Yes) - Rigidity
+    bradicinesia: props.existingPrediction?.bradicinesia ?? null,                    // tinyInteger (0=No, 1=Yes) - Bradykinesia
+    inestabilidad_postural: props.existingPrediction?.inestabilidad_postural ?? null,          // tinyInteger (0=No, 1=Yes) - Postural Instability
+    problemas_habla: props.existingPrediction?.problemas_habla ?? null,                 // tinyInteger (0=No, 1=Yes) - Speech Problems
+    trastornos_sueno: props.existingPrediction?.trastornos_sueno ?? null,                // tinyInteger (0=No, 1=Yes) - Sleep Disorders
+    estrenimiento: props.existingPrediction?.estrenimiento ?? null,                   // tinyInteger (0=No, 1=Yes) - Constipation
+    diagnostico: props.existingPrediction?.diagnostico ?? null,                     // tinyInteger (0=No, 1=Yes) - Diagnosis
+    medico_encargado: props.existingPrediction?.medico_encargado || null,                // string (nullable) - Doctor in Charge
 
 })
 
@@ -384,6 +409,25 @@ const form = useForm({
 const isFormValid = computed(() => {
     const errors = validateForm();
     return Object.keys(errors).length === 0;
+});
+
+// Check if there's existing prediction data loaded
+const hasExistingData = computed(() => {
+    return props.existingPrediction !== null;
+});
+
+// Get the date of the existing prediction if available
+const existingPredictionDate = computed(() => {
+    if (props.existingPrediction?.created_at) {
+        return new Date(props.existingPrediction.created_at).toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+    return null;
 });
 
 const edadWarning = computed(() => {
@@ -747,6 +791,23 @@ const mostrar_datos = () => {
     console.log('Datos del formulario:', form.data());
 };
 
+// Function to clear form and start fresh
+const clearForm = () => {
+    form.reset();
+    form.clearErrors();
+    predictionResult.value = null;
+    predictionError.value = null;
+    
+    // Reset to default values without existing data
+    Object.keys(form.data()).forEach(key => {
+        if (key === 'user_id') {
+            form[key] = props.id;
+        } else {
+            form[key] = null;
+        }
+    });
+};
+
 // Function to store prediction data
 const storePrediction = () => {
     console.log('Storing prediction data...');
@@ -808,26 +869,51 @@ const storePrediction = () => {
 
     console.log('Converted data:', convertedData);
 
+    // Add prediction ID if updating
+    if (hasExistingData.value && props.existingPrediction?.id) {
+        convertedData.prediction_id = props.existingPrediction.id;
+    }
+
     // Send converted data directly without updating the form
     // This keeps the form fields as strings for the UI, but sends numbers to the backend
 
     // Create a temporary form with the converted data
     const tempForm = useForm(convertedData);
 
-    tempForm.post(route('Medic.storePrediction'), {
-        onSuccess: (response) => {
-            console.log('✅ Success! Response:', response);
-            // Optionally reset the original form or redirect
-        },
-        onError: (errors) => {
-            console.error('❌ Error response:', errors);
-            // Copy errors back to the original form for display
-            form.errors = errors;
-        },
-        onFinish: () => {
-            console.log('Request finished');
-        }
-    });
+    // Use the appropriate method and route based on whether we're updating or creating
+    if (hasExistingData.value && props.existingPrediction?.id) {
+        // Updating existing prediction
+        tempForm.put(route('Medic.updatePrediction'), {
+            onSuccess: (response) => {
+                console.log('✅ Predicción actualizada con éxito! Response:', response);
+                // Optionally show success message to user
+            },
+            onError: (errors) => {
+                console.error('❌ Error al actualizar predicción:', errors);
+                // Copy errors back to the original form for display
+                form.errors = errors;
+            },
+            onFinish: () => {
+                console.log('Request finished');
+            }
+        });
+    } else {
+        // Creating new prediction
+        tempForm.post(route('Medic.storePrediction'), {
+            onSuccess: (response) => {
+                console.log('✅ Predicción guardada con éxito! Response:', response);
+                // Optionally reset the original form or redirect
+            },
+            onError: (errors) => {
+                console.error('❌ Error al guardar predicción:', errors);
+                // Copy errors back to the original form for display
+                form.errors = errors;
+            },
+            onFinish: () => {
+                console.log('Request finished');
+            }
+        });
+    }
 };
 
 
