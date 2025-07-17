@@ -2,14 +2,17 @@
     <AppLayout title="Predicción de MoCA">
         <div class="h-full flex-row justify-center items-center p-10 pb-20">
 
-            <!-- Previous Prediction Display (if exists) -->
-            <div v-if="hasExistingData && props.existingPrediction?.diagnostico !== null"
+            <!-- Previous/Current Prediction Display (if exists) -->
+            <div v-if="(hasExistingData && props.existingPrediction?.diagnostico !== null) || predictionResult !== null"
                 class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h3 class="text-lg font-semibold text-blue-800">Predicción</h3>
+                <h3 class="text-lg font-semibold text-blue-800">
+                    {{ predictionResult !== null ? 'Predicción Actual' : 'Predicción Anterior' }}
+                </h3>
                 <div class="mt-2">
                     <p class="text-blue-700">
                         <strong>Resultado:</strong>
-                        <span v-if="props.existingPrediction.diagnostico === 1" class="text-red-600 font-bold ml-2">
+                        <!-- Show current prediction if available, otherwise show existing -->
+                        <span v-if="(predictionResult !== null ? predictionResult : props.existingPrediction.diagnostico) === 1" class="text-red-600 font-bold ml-2">
                             ⚠️ Enfermedad de Alzheimer posible (Algunos síntomas detectados, pero no concluyentes)
                         </span>
                         <span v-else class="text-green-600 font-bold ml-2">
@@ -18,10 +21,11 @@
                         
                     </p>
                     <p class="text-sm text-blue-600 mt-1">
-                        <strong>Fecha:</strong> {{ existingPredictionDate }}
+                        <strong>Fecha:</strong> 
+                        {{ predictionResult !== null ? 'Recién actualizada' : existingPredictionDate }}
                     </p>
                     <p class="text-sm text-blue-600">
-                        <strong>Médico:</strong> {{ props.existingPrediction.medico_encargado }}
+                        <strong>Médico:</strong> {{ props.existingPrediction?.medico_encargado || form.medico_encargado }}
                     </p>
                 </div>
             </div>
@@ -341,28 +345,10 @@
                         {{ isLoading ? 'Realizando predicción...' : 'Realizar Predicción' }}
                     </ButtonCustom>
 
-                    <ButtonCustom v-if="predictionResult !== null" @click="storePrediction"
-                        class="bg-green-600 hover:bg-green-700">
-                        Guardar Predicción
-                    </ButtonCustom>
+                    
                 </div>
             </div>
 
-            <!-- New Prediction Result Display -->
-            <div v-if="predictionResult !== null" class="mt-4 p-4 bg-green-100 border border-green-400 rounded-lg">
-                <h3 class="text-lg font-semibold text-green-800">Nueva Predicción</h3>
-                <p class="text-green-700">
-                    <span v-if="predictionResult === 1" class="text-red-600 font-bold">
-                        ⚠️ Enfermedad de Alzheimer posible (Algunos sintomas detectados, pero no concluyentes)
-                    </span>
-                    <span v-else class="text-green-600 font-bold">
-                        ✅ Paciente no compatible con Alzheimer (Sintomas mejor explicados por otra condición)
-                    </span>
-                </p>
-
-                <!-- Show comparison if there was a previous prediction -->
-
-            </div>
 
             <!-- Error Display -->
             <div v-if="predictionError" class="mt-4 p-4 bg-red-100 border border-red-400 rounded-lg">
@@ -386,6 +372,7 @@ import axios from 'axios';
 const isLoading = ref(false);
 const predictionResult = ref(null);
 const predictionError = ref(null);
+const showSuccessMessage = ref(false);
 
 const props = defineProps({
     id: {
@@ -872,7 +859,21 @@ const storePrediction = () => {
     tempForm.post(route('Medic.storePrediction'), {
         onSuccess: (response) => {
             console.log('✅ Predicción guardada con éxito! Response:', response);
-            // Optionally redirect or show success message
+            
+            // Show success message briefly
+            showSuccessMessage.value = true;
+            setTimeout(() => {
+                showSuccessMessage.value = false;
+            }, 3000);
+            
+            // Update the existing prediction data to reflect the new values
+            if (hasExistingData.value) {
+                // Update the props data to reflect the new prediction
+                Object.assign(props.existingPrediction, {
+                    ...convertedData,
+                    diagnostico: predictionResult.value
+                });
+            }
         },
         onError: (errors) => {
             console.error('❌ Error al guardar predicción:', errors);
@@ -890,6 +891,7 @@ const clearForm = () => {
     form.clearErrors();
     predictionResult.value = null;
     predictionError.value = null;
+    showSuccessMessage.value = false;
 
     // Reset all fields to null/empty
     Object.keys(form.data()).forEach(key => {
