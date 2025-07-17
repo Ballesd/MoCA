@@ -5,27 +5,38 @@
             <!-- Previous/Current Prediction Display (if exists) -->
             <div v-if="(hasExistingData && props.existingPrediction?.diagnostico !== null) || predictionResult !== null"
                 class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h3 class="text-lg font-semibold text-blue-800">
-                    {{ predictionResult !== null ? 'Predicción Actual' : 'Predicción Anterior' }}
+                <h3 class="text-2xl font-bold text-gray-600 ">
+                    Predicción
                 </h3>
                 <div class="mt-2">
-                    <p class="text-blue-700">
+                    <p class="text-gray-600">
                         <strong>Resultado:</strong>
                         <!-- Show current prediction if available, otherwise show existing -->
-                        <span v-if="(predictionResult !== null ? predictionResult : props.existingPrediction.diagnostico) === 1" class="text-red-600 font-bold ml-2">
+                        <span
+                            v-if="(predictionResult !== null ? predictionResult : props.existingPrediction.diagnostico) === 1"
+                            class="text-red-600 font-bold ml-2">
                             ⚠️ Enfermedad de Alzheimer posible (Algunos síntomas detectados, pero no concluyentes)
                         </span>
                         <span v-else class="text-green-600 font-bold ml-2">
                             ✅ Paciente no compatible con Alzheimer (Síntomas mejor explicados por otra condición)
                         </span>
-                        
+
                     </p>
-                    <p class="text-sm text-blue-600 mt-1">
-                        <strong>Fecha:</strong> 
+                    
+                    <!-- Model Accuracy Indicator -->
+                    <div class="mt-3 inline-block">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                            📊 Precisión del modelo: 85%
+                        </span>
+                    </div>
+                    
+                    <p class="text-sm mt-1 ">
+                        <strong class="text-gray-600">Fecha:</strong>
                         {{ predictionResult !== null ? 'Recién actualizada' : existingPredictionDate }}
                     </p>
-                    <p class="text-sm text-blue-600">
-                        <strong>Médico:</strong> {{ props.existingPrediction?.medico_encargado || form.medico_encargado }}
+                    <p class="text-sm ">
+                        <strong class="text-gray-600">Médico:</strong> {{ props.existingPrediction?.medico_encargado ||
+                            form.medico_encargado }}
                     </p>
                 </div>
             </div>
@@ -120,7 +131,7 @@
                         <InputError :message="form.errors.actividad_fisica" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 0 - 10.</p>
                         <p v-if="actividadFisicaWarning" class="text-sm text-orange-600 mt-1">{{ actividadFisicaWarning
-                        }}</p>
+                            }}</p>
                     </div>
                     <div>
                         <InputLabel for="calidad_dieta" value="Calidad de dieta: " />
@@ -224,7 +235,7 @@
                         <InputError :message="form.errors.colesterol_total" class="mt-2" />
                         <p class="text-sm font-light">Rango entre 150 - 300 mg/dL</p>
                         <p v-if="colesterolTotalWarning" class="text-sm text-orange-600 mt-1">{{ colesterolTotalWarning
-                        }}</p>
+                            }}</p>
                     </div>
                     <div>
                         <InputLabel for="colesterol_ldl" value="Colesterol LDL (mg/dL): " />
@@ -345,7 +356,7 @@
                         {{ isLoading ? 'Realizando predicción...' : 'Realizar Predicción' }}
                     </ButtonCustom>
 
-                    
+
                 </div>
             </div>
 
@@ -354,6 +365,20 @@
             <div v-if="predictionError" class="mt-4 p-4 bg-red-100 border border-red-400 rounded-lg">
                 <h3 class="text-lg font-semibold text-red-800">Error en la Predicción</h3>
                 <p class="text-red-700">{{ predictionError }}</p>
+            </div>
+            <div class="my-20 pb-20 ">
+                <ButtonCustom @click="showLookerStudio = !showLookerStudio" class="bg-blue-600 hover:bg-blue-700"
+                    aria-expanded="showLookerStudio" aria-controls="looker-studio-iframe">
+                    {{ showLookerStudio ? 'Ocultar' : 'Mostrar' }} Informe dinámico sobre información médica
+                </ButtonCustom>
+
+                <div v-if="showLookerStudio" id="looker-studio-iframe" class="mt-10 mb-20 flex justify-center">
+                    <iframe class="rounded-lg shadow-lg w-full sm:w-11/12 md:w-4/5 lg:w-3/4 aspect-video"
+                        src="https://lookerstudio.google.com/embed/reporting/79effcb4-e7c1-494b-a6f6-eb073a61522e/page/LkLRF"
+                        frameborder="0" allowfullscreen
+                        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                        title="Reporte de Looker Studio"></iframe>
+                </div>
             </div>
         </div>
     </AppLayout>
@@ -368,6 +393,8 @@ import ButtonCustom from '@/Components/ButtonCustom.vue';
 import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 import axios from 'axios';
+
+const showLookerStudio = ref(false);
 
 const isLoading = ref(false);
 const predictionResult = ref(null);
@@ -859,13 +886,13 @@ const storePrediction = () => {
     tempForm.post(route('Medic.storePrediction'), {
         onSuccess: (response) => {
             console.log('✅ Predicción guardada con éxito! Response:', response);
-            
+
             // Show success message briefly
             showSuccessMessage.value = true;
             setTimeout(() => {
                 showSuccessMessage.value = false;
             }, 3000);
-            
+
             // Update the existing prediction data to reflect the new values
             if (hasExistingData.value) {
                 // Update the props data to reflect the new prediction
